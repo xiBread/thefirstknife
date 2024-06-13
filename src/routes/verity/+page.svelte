@@ -72,6 +72,20 @@
 
 <svelte:head>
 	<title>Verity | The First Knife</title>
+
+	<meta
+		name="description"
+		content="Solver for the 4th encounter (Verity) in the Salvation's Edge raid."
+	/>
+
+	<meta property="og:type" content="website" />
+	<meta property="og:url" content="https://thefirstknife.vercel.app/verity" />
+	<meta property="og:title" content="Verity | The First Knife" />
+	<meta
+		property="og:description"
+		content="Solver for the 4th encounter (Verity) in the Salvation's Edge raid."
+	/>
+	<meta property="og:image" content="/img/salvations-edge.webp" />
 </svelte:head>
 
 <div class="flex flex-col">

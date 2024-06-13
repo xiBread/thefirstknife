@@ -5,6 +5,13 @@
 
 <svelte:head>
 	<title>The First Knife | Destiny 2 Tools</title>
+
+	<meta name="description" content="A Swiss Army knife for Destiny 2." />
+
+	<meta property="og:type" content="website" />
+	<meta property="og:url" content="https://thefirstknife.vercel.app" />
+	<meta property="og:title" content="The First Knife | Destiny 2 Tools" />
+	<meta property="og:description" content="A Swiss Army knife for Destiny 2." />
 </svelte:head>
 
 <div class="auto-grid grid gap-6">
