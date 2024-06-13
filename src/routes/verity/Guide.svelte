@@ -20,7 +20,7 @@
 		</Tooltip.Root>
 	</Sheet.Trigger>
 
-	<Sheet.Content side="right">
+	<Sheet.Content side="left">
 		<Sheet.Header>
 			<Sheet.Title>Guide</Sheet.Title>
 		</Sheet.Header>
