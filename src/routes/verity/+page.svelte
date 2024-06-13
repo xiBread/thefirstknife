@@ -76,7 +76,7 @@
 
 <div class="flex flex-col">
 	<div class="space-y-12">
-		{#each rooms as room, r}
+		{#each rooms as room}
 			<div class="grid grid-cols-3 gap-x-4">
 				<h3 class="col-span-full mb-2 text-center text-4xl font-bold">{room.name}</h3>
 
@@ -90,22 +90,26 @@
 							onValueChange={(value) => {
 								room.selected[i] = !value ? "" : `${value}`;
 							}}
-							bind:value={rooms[r].selected[i]}
+							bind:value={room.selected[i]}
 						>
 							{#each room.shapes as shape}
+								{@const disabled = isDisabled(room, shape, i)}
+
 								<div class="flex flex-col items-center">
-									<ToggleGroup.Item
-										class="size-14"
-										value={shape}
-										disabled={isDisabled(room, shape, i)}
-									>
+									<ToggleGroup.Item class="size-14" value={shape} {disabled}>
 										<div class="*:size-12 *:fill-muted">
 											{@html shapes[shape]}
 										</div>
 									</ToggleGroup.Item>
 
 									{#if $veritySettings.labels}
-										<span class="mt-1 capitalize">{shape}</span>
+										<span
+											class="mt-1 capitalize {disabled &&
+												'text-foreground/30'}"
+											class:underline={room.selected[i] === shape}
+										>
+											{shape}
+										</span>
 									{/if}
 								</div>
 							{/each}
