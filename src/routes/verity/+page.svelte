@@ -26,6 +26,9 @@
 		side: number;
 	}
 
+	let steps: HTMLElement | undefined;
+	let groups: Record<string, Step[]>[] = [];
+
 	const emptyState = ["", "", ""];
 
 	const rooms: Room[] = [
@@ -41,11 +44,13 @@
 		},
 	];
 
-	let groups: Record<string, Step[]>[] = [];
-
 	$: {
 		const filled = rooms.flatMap((room) => room.selected).filter(Boolean);
 		groups = filled.length === 6 ? solve(rooms[0].selected, rooms[1].selected) : [];
+
+		if (filled.length === 6 && $veritySettings.autoScroll) {
+			steps?.scrollIntoView();
+		}
 	}
 
 	// needed to bypass template typechecking
@@ -114,7 +119,11 @@
 	{#if groups.length}
 		<Separator class="my-10" />
 
-		<div id="steps" class="grid grid-cols-3 items-center justify-center gap-y-4">
+		<div
+			id="steps"
+			class="grid grid-cols-3 items-center justify-center gap-y-4"
+			bind:this={steps}
+		>
 			{#each groups as group}
 				{#each filterGroup(group) as steps}
 					{#each steps as step}

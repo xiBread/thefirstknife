@@ -9,7 +9,7 @@
 </script>
 
 <DropdownMenu.Root>
-	<DropdownMenu.Trigger class="">
+	<DropdownMenu.Trigger>
 		<Tooltip.Root openDelay={150}>
 			<Tooltip.Trigger asChild let:builder>
 				<Button class="rounded-full" size="icon" variant="secondary" builders={[builder]}>
@@ -23,10 +23,10 @@
 		</Tooltip.Root>
 	</DropdownMenu.Trigger>
 
-	<DropdownMenu.Content class="max-w-64" side="right">
-		<fieldset class="space-y-5 p-2">
-			<div class="flex items-start">
-				<div class="flex h-6 items-center">
+	<DropdownMenu.Content class="ml-1.5 max-w-64" side="right">
+		<fieldset class="space-y-3 p-2 *:flex *:items-start">
+			<div>
+				<div class="setting-checkbox">
 					<Checkbox
 						id="labels"
 						checked={$veritySettings.labels}
@@ -35,7 +35,7 @@
 					/>
 				</div>
 
-				<div class="ml-3">
+				<div class="ml-2.5">
 					<Label class="text-sm" for="labels">Labels</Label>
 					<p id="labels-desc" class="mt-0.5 text-xs">
 						Display shape names under their symbol.
@@ -43,8 +43,8 @@
 				</div>
 			</div>
 
-			<div class="flex items-start">
-				<div class="flex h-6 items-center">
+			<div>
+				<div class="setting-checkbox">
 					<Checkbox
 						id="verify"
 						checked={$veritySettings.verify}
@@ -53,13 +53,39 @@
 					/>
 				</div>
 
-				<div class="ml-3">
+				<div class="ml-2.5">
 					<Label class="text-sm" for="verify">Verification</Label>
 					<p id="verify-desc" class="mt-0.5 text-xs">
 						Show outside shapes in between dissection steps to verify.
 					</p>
 				</div>
 			</div>
+
+			<div>
+				<div class="setting-checkbox">
+					<Checkbox
+						id="autoscroll"
+						checked={$veritySettings.autoScroll}
+						aria-describedby="autoscroll-desc"
+						onCheckedChange={(value) => ($veritySettings.autoScroll = Boolean(value))}
+					/>
+				</div>
+
+				<div class="ml-2.5">
+					<Label class="text-sm" for="autoscroll">Auto scroll</Label>
+					<p id="autoscroll-desc" class="mt-0.5 text-xs">
+						Automatically scroll the dissection steps into view.
+					</p>
+				</div>
+			</div>
 		</fieldset>
 	</DropdownMenu.Content>
 </DropdownMenu.Root>
+
+<style>
+	.setting-checkbox {
+		display: flex;
+		align-items: center;
+		height: theme("size.6");
+	}
+</style>
