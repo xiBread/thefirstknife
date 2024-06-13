@@ -12,7 +12,7 @@
 	<DropdownMenu.Trigger>
 		<Tooltip.Root openDelay={150}>
 			<Tooltip.Trigger asChild let:builder>
-				<Button class="rounded-full" size="icon" variant="secondary" builders={[builder]}>
+				<Button class="rounded-full" size="icon" builders={[builder]}>
 					<Settings class="size-5" />
 				</Button>
 			</Tooltip.Trigger>
