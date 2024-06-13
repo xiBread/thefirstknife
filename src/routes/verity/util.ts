@@ -109,7 +109,7 @@ export function solve(inside: string[], outside: string[]) {
 		states[swaps.sideB].swap(swaps.componentB, swaps.componentA);
 
 		steps.push({
-			stage: states.map((state, i) => ({
+			verify: states.map((state, i) => ({
 				value: state.outside.split("").sort().join(""),
 				side: i,
 			})),

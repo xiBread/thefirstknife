@@ -1,18 +1,13 @@
 <script lang="ts">
 	import Settings from "lucide-svelte/icons/settings";
 	import { Button } from "$lib/components/ui/button";
-	import { Label } from "$lib/components/ui/label";
-	import * as Sheet from "$lib/components/ui/sheet";
-	import { Switch } from "$lib/components/ui/switch";
+	import * as DropdownMenu from "$lib/components/ui/dropdown-menu";
 	import * as Tooltip from "$lib/components/ui/tooltip";
-
-	function updateSettings(key: string, value: unknown) {
-		localStorage.setItem(key, `${value}`);
-	}
+	import { veritySettings } from "$lib/stores";
 </script>
 
-<Sheet.Root>
-	<Sheet.Trigger class="fixed right-4 top-1/2 -translate-y-1/2">
+<DropdownMenu.Root>
+	<DropdownMenu.Trigger class="">
 		<Tooltip.Root openDelay={150}>
 			<Tooltip.Trigger asChild let:builder>
 				<Button class="rounded-full" size="icon" variant="secondary" builders={[builder]}>
@@ -24,19 +19,16 @@
 				<p class="font-medium">Settings</p>
 			</Tooltip.Content>
 		</Tooltip.Root>
-	</Sheet.Trigger>
+	</DropdownMenu.Trigger>
 
-	<Sheet.Content side="right">
-		<Sheet.Header>
-			<Sheet.Title>Settings</Sheet.Title>
-		</Sheet.Header>
-
-		<div class="mt-6 flex items-center">
-			<Switch
-				id="verify"
-				onCheckedChange={(value) => updateSettings("verity_verify", value)}
-			/>
-			<Label class="ml-2" for="verify">Show in between steps to verify</Label>
-		</div>
-	</Sheet.Content>
-</Sheet.Root>
+	<DropdownMenu.Content side="right">
+		<DropdownMenu.Label>Settings</DropdownMenu.Label>
+		<DropdownMenu.Separator />
+		<DropdownMenu.CheckboxItem bind:checked={$veritySettings.labels}>
+			Labels
+		</DropdownMenu.CheckboxItem>
+		<DropdownMenu.CheckboxItem bind:checked={$veritySettings.verify}>
+			Verify
+		</DropdownMenu.CheckboxItem>
+	</DropdownMenu.Content>
+</DropdownMenu.Root>
