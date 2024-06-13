@@ -150,7 +150,13 @@
 
 		<Tooltip.Root openDelay={150}>
 			<Tooltip.Trigger asChild let:builder>
-				<Button class="rounded-full" size="icon" variant="secondary" on:click={reset}>
+				<Button
+					class="rounded-full"
+					size="icon"
+					variant="secondary"
+					builders={[builder]}
+					on:click={reset}
+				>
 					<RotateCw class="size-5" />
 				</Button>
 			</Tooltip.Trigger>
