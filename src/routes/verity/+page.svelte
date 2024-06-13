@@ -50,7 +50,7 @@
 		groups = filled.length === 6 ? solve(rooms[0].selected, rooms[1].selected) : [];
 
 		if (filled.length === 6 && $veritySettings.autoScroll) {
-			steps?.scrollIntoView();
+			steps?.scrollIntoView({ behavior: "smooth" });
 		}
 	}
 
