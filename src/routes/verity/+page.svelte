@@ -103,7 +103,7 @@
 
 								<div class="flex flex-col items-center">
 									<ToggleGroup.Item class="size-14" value={shape} {disabled}>
-										<div class="*:size-12 *:fill-muted">
+										<div class="*:size-12">
 											{@html shapes[shape]}
 										</div>
 									</ToggleGroup.Item>
@@ -141,7 +141,7 @@
 							{#if step.value}
 								{@const shape = reverseMappings[step.value]}
 
-								<div class="p-2 *:size-12 *:fill-muted">
+								<div class="p-2 *:size-12">
 									{@html getSvg(shape)}
 								</div>
 
