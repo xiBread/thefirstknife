@@ -1,17 +1,17 @@
 <script lang="ts">
+	import Seo from "$lib/components/Seo.svelte";
 	import * as Card from "$lib/components/ui/card";
 	import tools from "$lib/tools.json";
 </script>
 
 <svelte:head>
-	<title>The First Knife | Destiny 2 Tools</title>
-
-	<meta name="description" content="A Swiss Army knife for Destiny 2." />
-
-	<meta property="og:type" content="website" />
-	<meta property="og:url" content="https://thefirstknife.vercel.app" />
-	<meta property="og:title" content="The First Knife | Destiny 2 Tools" />
-	<meta property="og:description" content="A Swiss Army knife for Destiny 2." />
+	<Seo
+		title="The First Knife | Destiny 2 Tools"
+		description="A Swiss Army knife for Destiny 2."
+		url="https://thefirstknife.vercel.app"
+		image="/logo.png"
+		useTwitter={false}
+	/>
 </svelte:head>
 
 <div class="auto-grid grid gap-6">
