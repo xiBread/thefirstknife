@@ -162,7 +162,7 @@
 			</Tooltip.Trigger>
 
 			<Tooltip.Content side="left">
-				<p class="font-medium">Guide</p>
+				<p class="font-medium">Reset</p>
 			</Tooltip.Content>
 		</Tooltip.Root>
 
