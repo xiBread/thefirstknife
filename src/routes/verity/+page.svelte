@@ -99,7 +99,7 @@
 										value={shape}
 										disabled={isDisabled(room, shape, i)}
 									>
-										<div class="*:size-12">
+										<div class="*:size-12 *:fill-muted">
 											{@html shapes[shape]}
 										</div>
 									</ToggleGroup.Item>
@@ -131,7 +131,7 @@
 							{#if step.value}
 								{@const shape = reverseMappings[step.value]}
 
-								<div class="p-2 *:size-12">
+								<div class="p-2 *:size-12 *:fill-muted">
 									{@html getSvg(shape)}
 								</div>
 
