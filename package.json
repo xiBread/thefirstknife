@@ -10,6 +10,15 @@
 		"lint": "prettier --check . && eslint .",
 		"format": "prettier --write ."
 	},
+	"prettier": {
+		"useTabs": true,
+		"tabWidth": 4,
+		"printWidth": 100,
+		"plugins": [
+			"prettier-plugin-svelte",
+			"prettier-plugin-tailwindcss"
+		]
+	},
 	"dependencies": {
 		"bits-ui": "^0.21.10",
 		"clsx": "^2.1.1",
