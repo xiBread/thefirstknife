@@ -7,6 +7,8 @@
 	import wishes from "./wishes";
 
 	let selected: { value: number } | undefined;
+
+	$: wish = wishes[selected?.value ?? -1];
 </script>
 
 <Seo
@@ -17,7 +19,7 @@
 />
 
 <div class="flex flex-col items-center justify-center py-4">
-	<div class="mb-10 flex items-center gap-x-2">
+	<div class="flex items-center gap-x-2">
 		<Select.Root bind:selected onSelectedChange={(item) => (selected = item)}>
 			<Select.Trigger class="w-[300px]">
 				<Select.Value placeholder="Select a wish" />
@@ -35,8 +37,8 @@
 		</Button>
 	</div>
 
-	<div class="grid grid-cols-5 grid-rows-4 gap-4 sm:gap-6">
-		{#each wishes[selected?.value ?? -1]?.pattern ?? { length: 5 } as row}
+	<div class="mb-6 mt-10 grid grid-cols-5 grid-rows-4 gap-4 sm:gap-6">
+		{#each wish?.pattern ?? { length: 5 } as row}
 			{#each row ?? { length: 4 } as symbol}
 				<div class="size-16 rounded-full bg-muted sm:size-24">
 					{#if symbol}
@@ -51,4 +53,8 @@
 			{/each}
 		{/each}
 	</div>
+
+	{#if wish}
+		<p>{wish.flavorText}</p>
+	{/if}
 </div>
