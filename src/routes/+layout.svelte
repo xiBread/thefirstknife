@@ -4,7 +4,7 @@
 	import Header from "$lib/components/Header.svelte";
 </script>
 
-<ModeWatcher />
+<ModeWatcher defaultMode="dark" />
 
 <Header />
 
