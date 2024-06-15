@@ -72,14 +72,12 @@
 	}
 </script>
 
-<svelte:head>
-	<Seo
-		title="{tools.verity.title} | The First Knife"
-		description={tools.verity.description}
-		url="https://thefirstknife.vercel.app/verity"
-		image="/img/{tools.verity.img}"
-	/>
-</svelte:head>
+<Seo
+	title="{tools.verity.title} | The First Knife"
+	description={tools.verity.description}
+	url="https://thefirstknife.vercel.app/verity"
+	image="/img/{tools.verity.img}"
+/>
 
 <div class="flex flex-col">
 	<div class="space-y-12">

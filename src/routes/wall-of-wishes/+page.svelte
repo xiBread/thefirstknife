@@ -9,14 +9,12 @@
 	let selected: { value: number } | undefined;
 </script>
 
-<svelte:head>
-	<Seo
-		title="{tools['wall-of-wishes'].title} | The First Knife"
-		description={tools["wall-of-wishes"].description}
-		url="https://thefirstknife.vercel.app/wall-of-wishes"
-		image={tools["wall-of-wishes"].img}
-	/>
-</svelte:head>
+<Seo
+	title="{tools['wall-of-wishes'].title} | The First Knife"
+	description={tools["wall-of-wishes"].description}
+	url="https://thefirstknife.vercel.app/wall-of-wishes"
+	image={tools["wall-of-wishes"].img}
+/>
 
 <div class="flex flex-col items-center justify-center">
 	<div class="mb-10 flex items-center gap-x-2">
