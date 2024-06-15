@@ -5,6 +5,7 @@
 	import Seo from "$lib/components/Seo.svelte";
 	import tools from "$lib/tools.json";
 	import wishes from "./wishes";
+	import { fade } from "svelte/transition";
 
 	let selected: { value: number } | undefined;
 
@@ -39,7 +40,7 @@
 
 	<div class="mb-6 mt-10 grid grid-cols-5 grid-rows-4 gap-4 sm:gap-6">
 		{#each wish?.pattern ?? { length: 5 } as row}
-			{#each row ?? { length: 4 } as symbol}
+			{#each row ?? { length: 4 } as symbol, i (`${symbol}-${i}`)}
 				<div class="size-16 rounded-full bg-muted sm:size-24">
 					{#if symbol}
 						<img
