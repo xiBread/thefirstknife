@@ -28,18 +28,18 @@ export default [
 		],
 	},
 	{
-		description: '"Numbers of Power" emblem',
-		flavorText: "You wish to help a friend in need.",
+		description: "Chest between Morgeth and Vault",
+		flavorText: "You wish for material validation.",
 		pattern: [
-			[$03, ___, $11, ___, $03],
-			[$03, ___, $11, ___, $03],
+			[$04, ___, $11, ___, $03],
+			[$04, ___, $11, ___, $03],
 			[$02, ___, $10, ___, $03],
 			[$02, ___, $10, ___, $06],
 		],
 	},
 	{
-		description: "Chest between Morgeth and Vault",
-		flavorText: "You wish for material validation.",
+		description: '"Numbers of Power" emblem',
+		flavorText: "You wish to help a friend in need.",
 		pattern: [
 			[$01, ___, $01, ___, $01],
 			[___, $05, ___, $05, ___],
@@ -61,10 +61,10 @@ export default [
 		description: "Morgeth checkpoint",
 		flavorText: "You wish to stay here forever.",
 		pattern: [
-			[$06, $12, $15, $12, $06],
+			[$05, $12, $15, $12, $05],
 			[___, $09, $16, $09, ___],
 			[___, $09, $15, $09, ___],
-			[$06, $12, $15, $12, $06],
+			[$05, $12, $15, $12, $05],
 		],
 	},
 	{
@@ -122,7 +122,7 @@ export default [
 		flavorText: "You wish for others to celebrate your success.",
 		pattern: [
 			[$15, $15, ___, $16, $16],
-			[$15, ___, $02, $06, $16],
+			[$15, ___, $02, $05, $16],
 			[$09, ___, $02, ___, $06],
 			[$09, $09, ___, $06, $06],
 		],
@@ -139,7 +139,7 @@ export default [
 	},
 	{
 		description: "Petra's Run (Flawless)",
-		flavorText: "You wish for a promising future",
+		flavorText: "You wish for a promising future.",
 		pattern: [
 			[$13, $02, $14, $15, $08],
 			[$13, $02, ___, $15, $08],
@@ -149,12 +149,12 @@ export default [
 	},
 	{
 		description: "Spawn Corrupted Eggs",
-		flavorText: "You wish to move the hands of time",
+		flavorText: "You wish to move the hands of time.",
 		pattern: [
-			[$06, $10, $14, $09, $05],
+			[$05, $10, $14, $09, $05],
 			[___, ___, $16, ___, ___],
 			[$01, ___, $06, $08, ___],
-			[$06, $09, ___, ___, $11],
+			[$05, $12, ___, ___, $11],
 		],
 	},
 ] satisfies Wish[];
