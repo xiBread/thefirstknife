@@ -1,7 +1,10 @@
 <script lang="ts">
 	import Seo from "$lib/components/Seo.svelte";
 	import * as Card from "$lib/components/ui/card";
+	import { subtitle } from "$lib/stores";
 	import tools from "$lib/tools.json";
+
+	subtitle.set("Destiny 2 Toolkit");
 </script>
 
 <svelte:head>

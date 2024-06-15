@@ -3,9 +3,11 @@
 	import { Button } from "$lib/components/ui/button";
 	import * as Select from "$lib/components/ui/select";
 	import Seo from "$lib/components/Seo.svelte";
+	import { subtitle } from "$lib/stores";
 	import tools from "$lib/tools.json";
 	import wishes from "./wishes";
-	import { fade } from "svelte/transition";
+
+	subtitle.set("Wall of Wishes");
 
 	let selected: { value: number } | undefined;
 
@@ -41,7 +43,7 @@
 	<div class="mb-6 mt-10 grid grid-cols-5 grid-rows-4 gap-4 sm:gap-6">
 		{#each wish?.pattern ?? { length: 5 } as row}
 			{#each row ?? { length: 4 } as symbol, i (`${symbol}-${i}`)}
-				<div class="size-16 rounded-full bg-muted sm:size-24">
+				<div class="size-16 rounded-full bg-muted shadow-inner sm:size-24">
 					{#if symbol}
 						<img
 							src={symbol}

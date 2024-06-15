@@ -16,11 +16,14 @@
 	import * as ToggleGroup from "$lib/components/ui/toggle-group";
 	import * as Tooltip from "$lib/components/ui/tooltip";
 	import Seo from "$lib/components/Seo.svelte";
+	import { subtitle } from "$lib/stores";
 	import tools from "$lib/tools.json";
 	import * as shapes from "./shapes";
 	import { reverseMappings, isDisabled, solve } from "./util";
 	import Guide from "./Guide.svelte";
 	import Settings, { settings } from "./Settings.svelte";
+
+	subtitle.set("Verity");
 
 	let steps: HTMLElement | undefined;
 	let groups: ReturnType<typeof solve> = [];
