@@ -16,7 +16,7 @@
 	image={tools["wall-of-wishes"].img}
 />
 
-<div class="flex flex-col items-center justify-center">
+<div class="flex flex-col items-center justify-center py-4">
 	<div class="mb-10 flex items-center gap-x-2">
 		<Select.Root bind:selected onSelectedChange={(item) => (selected = item)}>
 			<Select.Trigger class="w-[300px]">
@@ -35,10 +35,10 @@
 		</Button>
 	</div>
 
-	<div class="grid grid-cols-5 grid-rows-4 gap-6">
+	<div class="grid grid-cols-5 grid-rows-4 gap-4 sm:gap-6">
 		{#each wishes[selected?.value ?? -1]?.pattern ?? { length: 5 } as row}
 			{#each row ?? { length: 4 } as symbol}
-				<div class="size-24 rounded-full bg-muted">
+				<div class="size-16 rounded-full bg-muted sm:size-24">
 					{#if symbol}
 						<img
 							src={symbol}

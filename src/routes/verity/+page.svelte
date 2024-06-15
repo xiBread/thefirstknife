@@ -79,7 +79,7 @@
 	image="/img/{tools.verity.img}"
 />
 
-<div class="flex flex-col">
+<div class="flex flex-col py-12">
 	<div class="space-y-12">
 		{#each rooms as room}
 			<div class="grid grid-cols-3 gap-x-4">
@@ -90,7 +90,7 @@
 						<h4 class="mb-2 text-xl font-medium">{side}</h4>
 
 						<ToggleGroup.Root
-							class="grid grid-cols-3 gap-x-10 gap-y-4"
+							class="grid grid-cols-1 gap-x-10 gap-y-4 lg:grid-cols-3"
 							size="lg"
 							onValueChange={(value) => {
 								room.selected[i] = !value ? "" : `${value}`;
