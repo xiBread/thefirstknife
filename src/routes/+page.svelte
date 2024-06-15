@@ -15,8 +15,8 @@
 </svelte:head>
 
 <div class="auto-grid grid gap-6">
-	{#each tools as tool}
-		<a class="group" href={tool.slug}>
+	{#each Object.entries(tools) as [slug, tool]}
+		<a class="group" href={slug}>
 			<Card.Root class="relative flex aspect-square overflow-hidden">
 				<img
 					class="absolute inset-0 h-full object-cover grayscale transition-all duration-300 group-hover:scale-105 group-hover:filter-none"

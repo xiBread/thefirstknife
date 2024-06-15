@@ -15,12 +15,13 @@
 	import { Separator } from "$lib/components/ui/separator";
 	import * as ToggleGroup from "$lib/components/ui/toggle-group";
 	import * as Tooltip from "$lib/components/ui/tooltip";
+	import Seo from "$lib/components/Seo.svelte";
 	import { veritySettings } from "$lib/stores";
+	import tools from "$lib/tools.json";
 	import * as shapes from "./shapes";
 	import { reverseMappings, isDisabled, solve } from "./util";
 	import Guide from "./Guide.svelte";
 	import Settings from "./Settings.svelte";
-	import Seo from "$lib/components/Seo.svelte";
 
 	interface Step {
 		value: string | null;
@@ -73,10 +74,10 @@
 
 <svelte:head>
 	<Seo
-		title="Verity | The First Knife"
-		description="Solver for the 4th encounter (Verity) in the Salvation's Edge raid."
+		title="{tools.verity.title} | The First Knife"
+		description={tools.verity.description}
 		url="https://thefirstknife.vercel.app/verity"
-		image="/img/salvations-edge.webp"
+		image="/img/{tools.verity.img}"
 	/>
 </svelte:head>
 
