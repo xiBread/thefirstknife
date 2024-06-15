@@ -1,3 +1,13 @@
+<script lang="ts" context="module">
+	import { persisted } from "svelte-persisted-store";
+
+	export const settings = persisted("verity_settings", {
+		labels: true,
+		verify: true,
+		autoScroll: true,
+	});
+</script>
+
 <script lang="ts">
 	import Settings from "lucide-svelte/icons/settings";
 	import { Button } from "$lib/components/ui/button";
@@ -5,7 +15,6 @@
 	import * as DropdownMenu from "$lib/components/ui/dropdown-menu";
 	import { Label } from "$lib/components/ui/label";
 	import * as Tooltip from "$lib/components/ui/tooltip";
-	import { veritySettings } from "$lib/stores";
 </script>
 
 <DropdownMenu.Root>
@@ -29,9 +38,9 @@
 				<div class="setting-checkbox">
 					<Checkbox
 						id="labels"
-						checked={$veritySettings.labels}
+						checked={$settings.labels}
 						aria-describedby="labels-desc"
-						onCheckedChange={(value) => ($veritySettings.labels = Boolean(value))}
+						onCheckedChange={(value) => ($settings.labels = Boolean(value))}
 					/>
 				</div>
 
@@ -47,9 +56,9 @@
 				<div class="setting-checkbox">
 					<Checkbox
 						id="verify"
-						checked={$veritySettings.verify}
+						checked={$settings.verify}
 						aria-describedby="verify-desc"
-						onCheckedChange={(value) => ($veritySettings.verify = Boolean(value))}
+						onCheckedChange={(value) => ($settings.verify = Boolean(value))}
 					/>
 				</div>
 
@@ -65,9 +74,9 @@
 				<div class="setting-checkbox">
 					<Checkbox
 						id="autoscroll"
-						checked={$veritySettings.autoScroll}
+						checked={$settings.autoScroll}
 						aria-describedby="autoscroll-desc"
-						onCheckedChange={(value) => ($veritySettings.autoScroll = Boolean(value))}
+						onCheckedChange={(value) => ($settings.autoScroll = Boolean(value))}
 					/>
 				</div>
 

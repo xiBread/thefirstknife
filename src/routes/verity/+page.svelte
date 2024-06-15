@@ -16,12 +16,11 @@
 	import * as ToggleGroup from "$lib/components/ui/toggle-group";
 	import * as Tooltip from "$lib/components/ui/tooltip";
 	import Seo from "$lib/components/Seo.svelte";
-	import { veritySettings } from "$lib/stores";
 	import tools from "$lib/tools.json";
 	import * as shapes from "./shapes";
 	import { reverseMappings, isDisabled, solve } from "./util";
 	import Guide from "./Guide.svelte";
-	import Settings from "./Settings.svelte";
+	import Settings, { settings } from "./Settings.svelte";
 
 	let steps: HTMLElement | undefined;
 	let groups: ReturnType<typeof solve> = [];
@@ -45,7 +44,7 @@
 		const filled = rooms.flatMap((room) => room.selected).filter(Boolean);
 		groups = filled.length === 6 ? solve(rooms[0].selected, rooms[1].selected) : [];
 
-		if (filled.length === 6 && $veritySettings.autoScroll) {
+		if (filled.length === 6 && $settings.autoScroll) {
 			steps?.scrollIntoView({ behavior: "smooth" });
 		}
 	}
@@ -56,9 +55,9 @@
 	function filterGroup(group: (typeof groups)[number]) {
 		const entries = Object.entries(group);
 
-		return (
-			$veritySettings.verify ? entries : entries.filter(([type]) => type !== "verify")
-		).map(([, step]) => step);
+		return ($settings.verify ? entries : entries.filter(([type]) => type !== "verify")).map(
+			([, step]) => step,
+		);
 	}
 
 	function reset() {
@@ -102,7 +101,7 @@
 										</div>
 									</ToggleGroup.Item>
 
-									{#if $veritySettings.labels}
+									{#if $settings.labels}
 										<span
 											class="mt-1 capitalize {disabled &&
 												'text-foreground/30'}"
@@ -139,13 +138,13 @@
 									{@html getSvg(shape)}
 								</div>
 
-								{#if $veritySettings.labels}
+								{#if $settings.labels}
 									<span class="mt-1 capitalize">{shape}</span>
 								{/if}
 							{:else}
 								<CircleSlash class="size-16 stroke-1 p-2 text-foreground/30" />
 
-								{#if $veritySettings.labels}
+								{#if $settings.labels}
 									<span class="mt-1 capitalize text-foreground/30">None</span>
 								{/if}
 							{/if}
