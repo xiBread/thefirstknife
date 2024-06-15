@@ -23,13 +23,8 @@
 	import Guide from "./Guide.svelte";
 	import Settings from "./Settings.svelte";
 
-	interface Step {
-		value: string | null;
-		side: number;
-	}
-
 	let steps: HTMLElement | undefined;
-	let groups: Record<string, Step[]>[] = [];
+	let groups: ReturnType<typeof solve> = [];
 
 	const emptyState = ["", "", ""];
 
@@ -58,7 +53,7 @@
 	// needed to bypass template typechecking
 	const getSvg = (shape: string) => shapes[shape as Shape];
 
-	function filterGroup(group: Record<string, Step[]>) {
+	function filterGroup(group: (typeof groups)[number]) {
 		const entries = Object.entries(group);
 
 		return (

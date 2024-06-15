@@ -8,6 +8,11 @@ interface RoomState {
 	swap(from: string, to: string): void;
 }
 
+interface Step {
+	value: string | null;
+	side: number;
+}
+
 const compositions: Record<string, string> = {
 	circle: "c",
 	square: "s",
@@ -86,7 +91,7 @@ const state: RoomState = {
 const states = [{ ...state }, { ...state }, { ...state }];
 
 export function solve(inside: string[], outside: string[]) {
-	const steps = [];
+	const steps: Record<string, Step[]>[] = [];
 
 	inside.forEach((shape, i) => (states[i].inside = compositions[shape]));
 	outside.forEach((shape, i) => (states[i].outside = compositions[shape]));
@@ -95,15 +100,13 @@ export function solve(inside: string[], outside: string[]) {
 		const swaps = evaluate();
 		if (!swaps) break;
 
-		const e = {
+		steps.push({
 			dissect: [
 				{ value: swaps.componentA, side: swaps.sideA },
 				{ value: swaps.componentB, side: swaps.sideB },
 				{ value: null, side: 3 - (swaps.sideA + swaps.sideB) },
 			].sort((a, b) => a.side - b.side),
-		};
-
-		steps.push(e);
+		});
 
 		states[swaps.sideA].swap(swaps.componentA, swaps.componentB);
 		states[swaps.sideB].swap(swaps.componentB, swaps.componentA);
