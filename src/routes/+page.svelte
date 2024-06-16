@@ -30,7 +30,7 @@
 				<div class="absolute size-full bg-gradient-to-t from-black to-transparent"></div>
 
 				<Card.Header class="z-10 place-self-end">
-					<Card.Title class="text-4xl text-white">{tool.title}</Card.Title>
+					<Card.Title class="text-3xl text-white">{tool.title}</Card.Title>
 					<Card.Description class="text-base">{tool.description}</Card.Description>
 				</Card.Header>
 			</Card.Root>
