@@ -21,7 +21,7 @@
 	image={tools["wall-of-wishes"].img}
 />
 
-<div class="flex flex-col items-center justify-center py-4">
+<div class="flex flex-col items-center justify-center py-12">
 	<div class="flex items-center gap-x-2">
 		<Select.Root bind:selected onSelectedChange={(item) => (selected = item)}>
 			<Select.Trigger class="w-[300px]">

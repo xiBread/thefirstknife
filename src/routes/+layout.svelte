@@ -8,6 +8,6 @@
 
 <Header />
 
-<main class="mx-auto max-w-7xl px-6 py-6 lg:py-16">
+<main class="mx-auto max-w-7xl px-6">
 	<slot />
 </main>

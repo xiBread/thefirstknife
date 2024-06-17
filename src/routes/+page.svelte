@@ -17,7 +17,7 @@
 	/>
 </svelte:head>
 
-<div class="auto-grid grid gap-6">
+<div class="auto-grid grid gap-6 py-6 lg:py-16">
 	{#each Object.entries(tools) as [slug, tool]}
 		<a class="group" href={slug}>
 			<Card.Root class="relative flex aspect-square overflow-hidden">
