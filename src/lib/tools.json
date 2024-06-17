@@ -1,4 +1,9 @@
 {
+	"class-items": {
+		"title": "Class Items",
+		"description": "Checklist for exotic class item perk combinations.",
+		"img": "relativism.jpg"
+	},
 	"verity": {
 		"title": "Verity",
 		"description": "Solver for the 4th encounter in the Salvation's Edge raid.",
