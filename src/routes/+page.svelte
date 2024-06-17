@@ -22,7 +22,7 @@
 		<a class="group" href={slug}>
 			<Card.Root class="relative flex aspect-square overflow-hidden">
 				<img
-					class="absolute inset-0 h-full object-cover grayscale transition-all duration-300 group-hover:scale-105 group-hover:filter-none"
+					class="absolute inset-0 h-full object-cover transition-all duration-300 group-hover:scale-105"
 					src="/img/{tool.img}"
 					alt=""
 				/>
