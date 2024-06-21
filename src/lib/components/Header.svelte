@@ -1,4 +1,5 @@
 <script lang="ts">
+	import dayjs from "dayjs";
 	import Moon from "lucide-svelte/icons/moon";
 	import Sun from "lucide-svelte/icons/sun";
 	import { mode, toggleMode } from "mode-watcher";
@@ -6,13 +7,35 @@
 	import { Label } from "./ui/label";
 	import { Separator } from "./ui/separator";
 	import { Switch } from "./ui/switch";
+
+	const now = dayjs();
+	const year = now.year();
+
+	const isPrideMonth = now.isBetween(`${year}-06-01`, `${year}-06-30`);
 </script>
 
 <header class="border border-b p-4 sm:px-6 md:px-10">
 	<div class="flex items-center justify-between">
 		<div class="flex items-center gap-x-3">
 			<a class="flex items-center gap-x-3" href="/">
-				<img class="size-8 rounded" src="/logo.png" alt="Logo" width="128" height="128" />
+				{#if isPrideMonth}
+					<img
+						class="size-8 rounded shadow"
+						src="/favicon-pride.png"
+						alt="The First Knife"
+						width="128"
+						height="128"
+					/>
+				{:else}
+					<img
+						class="size-8 rounded invert dark:invert-0"
+						src="/favicon.svg"
+						alt="The First Knife"
+						width="128"
+						height="128"
+					/>
+				{/if}
+
 				<h1 class="text-xl font-semibold">The First Knife</h1>
 			</a>
 
