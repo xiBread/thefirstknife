@@ -72,6 +72,15 @@
 <Seo
 	title="{tools.verity.title} | The First Knife"
 	description={tools.verity.description}
+	keywords={[
+		"salvation's edge",
+		"raid",
+		"verity",
+		"4th encounter",
+		"dissect",
+		"solver",
+		"calculator",
+	]}
 	url="https://thefirstknife.vercel.app/verity"
 	image="/img/{tools.verity.img}"
 />

@@ -6,6 +6,8 @@
 	export let image: string | undefined;
 
 	export let useTwitter = true;
+
+	keywords.push("destiny 2", "toolkit", "the final shape");
 </script>
 
 <svelte:head>

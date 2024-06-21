@@ -17,6 +17,17 @@
 <Seo
 	title="{tools['wall-of-wishes'].title} | The First Knife"
 	description={tools["wall-of-wishes"].description}
+	keywords={[
+		"forsaken",
+		"last wish",
+		"raid",
+		"wish wall",
+		"kali",
+		"shuro chi",
+		"morgeth",
+		"vault",
+		"riven",
+	]}
 	url="https://thefirstknife.vercel.app/wall-of-wishes"
 	image={tools["wall-of-wishes"].img}
 />

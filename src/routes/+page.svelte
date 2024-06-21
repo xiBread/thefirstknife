@@ -9,7 +9,7 @@
 
 <svelte:head>
 	<Seo
-		title="The First Knife | Destiny 2 Tools"
+		title="The First Knife | Destiny 2 Toolkit"
 		description="A Swiss Army knife for Destiny 2."
 		url="https://thefirstknife.vercel.app"
 		image="/logo.png"

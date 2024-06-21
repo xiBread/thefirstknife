@@ -38,6 +38,15 @@
 <Seo
 	title="{tools['class-items'].title} | The First Knife"
 	description={tools["class-items"].description}
+	keywords={[
+		"exotic",
+		"class items",
+		"dual destiny",
+		"secret mission",
+		"checklist",
+		"perks",
+		"combinations",
+	]}
 	url="https://thefirstknife.vercel.app/class-items"
 	image="/img/{tools['class-items'].img}"
 />
