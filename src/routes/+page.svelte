@@ -7,15 +7,13 @@
 	subtitle.set("Destiny 2 Toolkit");
 </script>
 
-<svelte:head>
-	<Seo
-		title="The First Knife | Destiny 2 Toolkit"
-		description="A Swiss Army knife for Destiny 2."
-		url="https://thefirstknife.vercel.app"
-		image="/logo.png"
-		useTwitter={false}
-	/>
-</svelte:head>
+<Seo
+	title="The First Knife | Destiny 2 Toolkit"
+	description="A Swiss Army knife for Destiny 2."
+	url="https://thefirstknife.vercel.app"
+	image="/logo.png"
+	useTwitter={false}
+/>
 
 <div class="auto-grid grid gap-6 py-6 lg:py-16">
 	{#each Object.entries(tools) as [slug, tool]}
