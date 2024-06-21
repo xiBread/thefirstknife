@@ -1,11 +1,14 @@
 <script lang="ts">
-	export let url: string;
-	export let title: string;
-	export let description: string;
-	export let keywords: string[] = [];
-	export let image: string | undefined;
+	interface Props {
+		url: string;
+		title: string;
+		description: string;
+		keywords?: string[];
+		image?: string;
+		useTwitter?: boolean;
+	}
 
-	export let useTwitter = true;
+	const { url, title, description, keywords = [], image, useTwitter = true }: Props = $props();
 
 	keywords.push("destiny 2", "toolkit", "the final shape");
 </script>
