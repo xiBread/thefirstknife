@@ -3,40 +3,40 @@
 @tailwind utilities;
 
 @layer base {
-  :root {
-    --background: 0 0% 100%;
-    --foreground: 0 0% 3.9%;
+	:root {
+		--background: 180 9% 7%;
+		--foreground: 0 0% 100%;
 
-    --muted: 0 0% 96.1%;
-    --muted-foreground: 0 0% 45.1%;
+		--muted: 0 0% 96.1%;
+		--muted-foreground: 0 0% 45.1%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 3.9%;
+		--popover: 0 0% 100%;
+		--popover-foreground: 0 0% 3.9%;
 
-    --card: 0 0% 100%;
-    --card-foreground: 0 0% 3.9%;
+		--card: 0 0% 100%;
+		--card-foreground: 0 0% 3.9%;
 
-    --border: 0 0% 89.8%;
-    --input: 0 0% 89.8%;
+		--border: 0 0% 89.8%;
+		--input: 0 0% 89.8%;
 
-    --primary: 0 0% 9%;
-    --primary-foreground: 0 0% 98%;
+		--primary: 0 0% 9%;
+		--primary-foreground: 0 0% 98%;
 
-    --secondary: 0 0% 96.1%;
-    --secondary-foreground: 0 0% 9%;
+		--secondary: 0 0% 96.1%;
+		--secondary-foreground: 0 0% 9%;
 
-    --accent: 0 0% 96.1%;
-    --accent-foreground: 0 0% 9%;
+		--accent: 0 0% 96.1%;
+		--accent-foreground: 0 0% 9%;
 
-    --destructive: 0 72.2% 50.6%;
-    --destructive-foreground: 0 0% 98%;
+		--destructive: 0 72.2% 50.6%;
+		--destructive-foreground: 0 0% 98%;
 
-    --ring: 0 0% 3.9%;
+		--ring: 0 0% 3.9%;
 
-    --radius: 0.5rem;
-  }
+		--radius: 0.5rem;
+	}
 
-  .dark {
+	/* .dark {
     --background: 0 0% 3.9%;
     --foreground: 0 0% 98%;
 
@@ -65,15 +65,70 @@
     --destructive-foreground: 0 0% 98%;
 
     --ring: 0 0% 83.1%;
-  }
+  } */
+
+	body {
+		@apply bg-background font-sans text-foreground;
+	}
 }
 
-@layer base {
-  * {
-    @apply border-border;
-  }
+@layer components {
+	.button {
+		position: relative;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		background-color: hsla(0, 0%, 100%, 0.15);
+		transition:
+			color 0.25s,
+			background-color 0.25s,
+			box-shadow 0.25s;
 
-  body {
-    @apply bg-background text-foreground;
-  }
+		&::before,
+		&::after {
+			content: "";
+			position: absolute;
+			top: 0;
+			left: 0;
+		}
+
+		&::before {
+			height: 100%;
+			width: 100%;
+			box-shadow: inset 0 0 0 1px color-mix(in srgb, #fff 20%, #0000);
+			transition: inherit;
+		}
+
+		&::after {
+			height: calc(100% + 4px);
+			width: calc(100% + 4px);
+			transform: scale(1.05) translate3d(-2px, -2px, 0);
+			transition:
+				box-shadow 0.25s,
+				transform 0.25s;
+		}
+
+		&:hover {
+			background-color: color-mix(in srgb, #fff 40%, #0000);
+
+			&::before {
+				box-shadow: inset 0 0 0 2px #fff;
+			}
+
+			&::after {
+				box-shadow: 0 0 0 2px color-mix(in srgb, #fff 60%, #0000);
+				transform: scale(1) translate3d(-2px, -2px, 0);
+			}
+		}
+
+		&[data-state="on"] {
+			background-color: color-mix(in srgb, #fff 30%, #0000);
+			box-shadow: inset 0 0 0 1px color-mix(in srgb, #fff 40%, #0000);
+		}
+
+		&[data-disabled="true"] {
+			color: color-mix(in srgb, #fff 40%, #0000);
+			pointer-events: none;
+		}
+	}
 }

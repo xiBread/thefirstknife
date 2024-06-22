@@ -16,16 +16,6 @@
 	const ctx = getToggleGroupCtx();
 </script>
 
-<ToggleGroupPrimitive.Item
-	class={cn(
-		toggleVariants({
-			variant: ctx.variant || variant,
-			size: ctx.size || size,
-		}),
-		className
-	)}
-	{value}
-	{...$$restProps}
->
+<ToggleGroupPrimitive.Item class={cn("button", className)} {value} {...$$restProps}>
 	<slot />
 </ToggleGroupPrimitive.Item>

@@ -18,7 +18,7 @@
 
 <TogglePrimitive.Root
 	bind:pressed
-	class={cn(toggleVariants({ variant, size, className }))}
+	class={cn("button", className)}
 	{...$$restProps}
 	on:click
 	on:keydown

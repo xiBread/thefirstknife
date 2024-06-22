@@ -12,7 +12,7 @@
 	const { children } = $props();
 </script>
 
-<ModeWatcher defaultMode="dark" />
+<!-- <ModeWatcher defaultMode="dark" /> -->
 
 <Header />
 

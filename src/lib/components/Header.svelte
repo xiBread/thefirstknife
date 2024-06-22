@@ -43,12 +43,12 @@
 			<h2 class="text-xl font-light">{$subtitle}</h2>
 		</div>
 
-		<div class="flex items-center gap-x-3">
+		<!-- <div class="flex items-center gap-x-3">
 			<Label class="sr-only" for="theme-switch">Theme toggle</Label>
 
 			<Sun class="size-5 dark:text-foreground/20" />
 			<Switch id="theme-switch" checked={$mode === "dark"} onCheckedChange={toggleMode} />
 			<Moon class="size-5 text-foreground/20 dark:text-foreground" />
-		</div>
+		</div> -->
 	</div>
 </header>

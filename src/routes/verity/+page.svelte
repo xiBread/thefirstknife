@@ -93,7 +93,7 @@
 						<h4 class="mb-2 text-xl font-medium">{side}</h4>
 
 						<ToggleGroup.Root
-							class="grid grid-cols-1 gap-x-10 gap-y-4 lg:grid-cols-3"
+							class="grid grid-cols-1 gap-2 lg:grid-cols-3"
 							size="lg"
 							onValueChange={(value) => {
 								room.selected[i] = !value ? "" : `${value}`;
@@ -105,20 +105,19 @@
 
 								<div class="flex flex-col items-center">
 									<ToggleGroup.Item class="size-14" value={shape} {disabled}>
-										<div class="*:size-12">
+										<div class="*:size-10">
 											{@html shapes[shape]}
 										</div>
 									</ToggleGroup.Item>
 
-									{#if $settings.labels}
+									<!-- {#if $settings.labels}
 										<span
 											class="mt-1 capitalize {disabled &&
 												'text-foreground/30'}"
-											class:underline={room.selected[i] === shape}
 										>
 											{shape}
 										</span>
-									{/if}
+									{/if} -->
 								</div>
 							{/each}
 						</ToggleGroup.Root>
@@ -147,15 +146,15 @@
 									{@html shapes[shape as Shape]}
 								</div>
 
-								{#if $settings.labels}
+								<!-- {#if $settings.labels}
 									<span class="mt-1 capitalize">{shape}</span>
-								{/if}
+								{/if} -->
 							{:else}
 								<CircleSlash class="size-16 stroke-1 p-2 text-foreground/30" />
 
-								{#if $settings.labels}
+								<!-- {#if $settings.labels}
 									<span class="mt-1 capitalize text-foreground/30">None</span>
-								{/if}
+								{/if} -->
 							{/if}
 						</div>
 					{/each}
