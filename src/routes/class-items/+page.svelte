@@ -11,8 +11,12 @@
 
 	subtitle.set("Class Items");
 
-	let selected: string;
-	$: perks = selected ? classItems[selected as keyof typeof classItems] : null;
+	let selected = $state<string>("");
+	let perks = $state<string[][]>();
+
+	$effect(() => {
+		perks = selected ? classItems[selected as keyof typeof classItems] : undefined;
+	});
 
 	const obtained = persisted<Record<string, string[]>>("eci_checklist", {
 		relativism: [],

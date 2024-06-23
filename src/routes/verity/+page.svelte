@@ -25,12 +25,12 @@
 
 	subtitle.set("Verity");
 
-	let steps: HTMLElement | undefined;
-	let groups: ReturnType<typeof solve> = [];
-
 	const emptyState = ["", "", ""];
 
-	const rooms: Room[] = [
+	let steps = $state<HTMLElement>();
+	let groups = $state<ReturnType<typeof solve>>([]);
+
+	const rooms = $state<Room[]>([
 		{
 			name: "Inside",
 			shapes: ["circle", "square", "triangle"],
@@ -41,19 +41,16 @@
 			shapes: ["sphere", "cube", "pyramid", "cylinder", "prism", "cone"],
 			selected: [...emptyState],
 		},
-	];
+	]);
 
-	$: {
+	$effect(() => {
 		const filled = rooms.flatMap((room) => room.selected).filter(Boolean);
 		groups = filled.length === 6 ? solve(rooms[0].selected, rooms[1].selected) : [];
 
 		if (filled.length === 6 && $settings.autoScroll) {
 			steps?.scrollIntoView({ behavior: "smooth" });
 		}
-	}
-
-	// needed to bypass template typechecking
-	const getSvg = (shape: string) => shapes[shape as Shape];
+	});
 
 	function filterGroup(group: (typeof groups)[number]) {
 		const entries = Object.entries(group);
@@ -147,7 +144,7 @@
 								{@const shape = reverseMappings[step.value]}
 
 								<div class="p-2 *:size-12">
-									{@html getSvg(shape)}
+									{@html shapes[shape as Shape]}
 								</div>
 
 								{#if $settings.labels}

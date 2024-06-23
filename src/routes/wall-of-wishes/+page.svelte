@@ -9,9 +9,8 @@
 
 	subtitle.set("Wall of Wishes");
 
-	let selected: { value: number } | undefined;
-
-	$: wish = wishes[selected?.value ?? -1];
+	let selected = $state<{ value: number }>();
+	let wish = $derived(wishes[selected?.value ?? -1]);
 </script>
 
 <Seo

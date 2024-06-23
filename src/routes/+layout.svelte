@@ -8,6 +8,8 @@
 
 	dayjs.locale(en);
 	dayjs.extend(isBetween);
+
+	const { children } = $props();
 </script>
 
 <ModeWatcher defaultMode="dark" />
@@ -15,5 +17,5 @@
 <Header />
 
 <main class="mx-auto max-w-7xl px-6">
-	<slot />
+	{@render children()}
 </main>
