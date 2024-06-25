@@ -120,6 +120,24 @@
 
 			<p>This tool is an automatic solver for dissecting on the outside.</p>
 
+			<div id="settings" class="section">
+				<p class="mb-2 font-normal uppercase tracking-wider text-white/60">Settings</p>
+
+				<fieldset class="space-y-4">
+					{@render setting(
+						"verify",
+						"Verification",
+						"Show outside shapes in between dissection steps to verify.",
+					)}
+
+					{@render setting(
+						"autoScroll",
+						"Auto scroll",
+						"Automatically scroll the dissection steps into view.",
+					)}
+				</fieldset>
+			</div>
+
 			<div id="guide" class="section">
 				<p class="mb-1 font-normal uppercase tracking-wider text-white/60">Guide</p>
 				<p>
@@ -145,24 +163,6 @@
 					After the outside is finished dissecting, the inside needs to grab both shapes
 					that their statue isn't holding so they can escape.
 				</p>
-			</div>
-
-			<div id="settings" class="section">
-				<p class="mb-2 font-normal uppercase tracking-wider text-white/60">Settings</p>
-
-				<fieldset class="space-y-4">
-					{@render setting(
-						"verify",
-						"Verification",
-						"Show outside shapes in between dissection steps to verify.",
-					)}
-
-					{@render setting(
-						"autoScroll",
-						"Auto scroll",
-						"Automatically scroll the dissection steps into view.",
-					)}
-				</fieldset>
 			</div>
 		</article>
 	</aside>
@@ -303,12 +303,6 @@
 
 	.section > :not(:first-child):is(p) {
 		margin-bottom: 1rem;
-	}
-
-	.setting-checkbox {
-		display: flex;
-		align-items: center;
-		height: theme("size.5");
 	}
 
 	.reset {
