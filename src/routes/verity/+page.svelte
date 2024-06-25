@@ -1,13 +1,3 @@
-<script lang="ts" context="module">
-	type Shape = keyof typeof shapes;
-
-	export interface Room {
-		name: string;
-		shapes: Shape[];
-		selected: string[];
-	}
-</script>
-
 <script lang="ts">
 	import CheckCheck from "lucide-svelte/icons/check-check";
 	import CircleSlash from "lucide-svelte/icons/circle-slash";
@@ -26,8 +16,7 @@
 	import Seo from "$lib/components/Seo.svelte";
 	import tools from "$lib/tools.json";
 
-	import * as shapes from "./shapes";
-	import { reverseMappings, isDisabled, solve } from "./util";
+	import { reverseMappings, isDisabled, solve, type Room } from "./util";
 
 	const emptyState = ["", "", ""];
 
@@ -223,9 +212,10 @@
 
 									<div class="flex flex-col items-center">
 										<ToggleGroup.Item class="size-14" value={shape} {disabled}>
-											<div class="*:size-10">
-												{@html shapes[shape]}
-											</div>
+											<svg
+												class="size-10"
+												use:inlineSvg={`/icons/shapes/${shape}.svg`}
+											/>
 										</ToggleGroup.Item>
 									</div>
 								{/each}
@@ -261,15 +251,12 @@
 								{#each steps as step}
 									<div class="flex flex-col items-center">
 										{#if step.value}
-											{@const shape = reverseMappings[step.value]}
-
-											<div class="p-2 *:size-12">
-												{@html shapes[shape as Shape]}
-											</div>
-										{:else}
-											<CircleSlash
-												class="size-16 stroke-1 p-2 text-foreground/30"
+											<svg
+												class="size-12"
+												use:inlineSvg={`/icons/shapes/${reverseMappings[step.value]}.svg`}
 											/>
+										{:else}
+											<CircleSlash class="size-12 stroke-1 text-white/30" />
 										{/if}
 									</div>
 								{/each}

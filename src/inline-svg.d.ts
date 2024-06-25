@@ -4,7 +4,17 @@ declare module 'svelte/elements' {
 		'inline-src'?:
 			`./${string}`
 			| `../${string}`
-			| 'raid';
+			| 'raid'
+			| 'shapes'
+			| 'shapes\circle'
+			| 'shapes\cone'
+			| 'shapes\cube'
+			| 'shapes\cylinder'
+			| 'shapes\prism'
+			| 'shapes\pyramid'
+			| 'shapes\sphere'
+			| 'shapes\square'
+			| 'shapes\triangle';
 	}
 }
 export {};

@@ -7,7 +7,7 @@ export default defineConfig({
 		inlineSvg(
 			[
 				{
-					directories: "./src/lib/assets/icons",
+					directories: "./static/icons",
 					attributes: {
 						class: "svg-icon",
 					},
