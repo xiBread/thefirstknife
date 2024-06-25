@@ -1,21 +1,10 @@
 <script lang="ts">
-	import { ToggleGroup as ToggleGroupPrimitive } from "bits-ui";
-	import { type ToggleVariants, getToggleGroupCtx } from "./index.js";
-	import { cn } from "$lib/utils.js";
-	import { toggleVariants } from "$lib/components/ui/toggle/index.js";
+	import { ToggleGroup } from "bits-ui";
+	import { cn } from "$lib/utils";
 
-	type $$Props = ToggleGroupPrimitive.ItemProps & ToggleVariants;
-
-	let className: string | undefined | null = undefined;
-
-	export { className as class };
-	export let variant: $$Props["variant"] = "default";
-	export let size: $$Props["size"] = "default";
-	export let value: $$Props["value"];
-
-	const ctx = getToggleGroupCtx();
+	const { children, class: className, value, ...rest }: ToggleGroup.ItemProps = $props();
 </script>
 
-<ToggleGroupPrimitive.Item class={cn("button", className)} {value} {...$$restProps}>
-	<slot />
-</ToggleGroupPrimitive.Item>
+<ToggleGroup.Item class={cn("interactable button", className)} {value} {...rest}>
+	{@render children?.()}
+</ToggleGroup.Item>

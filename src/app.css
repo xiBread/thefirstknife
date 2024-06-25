@@ -2,12 +2,17 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+	font-family: "Destiny 2 Symbols";
+	src: url("/fonts/destiny_symbols_pc.otf") format("opentype");
+}
+
 @layer base {
 	:root {
-		--background: 180 9% 7%;
+		--background: 180 5% 12%;
 		--foreground: 0 0% 100%;
 
-		--muted: 0 0% 96.1%;
+		--muted: 180 9% 7%;
 		--muted-foreground: 0 0% 45.1%;
 
 		--popover: 0 0% 100%;
@@ -33,56 +38,43 @@
 
 		--ring: 0 0% 3.9%;
 
-		--radius: 0.5rem;
+		--titlebar-height: env(titlebar-area-height, 50px);
+		--header-offset: calc(env(safe-area-inset-top) * 0.8);
+		--header-height: calc(var(--titlebar-height) + var(--header-offset));
 	}
 
-	/* .dark {
-    --background: 0 0% 3.9%;
-    --foreground: 0 0% 98%;
-
-    --muted: 0 0% 14.9%;
-    --muted-foreground: 0 0% 63.9%;
-
-    --popover: 0 0% 3.9%;
-    --popover-foreground: 0 0% 98%;
-
-    --card: 0 0% 3.9%;
-    --card-foreground: 0 0% 98%;
-
-    --border: 0 0% 14.9%;
-    --input: 0 0% 14.9%;
-
-    --primary: 0 0% 98%;
-    --primary-foreground: 0 0% 9%;
-
-    --secondary: 0 0% 14.9%;
-    --secondary-foreground: 0 0% 98%;
-
-    --accent: 0 0% 14.9%;
-    --accent-foreground: 0 0% 98%;
-
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 0 0% 98%;
-
-    --ring: 0 0% 83.1%;
-  } */
-
 	body {
-		@apply bg-background font-sans text-foreground;
+		@apply font-sans;
+
+		background: linear-gradient(180deg, #404148, #131418);
+		color: white;
+	}
+
+	kbd {
+		font-family: "Destiny 2 Symbols";
 	}
 }
 
 @layer components {
-	.button {
+	.no-scrollbar {
+		scrollbar-width: 0;
+
+		&::-webkit-scrollbar {
+			width: 0;
+		}
+	}
+
+	.interactable {
 		position: relative;
 		display: flex;
 		align-items: center;
 		justify-content: center;
 		background-color: hsla(0, 0%, 100%, 0.15);
 		transition:
-			color 0.25s,
-			background-color 0.25s,
-			box-shadow 0.25s;
+			color 300ms,
+			opacity 300ms,
+			background-color 300ms,
+			box-shadow 300ms;
 
 		&::before,
 		&::after {
@@ -104,8 +96,8 @@
 			width: calc(100% + 4px);
 			transform: scale(1.05) translate3d(-2px, -2px, 0);
 			transition:
-				box-shadow 0.25s,
-				transform 0.25s;
+				box-shadow 300ms,
+				transform 300ms;
 		}
 
 		&:hover {
@@ -121,14 +113,15 @@
 			}
 		}
 
-		&[data-state="on"] {
-			background-color: color-mix(in srgb, #fff 30%, #0000);
-			box-shadow: inset 0 0 0 1px color-mix(in srgb, #fff 40%, #0000);
+		&.button[data-disabled="true"] {
+			color: color-mix(in srgb, #fff 40%, #0000);
+			opacity: 0.5;
+			pointer-events: none;
 		}
 
-		&[data-disabled="true"] {
-			color: color-mix(in srgb, #fff 40%, #0000);
-			pointer-events: none;
+		&.button[data-state="on"] {
+			background-color: color-mix(in srgb, #fff 30%, #0000);
+			box-shadow: inset 0 0 0 1px color-mix(in srgb, #fff 40%, #0000);
 		}
 	}
 }

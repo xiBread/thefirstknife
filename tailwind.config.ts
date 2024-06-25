@@ -49,16 +49,8 @@ export default {
 					foreground: "hsl(var(--card-foreground) / <alpha-value>)",
 				},
 			},
-			borderRadius: {
-				lg: "var(--radius)",
-				md: "calc(var(--radius) - 2px)",
-				sm: "calc(var(--radius) - 4px)",
-			},
 			fontFamily: {
-				sans: [
-					"InterVariable",
-					{ fontFeatureSettings: "'calt' 1, 'cv05', 'cv11', 'ss01'" },
-				],
+				sans: ["InterVariable", { fontFeatureSettings: "'calt'" }],
 			},
 		},
 	},

@@ -1,10 +1,7 @@
 <script lang="ts">
 	import Seo from "$lib/components/Seo.svelte";
 	import * as Card from "$lib/components/ui/card";
-	import { subtitle } from "$lib/stores";
 	import tools from "$lib/tools.json";
-
-	subtitle.set("Destiny 2 Toolkit");
 </script>
 
 <Seo
@@ -15,7 +12,7 @@
 	useTwitter={false}
 />
 
-<div class="auto-grid grid gap-6 py-6 lg:py-16">
+<div class="auto-grid grid gap-4 px-4 py-6 sm:px-6 lg:py-16">
 	{#each Object.entries(tools) as [slug, tool]}
 		<a class="group" href={slug}>
 			<Card.Root class="relative flex aspect-square overflow-hidden">

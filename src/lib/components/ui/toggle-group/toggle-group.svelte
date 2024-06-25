@@ -1,30 +1,26 @@
-<script lang="ts">
-	import type { VariantProps } from "tailwind-variants";
-	import { ToggleGroup as ToggleGroupPrimitive } from "bits-ui";
-	import { setToggleGroupCtx } from "./index.js";
-	import type { toggleVariants } from "$lib/components/ui/toggle/index.js";
-	import { cn } from "$lib/utils.js";
+<script lang="ts" generics="T extends 'single' | 'multiple'">
+	import { ToggleGroup, type Builder } from "bits-ui";
+	import type { Snippet } from "svelte";
+	import { cn } from "$lib/utils";
 
-	type T = $$Generic<"single" | "multiple">;
-	type $$Props = ToggleGroupPrimitive.Props<T> & VariantProps<typeof toggleVariants>;
+	type Props = ToggleGroup.Props<T> &
+		(
+			| { children: Snippet; delegate?: never }
+			| { children?: never; delegate: Snippet<[Builder]> }
+		);
 
-	let className: string | undefined | null = undefined;
-	export { className as class };
-	export let variant: $$Props["variant"] = "default";
-	export let size: $$Props["size"] = "default";
-	export let value: $$Props["value"] = undefined;
-
-	setToggleGroupCtx({
-		variant,
-		size,
-	});
+	let { children, delegate, class: className, value = $bindable(), ...rest }: Props = $props();
 </script>
 
-<ToggleGroupPrimitive.Root
+<ToggleGroup.Root
 	class={cn("flex items-center justify-center gap-1", className)}
+	{...rest}
 	bind:value
-	{...$$restProps}
 	let:builder
 >
-	<slot {builder} />
-</ToggleGroupPrimitive.Root>
+	{#if children}
+		{@render children()}
+	{:else}
+		{@render delegate!(builder)}
+	{/if}
+</ToggleGroup.Root>

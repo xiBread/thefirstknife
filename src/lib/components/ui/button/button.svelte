@@ -1,25 +1,41 @@
 <script lang="ts">
-	import { Button as ButtonPrimitive } from "bits-ui";
-	import { type Events, type Props, buttonVariants } from "./index.js";
-	import { cn } from "$lib/utils.js";
+	import { builderActions, getAttrs, type Builder } from "bits-ui";
+	import type { HTMLButtonAttributes } from "svelte/elements";
+	import { cn } from "$lib/utils";
 
-	type $$Props = Props;
-	type $$Events = Events;
+	interface Props extends HTMLButtonAttributes {
+		size?: keyof typeof sizes;
+		builders?: Builder[];
+	}
 
-	let className: $$Props["class"] = undefined;
-	export let variant: $$Props["variant"] = "default";
-	export let size: $$Props["size"] = "default";
-	export let builders: $$Props["builders"] = [];
-	export { className as class };
+	const sizes = {
+		default: "h-9 px-4 py-2",
+		sm: "h-8 px-3 text-xs",
+		lg: "h-10 px-8",
+		square: "size-9",
+	};
+
+	const {
+		children,
+		class: className,
+		size = "default",
+		builders = [],
+		...rest
+	}: Props = $props();
 </script>
 
-<ButtonPrimitive.Root
-	{builders}
-	class={cn(buttonVariants({ variant, size, className }))}
-	type="button"
-	{...$$restProps}
-	on:click
-	on:keydown
->
-	<slot />
-</ButtonPrimitive.Root>
+{#if builders.length}
+	<button
+		class={cn("interactable button", sizes[size], className)}
+		type="button"
+		{...rest}
+		{...getAttrs(builders)}
+		use:builderActions={{ builders }}
+	>
+		{@render children?.()}
+	</button>
+{:else}
+	<button class={cn("button", sizes[size], className)} type="button" {...rest}>
+		{@render children?.()}
+	</button>
+{/if}
