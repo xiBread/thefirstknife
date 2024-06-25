@@ -102,8 +102,7 @@
 />
 
 <div id="verity" class="relative h-full">
-	<div
-		id="sidebar"
+	<aside
 		class="no-scrollbar inset-0 w-full overflow-auto from-transparent via-black/30 md:fixed md:w-[var(--sidebar-width)] md:bg-gradient-to-b"
 		bind:this={sidebar}
 	>
@@ -125,64 +124,53 @@
 				<p class="mb-1 font-normal uppercase tracking-wider text-white/60">Guide</p>
 				<p>
 					DISCLAIMER: This is only meant to serve as quick reference. For a more
-					comprehensive break down of the encounter, I recommend
+					comprehensive break down of the encounter, you can read
 					<Link href="https://redd.it/1dbieuq">this detailed write-up</Link> by u/Zhentharym.
 				</p>
 				<p>
-					Exercitation et officia velit aute. Ut exercitation ea occaecat reprehenderit.
-					Deserunt aliqua consequat labore voluptate reprehenderit cupidatat magna ipsum
-					enim.
+					For the players inside, you want to check the back wall. If it is rotating
+					between the shape your statue is holding, wait for the other two solo players to
+					also get their shape on their wall. Otherwise, grab the shapes that aren't yours
+					and deposit them on their respective statues. Once each person on the inside has
+					both copies of their shape, grab your shape and deposit it on the other statues.
+				</p>
+				<p>
+					During the inside swaps, the outside needs to dissect each statue so that the
+					resulting shape is composed of the two shapes that weren't called for that side.
+					For example, if inside left was circle, then you need a prism (square +
+					triangle) on outside left. Dissecting two statues will swap the shapes you
+					dissected with.
+				</p>
+				<p>
+					After the outside is finished dissecting, the inside needs to grab both shapes
+					that their statue isn't holding so they can escape.
 				</p>
 			</div>
 
 			<div id="settings" class="section">
 				<p class="mb-2 font-normal uppercase tracking-wider text-white/60">Settings</p>
 
-				<fieldset class="space-y-3 *:flex *:items-start">
-					<div>
-						<div class="setting-checkbox">
-							<Checkbox
-								id="verify"
-								checked={$settings.verify}
-								aria-describedby="verify-desc"
-								onCheckedChange={(value) => ($settings.verify = Boolean(value))}
-							/>
-						</div>
+				<fieldset class="space-y-4">
+					{@render setting(
+						"verify",
+						"Verification",
+						"Show outside shapes in between dissection steps to verify.",
+					)}
 
-						<div class="ml-2.5">
-							<Label class="text-sm" for="verify">Verification</Label>
-							<p id="verify-desc" class="mt-0.5 text-xs">
-								Show outside shapes in between dissection steps to verify.
-							</p>
-						</div>
-					</div>
-
-					<div>
-						<div class="setting-checkbox">
-							<Checkbox
-								id="autoscroll"
-								checked={$settings.autoScroll}
-								aria-describedby="autoscroll-desc"
-								onCheckedChange={(value) => ($settings.autoScroll = Boolean(value))}
-							/>
-						</div>
-
-						<div class="ml-2.5">
-							<Label class="text-sm" for="autoscroll">Auto scroll</Label>
-							<p id="autoscroll-desc" class="mt-0.5 text-xs">
-								Automatically scroll the dissection steps into view.
-							</p>
-						</div>
-					</div>
+					{@render setting(
+						"autoScroll",
+						"Auto scroll",
+						"Automatically scroll the dissection steps into view.",
+					)}
 				</fieldset>
 			</div>
 		</article>
-	</div>
+	</aside>
 
 	<div id="solver" class="px-8 pb-24 md:ml-[var(--sidebar-width)]">
 		<div class="space-y-12">
 			{#each rooms as room}
-				<div class="grid grid-cols-3 gap-x-4">
+				<div class="group grid grid-cols-3 gap-x-4" data-room={room.name}>
 					<div class="col-span-full mb-6 flex w-full items-start text-white/60">
 						<svelte:component
 							this={room.name === "Inside" ? UserRound : UsersRound}
@@ -190,9 +178,7 @@
 						/>
 
 						<div class="ml-2 w-full">
-							<h3 class="font-light uppercase tracking-[0.15em]">
-								{room.name}
-							</h3>
+							<p class="font-light uppercase tracking-[0.15em]">{room.name}</p>
 
 							<Separator />
 						</div>
@@ -201,7 +187,7 @@
 					{#each ["Left", "Middle", "Right"] as side, i}
 						<div class="flex flex-col items-center gap-y-2">
 							<ToggleGroup.Root
-								class="grid grid-cols-1 gap-2 lg:grid-cols-3"
+								class="grid grid-cols-1 gap-2 group-data-[room='Outside']:grid-cols-2 lg:!grid-cols-3"
 								onValueChange={(value) => {
 									room.selected[i] = !value ? "" : `${value}`;
 								}}
@@ -235,15 +221,13 @@
 						<CheckCheck class="mt-0.5 size-5 stroke-[1.5]" />
 
 						<div class="ml-2 w-full">
-							<h3 class="font-light uppercase tracking-[0.15em]">Solution</h3>
-
+							<p class="font-light uppercase tracking-[0.15em]">Solution</p>
 							<Separator />
 						</div>
 					</div>
 
 					<div
-						id="steps"
-						class="grid grid-cols-3 items-center justify-center gap-y-4"
+						class="grid grid-cols-3 items-center justify-center gap-y-6"
 						bind:this={steps}
 					>
 						{#each groups as group}
@@ -269,7 +253,7 @@
 	</div>
 
 	<footer
-		class="fixed bottom-0 flex w-full justify-end bg-black/50 px-24 pb-8 pt-4 backdrop-blur"
+		class="fixed bottom-0 flex w-full justify-end bg-black/50 px-20 pb-8 pt-4 backdrop-blur"
 		bind:offsetHeight={footerHeight}
 	>
 		<div class="flex select-none items-center gap-x-1 font-light">
@@ -290,12 +274,30 @@
 	</footer>
 </div>
 
+{#snippet setting(key: string, label: string, description: string)}
+	<div class="flex items-start">
+		<div class="flex h-5 items-center">
+			<Checkbox
+				id={key}
+				checked={$settings[key]}
+				aria-describedby="{key}-desc"
+				onCheckedChange={(value) => ($settings[key] = Boolean(value))}
+			/>
+		</div>
+
+		<div class="ml-2.5">
+			<Label class="text-sm" for={key}>{label}</Label>
+			<p id="{key}-desc" class="mt-0.5 text-xs">{description}</p>
+		</div>
+	</div>
+{/snippet}
+
 <style>
 	#verity {
 		--sidebar-width: theme("spacing.96");
 	}
 
-	#sidebar {
+	aside {
 		padding-top: calc(1rem + var(--header-height));
 	}
 
