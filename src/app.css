@@ -38,9 +38,7 @@
 
 		--ring: 0 0% 3.9%;
 
-		--titlebar-height: env(titlebar-area-height, 50px);
-		--header-offset: calc(env(safe-area-inset-top) * 0.8);
-		--header-height: calc(var(--titlebar-height) + var(--header-offset));
+		--header-height: theme("size.14");
 	}
 
 	body {

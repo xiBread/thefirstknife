@@ -7,8 +7,8 @@
 	const isPrideMonth = now.isBetween(`${year}-06-01`, `${year}-06-30`);
 </script>
 
-<header class="fixed z-10 w-full px-6 backdrop-blur md:px-10">
-	<div class="flex h-[var(--titlebar-height)] items-center justify-between">
+<header class="fixed z-10 w-full border-b border-b-white/10 px-8 backdrop-blur md:px-14">
+	<div class="flex h-[var(--header-height)] items-center justify-between">
 		<div class="flex items-center gap-x-3">
 			<a class="flex items-center gap-x-3" href="/">
 				{#if isPrideMonth}
@@ -26,10 +26,3 @@
 {#snippet logo(src: string, className?: string)}
 	<img class="size-8 rounded {className}" {src} alt="The First Knife" width="128" height="128" />
 {/snippet}
-
-<style>
-	header {
-		height: var(--header-height);
-		border-bottom: 1px solid color-mix(in srgb, #fff 10%, #0000);
-	}
-</style>
