@@ -15,6 +15,7 @@
 	import UsersRound from "lucide-svelte/icons/users-round";
 	import { onMount } from "svelte";
 	import { persisted } from "svelte-persisted-store";
+	import { inlineSvg } from "@svelte-put/inline-svg";
 
 	import { goto } from "$app/navigation";
 	import { Checkbox } from "$lib/components/ui/checkbox";
@@ -79,10 +80,14 @@
 		);
 	}
 
+	function reset() {
+		rooms[0].selected = [...emptyState];
+		rooms[1].selected = [...emptyState];
+	}
+
 	async function handleKey(event: KeyboardEvent) {
 		if (event.key.toLowerCase() === "f") {
-			rooms[0].selected = [...emptyState];
-			rooms[1].selected = [...emptyState];
+			reset();
 		} else if (event.key === "Escape") {
 			await goto("/");
 		}
@@ -121,7 +126,7 @@
 
 				<div class="ml-0.5">
 					<h2 class="text-xl font-medium">Verity</h2>
-					<p class="italic text-white/60">See Beyond</p>
+					<p class="text-white/60">See Beyond</p>
 				</div>
 			</header>
 
@@ -280,9 +285,20 @@
 		class="fixed bottom-0 flex w-full justify-end bg-black/50 px-24 pb-8 pt-4 backdrop-blur"
 		bind:offsetHeight={footerHeight}
 	>
-		<div class="flex select-none items-center gap-x-4 font-light">
-			<p><kbd></kbd> Reset</p>
-			<p><kbd></kbd> Back to Home</p>
+		<div class="flex select-none items-center gap-x-1 font-light">
+			<button
+				class="reset border border-transparent p-1 hover:border-white active:bg-white/30"
+				onclick={reset}
+			>
+				<kbd></kbd> Reset
+			</button>
+
+			<button
+				class="border border-transparent p-1 transition-colors duration-500 hover:border-white"
+				onclick={async () => await goto("/")}
+			>
+				<kbd></kbd> Back to Home
+			</button>
 		</div>
 	</footer>
 </div>
@@ -304,6 +320,12 @@
 		display: flex;
 		align-items: center;
 		height: theme("size.5");
+	}
+
+	.reset {
+		transition:
+			border-color 500ms,
+			background-color 100ms;
 	}
 
 	@screen md {
