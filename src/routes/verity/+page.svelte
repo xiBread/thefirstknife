@@ -106,10 +106,8 @@
 		class="no-scrollbar inset-0 w-full overflow-auto from-transparent via-black/30 md:fixed md:w-[var(--sidebar-width)] md:bg-gradient-to-b"
 		bind:this={sidebar}
 	>
-		<article
-			class="flex flex-col space-y-6 px-6 pb-6 text-sm [&>:not(:first-child)]:font-light"
-		>
-			<header class="flex items-center">
+		<article class="flex flex-col gap-y-4 px-6 pb-6 text-sm [&>:not(:first-child)]:font-light">
+			<header class="mb-2 flex items-center">
 				<svg class="size-12" inline-src="raid" fill="#fff"></svg>
 
 				<div class="ml-0.5">
@@ -119,8 +117,21 @@
 			</header>
 
 			<p>This tool is an automatic solver for dissecting on the outside.</p>
+			<p>
+				Input the shapes for both the inside and outside. Combinations that are impossible
+				will be grayed out. The solution will show you which shapes to dissect on which
+				side.
+			</p>
+			<p>
+				If you have the <code>Verification</code> setting enabled, an accompanying line after
+				each swap will display what each statue outside should be holding.
+			</p>
+			<p>
+				For a comprehensive break down of the encounter, I recommend reading this
+				<Link href="https://redd.it/1dbieuq">this detailed write-up</Link> by u/Zhentharym.
+			</p>
 
-			<div id="settings" class="section">
+			<div>
 				<p class="mb-2 font-normal uppercase tracking-wider text-white/60">Settings</p>
 
 				<fieldset class="space-y-4">
@@ -136,33 +147,6 @@
 						"Automatically scroll the dissection steps into view.",
 					)}
 				</fieldset>
-			</div>
-
-			<div id="guide" class="section">
-				<p class="mb-1 font-normal uppercase tracking-wider text-white/60">Guide</p>
-				<p>
-					DISCLAIMER: This is only meant to serve as quick reference. For a more
-					comprehensive break down of the encounter, you can read
-					<Link href="https://redd.it/1dbieuq">this detailed write-up</Link> by u/Zhentharym.
-				</p>
-				<p>
-					For the players inside, you want to check the back wall. If it is rotating
-					between the shape your statue is holding, wait for the other two solo players to
-					also get their shape on their wall. Otherwise, grab the shapes that aren't yours
-					and deposit them on their respective statues. Once each person on the inside has
-					both copies of their shape, grab your shape and deposit it on the other statues.
-				</p>
-				<p>
-					During the inside swaps, the outside needs to dissect each statue so that the
-					resulting shape is composed of the two shapes that weren't called for that side.
-					For example, if inside left was circle, then you need a prism (square +
-					triangle) on outside left. Dissecting two statues will swap the shapes you
-					dissected with.
-				</p>
-				<p>
-					After the outside is finished dissecting, the inside needs to grab both shapes
-					that their statue isn't holding so they can escape.
-				</p>
 			</div>
 		</article>
 	</aside>
@@ -274,7 +258,7 @@
 	</footer>
 </div>
 
-{#snippet setting(key: string, label: string, description: string)}
+{#snippet setting(key: keyof typeof $settings, label: string, description: string)}
 	<div class="flex items-start">
 		<div class="flex h-5 items-center">
 			<Checkbox
@@ -299,10 +283,6 @@
 
 	aside {
 		padding-top: calc(1rem + var(--header-height));
-	}
-
-	.section > :not(:first-child):is(p) {
-		margin-bottom: 1rem;
 	}
 
 	.reset {
