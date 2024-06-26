@@ -41,6 +41,10 @@
 		--header-height: theme("size.14");
 	}
 
+	* {
+		border-color: hsl(0 0 100% / 60%);
+	}
+
 	body {
 		@apply font-sans;
 

@@ -12,7 +12,7 @@
 	useTwitter={false}
 />
 
-<div class="auto-grid grid gap-4 px-4 py-6 sm:px-6 lg:py-16">
+<div class="auto-grid grid gap-4 px-4 py-4 sm:px-6">
 	{#each Object.entries(tools) as [slug, tool]}
 		<a class="group" href={slug}>
 			<Card.Root class="relative flex aspect-square overflow-hidden">

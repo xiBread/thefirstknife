@@ -16,3 +16,9 @@
 <main class="min-h-svh">
 	{@render children()}
 </main>
+
+<style>
+	main {
+		padding-top: calc(1rem + var(--header-height));
+	}
+</style>

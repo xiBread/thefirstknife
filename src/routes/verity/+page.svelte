@@ -151,7 +151,7 @@
 		</article>
 	</aside>
 
-	<div id="solver" class="px-8 pb-24 md:ml-[var(--sidebar-width)]">
+	<div class="px-8 pb-24 md:ml-[var(--sidebar-width)] md:pt-1">
 		<div class="space-y-12">
 			{#each rooms as room}
 				<div class="group grid grid-cols-3 gap-x-4" data-room={room.name}>
@@ -181,7 +181,11 @@
 									{@const disabled = isDisabled(room, shape, i)}
 
 									<div class="flex flex-col items-center">
-										<ToggleGroup.Item class="size-14" value={shape} {disabled}>
+										<ToggleGroup.Item
+											class="interactable button size-14"
+											value={shape}
+											{disabled}
+										>
 											<svg
 												class="size-10"
 												use:inlineSvg={`/icons/shapes/${shape}.svg`}
@@ -289,11 +293,5 @@
 		transition:
 			border-color 500ms,
 			background-color 100ms;
-	}
-
-	@screen md {
-		#solver {
-			padding-top: calc(2rem + var(--header-height));
-		}
 	}
 </style>

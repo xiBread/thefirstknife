@@ -35,7 +35,11 @@
 		{@render children?.()}
 	</button>
 {:else}
-	<button class={cn("button", sizes[size], className)} type="button" {...rest}>
+	<button
+		class={cn("interactable button text-sm uppercase", sizes[size], className)}
+		type="button"
+		{...rest}
+	>
 		{@render children?.()}
 	</button>
 {/if}
