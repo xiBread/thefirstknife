@@ -8,7 +8,7 @@
 	import tools from "$lib/tools.json";
 	import classItems from "./data.json";
 
-	let selected = $state<string>("solipsism");
+	let selected = $state<string>("");
 	let perks = $state<string[][]>();
 
 	$effect(() => {
