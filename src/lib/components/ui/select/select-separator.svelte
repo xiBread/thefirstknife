@@ -1,11 +1,8 @@
 <script lang="ts">
-	import { Select as SelectPrimitive } from "bits-ui";
-	import { cn } from "$lib/utils.js";
+	import { Select } from "bits-ui";
+	import { cn } from "$lib/utils";
 
-	type $$Props = SelectPrimitive.SeparatorProps;
-
-	let className: $$Props["class"] = undefined;
-	export { className as class };
+	const { children, class: className, ...rest }: Select.SeparatorProps = $props();
 </script>
 
-<SelectPrimitive.Separator class={cn("-mx-1 my-1 h-px bg-muted", className)} {...$$restProps} />
+<Select.Separator class={cn("-mx-1 my-1 h-px bg-muted", className)} {...rest} />

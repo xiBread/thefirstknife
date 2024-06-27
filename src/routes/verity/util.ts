@@ -1,4 +1,8 @@
-import type { Room } from "./+page.svelte";
+export interface Room {
+	name: string;
+	shapes: string[];
+	selected: string[];
+}
 
 interface RoomState {
 	inside: string;

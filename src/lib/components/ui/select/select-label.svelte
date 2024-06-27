@@ -1,13 +1,10 @@
 <script lang="ts">
-	import { Select as SelectPrimitive } from "bits-ui";
-	import { cn } from "$lib/utils.js";
+	import { Select } from "bits-ui";
+	import { cn } from "$lib/utils";
 
-	type $$Props = SelectPrimitive.LabelProps;
-
-	let className: $$Props["class"] = undefined;
-	export { className as class };
+	const { children, class: className, ...rest }: Select.LabelProps = $props();
 </script>
 
-<SelectPrimitive.Label class={cn("px-2 py-1.5 text-sm font-semibold", className)} {...$$restProps}>
-	<slot />
-</SelectPrimitive.Label>
+<Select.Label class={cn("px-2 py-1.5 text-sm font-semibold", className)} {...rest}>
+	{@render children?.()}
+</Select.Label>
