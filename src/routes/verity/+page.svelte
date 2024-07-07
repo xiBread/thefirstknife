@@ -1,6 +1,5 @@
 <script lang="ts">
 	import CheckCheck from "lucide-svelte/icons/check-check";
-	import CircleSlash from "lucide-svelte/icons/circle-slash";
 	import UserRound from "lucide-svelte/icons/user-round";
 	import UsersRound from "lucide-svelte/icons/users-round";
 	import { onMount } from "svelte";
@@ -17,6 +16,7 @@
 	import tools from "$lib/tools.json";
 
 	import { reverseMappings, isDisabled, solve, type Room } from "./util";
+	import { Button } from "$lib/components/ui/button";
 
 	const emptyState = ["", "", ""];
 
@@ -39,12 +39,12 @@
 		{
 			name: "Inside",
 			shapes: ["circle", "square", "triangle"],
-			selected: [...emptyState],
+			selected: [...devState1],
 		},
 		{
 			name: "Outside",
 			shapes: ["sphere", "cube", "pyramid", "cylinder", "prism", "cone"],
-			selected: [...emptyState],
+			selected: [...devState2],
 		},
 	]);
 
@@ -123,8 +123,9 @@
 				side.
 			</p>
 			<p>
-				If you have the <code>Verification</code> setting enabled, an accompanying line after
-				each swap will display what each statue outside should be holding.
+				If you have the <code>Verification</code> setting enabled, an accompanying line
+				after each swap will display what each statue outside should be holding in
+				<span class="blue">blue</span>.
 			</p>
 			<p>
 				For a comprehensive break down of the encounter, I recommend reading this
@@ -178,13 +179,11 @@
 								bind:value={room.selected[i]}
 							>
 								{#each room.shapes as shape}
-									{@const disabled = isDisabled(room, shape, i)}
-
 									<div class="flex flex-col items-center">
 										<ToggleGroup.Item
 											class="interactable button size-14"
 											value={shape}
-											{disabled}
+											disabled={isDisabled(room, shape, i)}
 										>
 											<svg
 												class="size-10"
@@ -215,20 +214,28 @@
 					</div>
 
 					<div
-						class="grid grid-cols-3 items-center justify-center gap-y-6"
+						class="relative grid grid-cols-3 items-center justify-center gap-2"
 						bind:this={steps}
 					>
 						{#each groups as group}
+							{@const isVerify = "verify" in group}
+
 							{#each filterGroup(group) as steps}
 								{#each steps as step}
-									<div class="flex flex-col items-center">
+									<div class="relative flex justify-center">
 										{#if step.value}
-											<svg
-												class="size-12"
-												use:inlineSvg={`/icons/shapes/${reverseMappings[step.value]}.svg`}
-											/>
+											<Button
+												class="pointer-events-none size-14 p-0 {isVerify &&
+													'blue'}"
+												disabled
+											>
+												<svg
+													class="size-10"
+													use:inlineSvg={`/icons/shapes/${reverseMappings[step.value]}.svg`}
+												/>
+											</Button>
 										{:else}
-											<CircleSlash class="size-12 stroke-1 text-white/30" />
+											<img class="size-10" src="/img/missing.png" alt="" />
 										{/if}
 									</div>
 								{/each}
@@ -287,6 +294,10 @@
 
 	aside {
 		padding-top: calc(1rem + var(--header-height));
+	}
+
+	:global(#verity .blue) {
+		color: #01d9f8;
 	}
 
 	.reset {
