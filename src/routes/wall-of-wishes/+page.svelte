@@ -3,11 +3,8 @@
 	import { Button } from "$lib/components/ui/button";
 	import * as Select from "$lib/components/ui/select";
 	import Seo from "$lib/components/Seo.svelte";
-	import { subtitle } from "$lib/stores";
 	import tools from "$lib/tools.json";
 	import wishes from "./wishes";
-
-	subtitle.set("Wall of Wishes");
 
 	let selected = $state<{ value: number }>();
 	let wish = $derived(wishes[selected?.value ?? -1]);
@@ -32,7 +29,7 @@
 />
 
 <div class="flex flex-col items-center justify-center py-12">
-	<div class="flex items-center gap-x-2">
+	<div class="flex items-center gap-x-1">
 		<Select.Root bind:selected onSelectedChange={(item) => (selected = item)}>
 			<Select.Trigger class="w-[300px]">
 				<Select.Value placeholder="Select a wish" />
@@ -45,7 +42,7 @@
 			</Select.Content>
 		</Select.Root>
 
-		<Button size="icon" variant="outline" on:click={() => (selected = { value: -1 })}>
+		<Button size="square" onclick={() => (selected = { value: -1 })}>
 			<RotateCw class="size-5" />
 		</Button>
 	</div>

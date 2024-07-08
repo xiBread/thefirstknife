@@ -1,32 +1,38 @@
 <script lang="ts" context="module">
-	type Shape = keyof typeof shapes;
+	import { persisted } from "svelte-persisted-store";
 
-	export interface Room {
-		name: string;
-		shapes: Shape[];
-		selected: string[];
-	}
+	export const settings = persisted("verity_settings", {
+		labels: true,
+		verify: true,
+		autoScroll: true,
+	});
 </script>
 
 <script lang="ts">
-	import CircleSlash from "lucide-svelte/icons/circle-slash";
-	import RotateCw from "lucide-svelte/icons/rotate-cw";
+	import CheckCheck from "lucide-svelte/icons/check-check";
+	import UserRound from "lucide-svelte/icons/user-round";
+	import UsersRound from "lucide-svelte/icons/users-round";
+	import { onMount } from "svelte";
+	import { inlineSvg } from "@svelte-put/inline-svg";
+
+	import { goto } from "$app/navigation";
 	import { Button } from "$lib/components/ui/button";
 	import { Separator } from "$lib/components/ui/separator";
 	import * as ToggleGroup from "$lib/components/ui/toggle-group";
-	import * as Tooltip from "$lib/components/ui/tooltip";
 	import Seo from "$lib/components/Seo.svelte";
-	import { subtitle } from "$lib/stores";
 	import tools from "$lib/tools.json";
-	import * as shapes from "./shapes";
-	import { reverseMappings, isDisabled, solve } from "./util";
-	import Guide from "./Guide.svelte";
-	import Settings, { settings } from "./Settings.svelte";
 
-	subtitle.set("Verity");
+	import Sidebar from "./Sidebar.svelte";
+	import { reverseMappings, isDisabled, solve, type Room } from "./util";
 
 	const emptyState = ["", "", ""];
 
+	// dev only
+	// const devState1 = ["circle", "square", "triangle"];
+	// const devState2 = ["sphere", "prism", "prism"];
+
+	let footerHeight = $state(0);
+	let sidebar = $state<HTMLElement>();
 	let steps = $state<HTMLElement>();
 	let groups = $state<ReturnType<typeof solve>>([]);
 
@@ -42,6 +48,10 @@
 			selected: [...emptyState],
 		},
 	]);
+
+	onMount(() => {
+		if (sidebar) sidebar.style.marginBottom = `${footerHeight}px`;
+	});
 
 	$effect(() => {
 		const filled = rooms.flatMap((room) => room.selected).filter(Boolean);
@@ -64,7 +74,17 @@
 		rooms[0].selected = [...emptyState];
 		rooms[1].selected = [...emptyState];
 	}
+
+	async function handleKey(event: KeyboardEvent) {
+		if (event.key.toLowerCase() === "f") {
+			reset();
+		} else if (event.key === "Escape") {
+			await goto("/");
+		}
+	}
 </script>
+
+<svelte:window onkeydown={handleKey} />
 
 <Seo
 	title="{tools.verity.title} | The First Knife"
@@ -82,105 +102,138 @@
 	image="/img/{tools.verity.img}"
 />
 
-<div class="flex flex-col py-12">
-	<div class="space-y-12">
-		{#each rooms as room}
-			<div class="grid grid-cols-3 gap-x-4">
-				<h3 class="col-span-full mb-2 text-center text-4xl font-bold">{room.name}</h3>
+<div id="verity" class="relative h-full">
+	<Sidebar marginBottom={footerHeight} />
 
-				{#each ["Left", "Middle", "Right"] as side, i}
-					<div class="flex flex-col items-center">
-						<h4 class="mb-2 text-xl font-medium">{side}</h4>
+	<div class="px-8 pb-28 md:ml-[var(--sidebar-width)] md:pt-1">
+		<div class="space-y-12">
+			{#each rooms as room}
+				<div class="group grid grid-cols-3 gap-x-4" data-room={room.name}>
+					<div class="col-span-full mb-6 flex w-full items-start text-white/60">
+						<svelte:component
+							this={room.name === "Inside" ? UserRound : UsersRound}
+							class="mt-0.5 size-5 stroke-[1.5]"
+						/>
 
-						<ToggleGroup.Root
-							class="grid grid-cols-1 gap-x-10 gap-y-4 lg:grid-cols-3"
-							size="lg"
-							onValueChange={(value) => {
-								room.selected[i] = !value ? "" : `${value}`;
-							}}
-							bind:value={room.selected[i]}
-						>
-							{#each room.shapes as shape}
-								{@const disabled = isDisabled(room, shape, i)}
+						<div class="ml-2 w-full">
+							<p class="font-light uppercase tracking-[0.15em]">{room.name}</p>
 
-								<div class="flex flex-col items-center">
-									<ToggleGroup.Item class="size-14" value={shape} {disabled}>
-										<div class="*:size-12">
-											{@html shapes[shape]}
-										</div>
-									</ToggleGroup.Item>
-
-									{#if $settings.labels}
-										<span
-											class="mt-1 capitalize {disabled &&
-												'text-foreground/30'}"
-											class:underline={room.selected[i] === shape}
-										>
-											{shape}
-										</span>
-									{/if}
-								</div>
-							{/each}
-						</ToggleGroup.Root>
+							<Separator />
+						</div>
 					</div>
-				{/each}
-			</div>
-		{/each}
-	</div>
 
-	{#if groups.length}
-		<Separator class="my-10" />
+					{#each ["Left", "Middle", "Right"] as side, i}
+						<div class="flex flex-col items-center gap-y-2">
+							<ToggleGroup.Root
+								class="grid grid-cols-1 gap-2 group-data-[room='Outside']:grid-cols-2 lg:!grid-cols-3"
+								onValueChange={(value) => {
+									room.selected[i] = !value ? "" : `${value}`;
+								}}
+								bind:value={room.selected[i]}
+							>
+								{#each room.shapes as shape}
+									<div class="flex flex-col items-center">
+										<ToggleGroup.Item
+											class="interactable button size-14"
+											value={shape}
+											disabled={isDisabled(room, shape, i)}
+										>
+											<svg
+												class="size-10"
+												use:inlineSvg={`/icons/shapes/${shape}.svg`}
+											/>
+										</ToggleGroup.Item>
+									</div>
+								{/each}
+							</ToggleGroup.Root>
 
-		<div
-			id="steps"
-			class="grid grid-cols-3 items-center justify-center gap-y-4"
-			bind:this={steps}
-		>
-			{#each groups as group}
-				{#each filterGroup(group) as steps}
-					{#each steps as step}
-						<div class="flex flex-col items-center">
-							{#if step.value}
-								{@const shape = reverseMappings[step.value]}
-
-								<div class="p-2 *:size-12">
-									{@html shapes[shape as Shape]}
-								</div>
-
-								{#if $settings.labels}
-									<span class="mt-1 capitalize">{shape}</span>
-								{/if}
-							{:else}
-								<CircleSlash class="size-16 stroke-1 p-2 text-foreground/30" />
-
-								{#if $settings.labels}
-									<span class="mt-1 capitalize text-foreground/30">None</span>
-								{/if}
-							{/if}
+							<p class=" text-xs uppercase tracking-wide text-white/60">
+								{side}
+							</p>
 						</div>
 					{/each}
-				{/each}
+				</div>
 			{/each}
+
+			<div>
+				{#if groups.length}
+					<div class="mb-6 flex w-full items-start text-white/60">
+						<CheckCheck class="mt-0.5 size-5 stroke-[1.5]" />
+
+						<div class="ml-2 w-full">
+							<p class="font-light uppercase tracking-[0.15em]">Solution</p>
+							<Separator />
+						</div>
+					</div>
+
+					<div
+						class="relative grid grid-cols-3 items-center justify-center gap-2"
+						bind:this={steps}
+					>
+						{#each groups as group}
+							{@const isVerify = "verify" in group}
+
+							{#each filterGroup(group) as steps}
+								{#each steps as step}
+									<div class="relative flex justify-center">
+										{#if step.value}
+											<Button
+												class="pointer-events-none size-14 p-0 {isVerify &&
+													'blue'}"
+												disabled
+											>
+												<svg
+													class="size-10"
+													use:inlineSvg={`/icons/shapes/${reverseMappings[step.value]}.svg`}
+												/>
+											</Button>
+										{:else}
+											<img class="size-10" src="/img/missing.png" alt="" />
+										{/if}
+									</div>
+								{/each}
+							{/each}
+						{/each}
+					</div>
+				{/if}
+			</div>
 		</div>
-	{/if}
-</div>
-
-<div class="fixed left-4 top-1/2 -translate-y-1/2 rounded-full">
-	<div class="flex flex-col gap-y-2.5">
-		<Guide />
-
-		<Tooltip.Root openDelay={150}>
-			<Tooltip.Trigger asChild let:builder>
-				<Button class="rounded-full" size="icon" builders={[builder]} on:click={reset}>
-					<RotateCw class="size-5" />
-				</Button>
-			</Tooltip.Trigger>
-
-			<Tooltip.Content side="left">
-				<p class="font-medium">Reset</p>
-			</Tooltip.Content>
-		</Tooltip.Root>
-
-		<Settings />
 	</div>
+
+	<footer
+		class="fixed bottom-0 flex w-full justify-end bg-black/50 px-20 pb-8 pt-4 backdrop-blur"
+		bind:offsetHeight={footerHeight}
+	>
+		<div class="flex select-none items-center gap-x-1 font-light">
+			<button
+				class="reset border border-transparent p-1 hover:border-white active:bg-white/30"
+				onclick={reset}
+			>
+				<kbd></kbd> Reset
+			</button>
+
+			<button
+				class="border border-transparent p-1 transition-colors duration-500 hover:border-white"
+				onclick={async () => await goto("/")}
+			>
+				<kbd></kbd> Back to Home
+			</button>
+		</div>
+	</footer>
 </div>
+
+<style>
+	#verity {
+		--sidebar-width: theme("spacing.96");
+	}
+
+	:global(#verity .blue) {
+		color: #01d9f8;
+	}
+
+	.reset {
+		transition:
+			border-color 500ms,
+			background-color 100ms;
+	}
+</style>

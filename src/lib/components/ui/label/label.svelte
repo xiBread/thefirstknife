@@ -1,19 +1,16 @@
 <script lang="ts">
-	import { Label as LabelPrimitive } from "bits-ui";
-	import { cn } from "$lib/utils.js";
+	import { Label } from "bits-ui";
+	import { cn } from "$lib/utils";
 
-	type $$Props = LabelPrimitive.Props;
-
-	let className: $$Props["class"] = undefined;
-	export { className as class };
+	const { children, class: className, ...rest }: Label.Props = $props();
 </script>
 
-<LabelPrimitive.Root
+<Label.Root
 	class={cn(
 		"text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70",
-		className
+		className,
 	)}
-	{...$$restProps}
+	{...rest}
 >
-	<slot />
-</LabelPrimitive.Root>
+	{@render children?.()}
+</Label.Root>

@@ -2,78 +2,137 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer base {
-  :root {
-    --background: 0 0% 100%;
-    --foreground: 0 0% 3.9%;
-
-    --muted: 0 0% 96.1%;
-    --muted-foreground: 0 0% 45.1%;
-
-    --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 3.9%;
-
-    --card: 0 0% 100%;
-    --card-foreground: 0 0% 3.9%;
-
-    --border: 0 0% 89.8%;
-    --input: 0 0% 89.8%;
-
-    --primary: 0 0% 9%;
-    --primary-foreground: 0 0% 98%;
-
-    --secondary: 0 0% 96.1%;
-    --secondary-foreground: 0 0% 9%;
-
-    --accent: 0 0% 96.1%;
-    --accent-foreground: 0 0% 9%;
-
-    --destructive: 0 72.2% 50.6%;
-    --destructive-foreground: 0 0% 98%;
-
-    --ring: 0 0% 3.9%;
-
-    --radius: 0.5rem;
-  }
-
-  .dark {
-    --background: 0 0% 3.9%;
-    --foreground: 0 0% 98%;
-
-    --muted: 0 0% 14.9%;
-    --muted-foreground: 0 0% 63.9%;
-
-    --popover: 0 0% 3.9%;
-    --popover-foreground: 0 0% 98%;
-
-    --card: 0 0% 3.9%;
-    --card-foreground: 0 0% 98%;
-
-    --border: 0 0% 14.9%;
-    --input: 0 0% 14.9%;
-
-    --primary: 0 0% 98%;
-    --primary-foreground: 0 0% 9%;
-
-    --secondary: 0 0% 14.9%;
-    --secondary-foreground: 0 0% 98%;
-
-    --accent: 0 0% 14.9%;
-    --accent-foreground: 0 0% 98%;
-
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 0 0% 98%;
-
-    --ring: 0 0% 83.1%;
-  }
+@font-face {
+	font-family: "Destiny 2 Symbols";
+	src: url("/fonts/destiny_symbols_pc.otf") format("opentype");
 }
 
 @layer base {
-  * {
-    @apply border-border;
-  }
+	:root {
+		--background: 180 5% 12%;
+		--foreground: 0 0% 100%;
 
-  body {
-    @apply bg-background text-foreground;
-  }
+		--muted: 180 9% 7%;
+		--muted-foreground: 0 0% 45.1%;
+
+		--popover: 0 0% 100%;
+		--popover-foreground: 0 0% 3.9%;
+
+		--border: 0 0% 89.8%;
+		--input: 0 0% 89.8%;
+
+		--primary: 0 0% 9%;
+		--primary-foreground: 0 0% 98%;
+
+		--secondary: 0 0% 96.1%;
+		--secondary-foreground: 0 0% 9%;
+
+		--accent: 0 0% 96.1%;
+		--accent-foreground: 0 0% 9%;
+
+		--destructive: 0 72.2% 50.6%;
+		--destructive-foreground: 0 0% 98%;
+
+		--ring: 0 0% 3.9%;
+
+		--header-height: theme("size.14");
+	}
+
+	* {
+		border-color: hsl(0 0 100% / 60%);
+	}
+
+	*::-webkit-scrollbar {
+		width: 10px;
+		background: #131418;
+	}
+
+	*::-webkit-scrollbar-thumb {
+		background: #616266;
+	}
+
+	body {
+		@apply font-sans;
+
+		background: fixed linear-gradient(180deg, #404148, #131418);
+		color: white;
+	}
+
+	kbd {
+		font-family: "Destiny 2 Symbols";
+	}
+}
+
+@layer components {
+	.no-scrollbar {
+		scrollbar-width: 0;
+
+		&::-webkit-scrollbar {
+			width: 0;
+		}
+	}
+
+	.interactable {
+		@apply text-sm;
+
+		position: relative;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		background-color: hsl(0 0% 100% / 15%);
+		transition:
+			color 300ms,
+			opacity 300ms,
+			background-color 300ms,
+			box-shadow 300ms;
+
+		&::before,
+		&::after {
+			content: "";
+			position: absolute;
+			top: 0;
+			left: 0;
+		}
+
+		&::before {
+			height: 100%;
+			width: 100%;
+			box-shadow: inset 0 0 0 1px hsl(0 0 100% / 20%);
+			transition: inherit;
+		}
+
+		&::after {
+			height: calc(100% + 4px);
+			width: calc(100% + 4px);
+			transform: scale(1.05) translate3d(-2px, -2px, 0);
+			transition:
+				box-shadow 300ms,
+				transform 300ms;
+		}
+
+		&:hover {
+			background-color: hsl(0 0 100% / 40%);
+
+			&::before {
+				box-shadow: inset 0 0 0 2px #fff;
+			}
+
+			&::after {
+				box-shadow: 0 0 0 2px hsl(0 0 100% / 60%);
+				transform: scale(1) translate3d(-2px, -2px, 0);
+			}
+		}
+
+		&.button[data-disabled="true"] {
+			color: hsl(0 0 100% / 40%);
+			opacity: 0.5;
+			pointer-events: none;
+		}
+
+		&.button[data-state="on"],
+		&[data-selected] {
+			background-color: hsl(0 0 100% / 30%);
+			box-shadow: inset 0 0 0 1px hsl(0 0 100% / 40%);
+		}
+	}
 }

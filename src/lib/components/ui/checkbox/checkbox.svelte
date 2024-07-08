@@ -1,35 +1,29 @@
 <script lang="ts">
-	import { Checkbox as CheckboxPrimitive } from "bits-ui";
-	import Check from "svelte-radix/Check.svelte";
-	import Minus from "svelte-radix/Minus.svelte";
-	import { cn } from "$lib/utils.js";
+	import Check from "lucide-svelte/icons/check";
+	import Minus from "lucide-svelte/icons/minus";
+	import { Checkbox } from "bits-ui";
+	import { cn } from "$lib/utils";
 
-	type $$Props = CheckboxPrimitive.Props;
-	type $$Events = CheckboxPrimitive.Events;
-
-	let className: $$Props["class"] = undefined;
-	export let checked: $$Props["checked"] = false;
-	export { className as class };
+	let { class: className, checked = $bindable(false), ...rest }: Checkbox.Props = $props();
 </script>
 
-<CheckboxPrimitive.Root
+<Checkbox.Root
 	class={cn(
-		"peer box-content h-4 w-4 shrink-0 rounded-sm border border-primary shadow focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 data-[disabled=true]:cursor-not-allowed data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground data-[disabled=true]:opacity-50",
-		className
+		"interactable peer box-content size-4 shrink-0 focus-visible:outline-none",
+		className,
 	)}
+	{...rest}
 	bind:checked
-	on:click
-	{...$$restProps}
 >
-	<CheckboxPrimitive.Indicator
-		class={cn("flex h-4 w-4 items-center justify-center text-current")}
+	<Checkbox.Indicator
+		class={cn("flex size-4 items-center justify-center text-current")}
 		let:isChecked
 		let:isIndeterminate
 	>
 		{#if isIndeterminate}
-			<Minus class="h-3.5 w-3.5" />
+			<Minus class="size-3.5" />
 		{:else}
-			<Check class={cn("h-3.5 w-3.5", !isChecked && "text-transparent")} />
+			<Check class={cn("size-3.5", !isChecked && "text-transparent")} />
 		{/if}
-	</CheckboxPrimitive.Indicator>
-</CheckboxPrimitive.Root>
+	</Checkbox.Indicator>
+</Checkbox.Root>

@@ -1,36 +1,34 @@
 <script lang="ts">
-	import { Select as SelectPrimitive } from "bits-ui";
+	import { Select } from "bits-ui";
 	import { scale } from "svelte/transition";
-	import { cn, flyAndScale } from "$lib/utils.js";
+	import { cn, flyAndScale } from "$lib/utils";
 
-	type $$Props = SelectPrimitive.ContentProps;
-
-	let className: $$Props["class"] = undefined;
-	export let sideOffset: $$Props["sideOffset"] = 4;
-	export let inTransition: $$Props["inTransition"] = flyAndScale;
-	export let inTransitionConfig: $$Props["inTransitionConfig"] = undefined;
-	export let outTransition: $$Props["outTransition"] = scale;
-	export let outTransitionConfig: $$Props["outTransitionConfig"] = {
-		start: 0.95,
-		opacity: 0,
-		duration: 50,
-	};
-	export { className as class };
+	const {
+		children,
+		class: className,
+		sideOffset = 4,
+		inTransition = flyAndScale,
+		inTransitionConfig,
+		outTransition = scale,
+		outTransitionConfig = {
+			start: 0.95,
+			opacity: 0,
+			duration: 50,
+		},
+		...rest
+	}: Select.ContentProps = $props();
 </script>
 
-<SelectPrimitive.Content
+<Select.Content
+	class={cn("relative z-50 min-w-[8rem] focus:outline-none", className)}
+	{sideOffset}
 	{inTransition}
 	{inTransitionConfig}
 	{outTransition}
 	{outTransitionConfig}
-	{sideOffset}
-	class={cn(
-		"relative z-50 min-w-[8rem] overflow-hidden rounded-md border bg-popover text-popover-foreground shadow-md focus:outline-none",
-		className
-	)}
-	{...$$restProps}
+	{...rest}
 >
-	<div class="w-full p-1">
-		<slot />
+	<div class="w-full space-y-1">
+		{@render children?.()}
 	</div>
-</SelectPrimitive.Content>
+</Select.Content>
