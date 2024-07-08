@@ -54,7 +54,7 @@
 	body {
 		@apply font-sans;
 
-		background: linear-gradient(180deg, #404148, #131418);
+		background: fixed linear-gradient(180deg, #404148, #131418);
 		color: white;
 	}
 
@@ -79,7 +79,7 @@
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		background-color: hsla(0, 0%, 100%, 0.15);
+		background-color: hsl(0 0% 100% / 15%);
 		transition:
 			color 300ms,
 			opacity 300ms,
@@ -97,7 +97,7 @@
 		&::before {
 			height: 100%;
 			width: 100%;
-			box-shadow: inset 0 0 0 1px color-mix(in srgb, #fff 20%, #0000);
+			box-shadow: inset 0 0 0 1px hsl(0 0 100% / 20%);
 			transition: inherit;
 		}
 
@@ -111,28 +111,28 @@
 		}
 
 		&:hover {
-			background-color: color-mix(in srgb, #fff 40%, #0000);
+			background-color: hsl(0 0 100% / 40%);
 
 			&::before {
 				box-shadow: inset 0 0 0 2px #fff;
 			}
 
 			&::after {
-				box-shadow: 0 0 0 2px color-mix(in srgb, #fff 60%, #0000);
+				box-shadow: 0 0 0 2px hsl(0 0 100% / 60%);
 				transform: scale(1) translate3d(-2px, -2px, 0);
 			}
 		}
 
 		&.button[data-disabled="true"] {
-			color: color-mix(in srgb, #fff 40%, #0000);
+			color: hsl(0 0 100% / 40%);
 			opacity: 0.5;
 			pointer-events: none;
 		}
 
 		&.button[data-state="on"],
 		&[data-selected] {
-			background-color: color-mix(in srgb, #fff 30%, #0000);
-			box-shadow: inset 0 0 0 1px color-mix(in srgb, #fff 40%, #0000);
+			background-color: hsl(0 0 100% / 30%);
+			box-shadow: inset 0 0 0 1px hsl(0 0 100% / 40%);
 		}
 	}
 }
