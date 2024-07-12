@@ -201,7 +201,7 @@
 	</div>
 
 	<footer
-		class="fixed bottom-0 flex w-full justify-end bg-black/50 px-20 pb-8 pt-4 backdrop-blur"
+		class="fixed bottom-0 flex w-full justify-end bg-black/50 px-20 py-4 backdrop-blur"
 		bind:offsetHeight={footerHeight}
 	>
 		<div class="flex select-none items-center gap-x-1 font-light">
