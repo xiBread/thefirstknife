@@ -1,5 +1,6 @@
 import { Lucia } from "lucia";
 import { OAuth2Client } from "oslo/oauth2";
+import { Cookies } from "@sveltejs/kit";
 import { dev } from "$app/environment";
 import { BUNGIE_CLIENT_ID } from "$env/static/private";
 import { adapter } from "$lib/server/database";
@@ -26,7 +27,7 @@ const redirectBase = dev ? "https://localhost:5173" : "https://thefirstknife.ver
 export const oauth = new OAuth2Client(
 	BUNGIE_CLIENT_ID,
 	"https://www.bungie.net/en/oauth/authorize",
-	"https://www.bungie.net/platform/app/oauth/token/",
+	"https://www.bungie.net/platform/app/oauth/token",
 	{ redirectURI: `${redirectBase}/auth/callback` },
 );
 
@@ -40,6 +41,25 @@ export const auth = new Lucia(adapter, {
 		return attributes;
 	},
 });
+
+export function setAuthCookie(cookies: Cookies, tokens: BungieTokenResponse) {
+	cookies.set(
+		"bungie_auth",
+		JSON.stringify({
+			accessToken: tokens.access_token,
+			accessExpiration: Date.now() + tokens.expires_in * 1000,
+			refreshToken: tokens.refresh_token,
+			refreshExpiration: Date.now() + tokens.refresh_expires_in * 1000,
+			membershipId: tokens.membership_id,
+		}),
+		{
+			path: "/",
+			secure: import.meta.env.PROD,
+			httpOnly: true,
+			sameSite: "lax",
+		},
+	);
+}
 
 declare module "lucia" {
 	interface Register {

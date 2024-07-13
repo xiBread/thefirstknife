@@ -1,7 +1,10 @@
-import { auth, getMembership } from "$lib/server";
-import { tokens } from "$lib/stores";
+import { getMembership } from "$lib/server";
+import { auth, type Tokens } from "$lib/server/auth";
 
 export async function handle({ event, resolve }) {
+	const tokens = JSON.parse(event.cookies.get("bungie_auth") ?? "null") as Tokens | null;
+	event.locals.tokens = tokens;
+
 	if (event.url.pathname.includes("refresh")) {
 		return resolve(event);
 	}
@@ -30,14 +33,12 @@ export async function handle({ event, resolve }) {
 		});
 	}
 
-	const expiryDate = tokens.value.accessExpiration;
-
-	if (expiryDate && expiryDate < Date.now()) {
+	if (tokens?.accessExpiration && tokens.accessExpiration < Date.now()) {
 		await event.fetch("/auth/refresh");
 	}
 
-	if (tokens.value.accessToken) {
-		event.locals.membership ??= await getMembership(tokens.value.accessToken);
+	if (tokens?.accessToken) {
+		event.locals.membership ??= await getMembership(tokens.accessToken);
 	}
 
 	event.locals.user = user;
