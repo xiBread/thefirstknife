@@ -43,22 +43,22 @@ export const auth = new Lucia(adapter, {
 });
 
 export function setAuthCookie(cookies: Cookies, tokens: BungieTokenResponse) {
-	cookies.set(
-		"bungie_auth",
-		JSON.stringify({
-			accessToken: tokens.access_token,
-			accessExpiration: Date.now() + tokens.expires_in * 1000,
-			refreshToken: tokens.refresh_token,
-			refreshExpiration: Date.now() + tokens.refresh_expires_in * 1000,
-			membershipId: tokens.membership_id,
-		}),
-		{
-			path: "/",
-			secure: import.meta.env.PROD,
-			httpOnly: true,
-			sameSite: "lax",
-		},
-	);
+	const parsed = {
+		accessToken: tokens.access_token,
+		accessExpiration: Date.now() + tokens.expires_in * 1000,
+		refreshToken: tokens.refresh_token,
+		refreshExpiration: Date.now() + tokens.refresh_expires_in * 1000,
+		membershipId: tokens.membership_id,
+	};
+
+	cookies.set("bungie_auth", JSON.stringify(parsed), {
+		path: "/",
+		secure: import.meta.env.PROD,
+		httpOnly: true,
+		sameSite: "lax",
+	});
+
+	return parsed;
 }
 
 declare module "lucia" {

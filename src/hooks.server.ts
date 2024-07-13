@@ -34,11 +34,14 @@ export async function handle({ event, resolve }) {
 	}
 
 	if (tokens?.accessExpiration && tokens.accessExpiration < Date.now()) {
-		await event.fetch("/auth/refresh");
+		const response = await event.fetch("/auth/refresh");
+		const newTokens = await response.json();
+
+		event.locals.tokens = newTokens;
 	}
 
-	if (tokens?.accessToken) {
-		event.locals.membership ??= await getMembership(tokens.accessToken);
+	if (event.locals.tokens?.accessToken) {
+		event.locals.membership ??= await getMembership(event.locals.tokens.accessToken);
 	}
 
 	event.locals.user = user;
