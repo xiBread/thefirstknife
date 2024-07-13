@@ -2,6 +2,10 @@ import { auth, getMembership } from "$lib/server";
 import { tokens } from "$lib/stores";
 
 export async function handle({ event, resolve }) {
+	if (event.url.pathname.includes("refresh")) {
+		return resolve(event);
+	}
+
 	const sessionId = event.cookies.get(auth.sessionCookieName);
 
 	if (!sessionId) {
@@ -26,7 +30,7 @@ export async function handle({ event, resolve }) {
 		});
 	}
 
-	const expiryDate = tokens.value.refreshExpiration;
+	const expiryDate = tokens.value.accessExpiration;
 
 	if (expiryDate && expiryDate < Date.now()) {
 		await event.fetch("/auth/refresh");
