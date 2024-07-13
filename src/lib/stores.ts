@@ -1,3 +1,4 @@
-import { writable } from "svelte/store";
+import { Tokens } from "./server/auth";
+import { useStorage } from "./storage.svelte";
 
-export const subtitle = writable("Destiny 2 Toolkit");
+export const tokens = useStorage<Partial<Tokens>>("bungie_tokens", {});

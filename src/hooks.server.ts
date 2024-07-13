@@ -1,4 +1,5 @@
-import { auth } from "$lib/server/auth";
+import { auth } from "$lib/server";
+import { tokens } from "$lib/stores";
 
 export async function handle({ event, resolve }) {
 	const sessionId = event.cookies.get(auth.sessionCookieName);
@@ -20,9 +21,15 @@ export async function handle({ event, resolve }) {
 
 	if (cookie) {
 		event.cookies.set(cookie.name, cookie.value, {
-			path: ".",
+			path: "/",
 			...cookie.attributes,
 		});
+	}
+
+	const expiryDate = tokens.value.refreshExpiration;
+
+	if (expiryDate && expiryDate < Date.now()) {
+		await event.fetch("/auth/refresh");
 	}
 
 	event.locals.user = user;

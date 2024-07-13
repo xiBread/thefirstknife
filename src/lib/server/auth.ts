@@ -1,8 +1,25 @@
 import { Lucia } from "lucia";
+import { OAuth2Client } from "oslo/oauth2";
 import { dev } from "$app/environment";
 import { BUNGIE_CLIENT_ID } from "$env/static/private";
 import { adapter } from "$lib/server/database";
-import { OAuth2Client } from "oslo/oauth2";
+
+export interface Tokens {
+	accessToken: string;
+	accessExpiration: number;
+	refreshToken: string;
+	refreshExpiration: number;
+	membershipId: string;
+}
+
+export interface BungieTokenResponse {
+	access_token: string;
+	token_type: "Bearer";
+	expires_in: number;
+	refresh_token: string;
+	refresh_expires_in: number;
+	membership_id: string;
+}
 
 const redirectBase = dev ? "https://localhost:5173" : "https://thefirstknife.vercel.app";
 

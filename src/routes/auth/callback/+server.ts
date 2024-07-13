@@ -1,19 +1,11 @@
+import { getBungieNetUserById } from "bungie-api-ts/user";
 import { eq } from "drizzle-orm";
 import { generateIdFromEntropySize } from "lucia";
 import { OAuth2RequestError } from "oslo/oauth2";
 import { BUNGIE_CLIENT_SECRET } from "$env/static/private";
-import { auth, oauth } from "$lib/server/auth";
-import { bungie } from "$lib/server/bungie";
+import { auth, type BungieTokenResponse, oauth, http } from "$lib/server";
 import { db, users } from "$lib/server/database";
-
-interface BungieTokenResponse {
-	access_token: string;
-	token_type: "Bearer";
-	expires_in: number;
-	refresh_token: string;
-	refresh_expires_in: number;
-	membership_id: string;
-}
+import { tokens } from "$lib/stores";
 
 export async function GET(event) {
 	const code = event.url.searchParams.get("code");
@@ -25,11 +17,21 @@ export async function GET(event) {
 	}
 
 	try {
-		const tokens = await oauth.validateAuthorizationCode<BungieTokenResponse>(code, {
+		const tokenResponse = await oauth.validateAuthorizationCode<BungieTokenResponse>(code, {
 			credentials: BUNGIE_CLIENT_SECRET,
 		});
 
-		const user = await bungie.getBungieUser(tokens.membership_id);
+		tokens.value = {
+			accessToken: tokenResponse.access_token,
+			accessExpiration: Date.now() + tokenResponse.expires_in * 1000,
+			refreshToken: tokenResponse.refresh_token,
+			refreshExpiration: Date.now() + tokenResponse.refresh_expires_in * 1000,
+			membershipId: tokenResponse.membership_id,
+		};
+
+		const { Response: user } = await getBungieNetUserById(http(tokenResponse.access_token), {
+			id: tokenResponse.membership_id,
+		});
 
 		const [existingUser] = await db
 			.select({ id: users.id })
@@ -41,7 +43,7 @@ export async function GET(event) {
 			const cookie = auth.createSessionCookie(session.id);
 
 			event.cookies.set(cookie.name, cookie.value, {
-				path: ".",
+				path: "/",
 				...cookie.attributes,
 			});
 		} else {
@@ -58,7 +60,7 @@ export async function GET(event) {
 			const cookie = auth.createSessionCookie(session.id);
 
 			event.cookies.set(cookie.name, cookie.value, {
-				path: ".",
+				path: "/",
 				...cookie.attributes,
 			});
 		}
