@@ -8,9 +8,9 @@ export async function getMembership(token: string) {
 		(m) => m.crossSaveOverride === 0 || m.crossSaveOverride === m.membershipType,
 	);
 
-	if (memberships.length === 1) {
-		return memberships[0];
-	}
+	// if (memberships.length === 1) {
+	return memberships[0];
+	// }
 
 	// TODO: handle multiple accounts
 }

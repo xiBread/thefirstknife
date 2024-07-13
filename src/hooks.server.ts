@@ -1,4 +1,4 @@
-import { auth } from "$lib/server";
+import { auth, getMembership } from "$lib/server";
 import { tokens } from "$lib/stores";
 
 export async function handle({ event, resolve }) {
@@ -30,6 +30,10 @@ export async function handle({ event, resolve }) {
 
 	if (expiryDate && expiryDate < Date.now()) {
 		await event.fetch("/auth/refresh");
+	}
+
+	if (tokens.value.accessToken) {
+		event.locals.membership ??= await getMembership(tokens.value.accessToken);
 	}
 
 	event.locals.user = user;

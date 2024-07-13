@@ -1,17 +1,17 @@
 import { DestinyComponentType, getProfile } from "bungie-api-ts/destiny2";
-import { getMembership, http } from "$lib/server";
+import { http } from "$lib/server";
 import { tokens } from "$lib/stores";
 
-export async function load() {
+export async function load({ locals }) {
 	const token = tokens.value.accessToken;
-	if (!token) return { simple: true };
 
-	const membership = await getMembership(token);
-	if (!membership) return { simple: true };
+	if (!token || !locals.membership) {
+		return { simple: true };
+	}
 
 	const { Response: profile } = await getProfile(http(token), {
-		destinyMembershipId: membership.membershipId,
-		membershipType: membership.membershipType,
+		destinyMembershipId: locals.membership.membershipId,
+		membershipType: locals.membership.membershipType,
 		components: [
 			DestinyComponentType.CharacterInventories,
 			DestinyComponentType.ProfileInventories,

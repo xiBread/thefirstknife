@@ -3,6 +3,7 @@ declare global {
 		interface Locals {
 			user: import("lucia").User | null;
 			session: import("lucia").Session | null;
+			membership?: import("bungie-api-ts/groupv2").GroupUserInfoCard;
 		}
 
 		interface PageData {
