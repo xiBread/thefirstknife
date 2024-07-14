@@ -16,6 +16,8 @@ export async function GET(event) {
 	}
 
 	try {
+		let userId: string;
+
 		const tokens = await bungie.validateAuthorizationCode(code);
 		setAuthCookie(event.cookies, tokens);
 
@@ -29,15 +31,9 @@ export async function GET(event) {
 			.where(eq(users.memberId, user.membershipId));
 
 		if (existingUser) {
-			const session = await auth.createSession(existingUser.id, {});
-			const cookie = auth.createSessionCookie(session.id);
-
-			event.cookies.set(cookie.name, cookie.value, {
-				path: "/",
-				...cookie.attributes,
-			});
+			userId = existingUser.id;
 		} else {
-			const userId = generateIdFromEntropySize(10);
+			userId = generateIdFromEntropySize(10);
 
 			await db.insert(users).values({
 				id: userId,
@@ -45,15 +41,15 @@ export async function GET(event) {
 				bungieName: user.uniqueName,
 				displayName: user.displayName,
 			});
-
-			const session = await auth.createSession(userId, {});
-			const cookie = auth.createSessionCookie(session.id);
-
-			event.cookies.set(cookie.name, cookie.value, {
-				path: "/",
-				...cookie.attributes,
-			});
 		}
+
+		const session = await auth.createSession(userId, {});
+		const cookie = auth.createSessionCookie(session.id);
+
+		event.cookies.set(cookie.name, cookie.value, {
+			path: "/",
+			...cookie.attributes,
+		});
 	} catch (error) {
 		console.error(error);
 		return new Response(null, { status: error instanceof OAuth2RequestError ? 400 : 500 });
