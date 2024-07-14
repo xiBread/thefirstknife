@@ -29,7 +29,7 @@
 />
 
 <div class="flex flex-col items-center justify-center py-12">
-	<div class="flex items-center gap-x-1">
+	<div class="flex items-center gap-x-1.5">
 		<Select.Root bind:selected onSelectedChange={(item) => (selected = item)}>
 			<Select.Trigger class="w-[300px]">
 				<Select.Value placeholder="Select a wish" />

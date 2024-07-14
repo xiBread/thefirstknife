@@ -25,7 +25,7 @@
 			</a>
 		</div>
 
-		<div class="flex items-center gap-x-2 text-sm">
+		<div class="flex items-center gap-x-1.5 text-sm">
 			{#if $page.data.user}
 				{@const [username, discriminator] = $page.data.user.bungieName.split("#")}
 

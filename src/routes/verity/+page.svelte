@@ -125,7 +125,7 @@
 					{#each ["Left", "Middle", "Right"] as side, i}
 						<div class="flex flex-col items-center gap-y-2">
 							<ToggleGroup.Root
-								class="grid grid-cols-1 gap-2 group-data-[room='Outside']:grid-cols-2 lg:!grid-cols-3"
+								class="grid grid-cols-1 gap-1.5 group-data-[room='Outside']:grid-cols-2 lg:!grid-cols-3"
 								onValueChange={(value) => {
 									room.selected[i] = !value ? "" : `${value}`;
 								}}
