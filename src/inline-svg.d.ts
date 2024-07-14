@@ -4,6 +4,7 @@ declare module 'svelte/elements' {
 		'inline-src'?:
 			`./${string}`
 			| `../${string}`
+			| 'bungie'
 			| 'raid'
 			| 'shapes'
 			| 'shapes\circle'
