@@ -39,7 +39,7 @@
 				</Button>
 
 				<form method="post" action="/?/signOut">
-					<Button class="size-8" size="square" type="submit">
+					<Button class="size-8" size="square" type="submit" aria-label="Sign out">
 						<LogOut class="size-4" />
 					</Button>
 				</form>
