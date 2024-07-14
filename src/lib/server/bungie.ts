@@ -26,7 +26,7 @@ export class Bungie {
 		this.#client = new OAuth2Client(
 			BUNGIE_CLIENT_ID,
 			"https://www.bungie.net/en/oauth/authorize",
-			"https://www.bungie.net/platform/app/oauth/token",
+			"https://www.bungie.net/platform/app/oauth/token/",
 			{ redirectURI: BUNGIE_REDIRECT_URL },
 		);
 	}
