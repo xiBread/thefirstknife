@@ -1,6 +1,6 @@
-import { oauth } from "$lib/server/auth";
-import { redirect } from "@sveltejs/kit";
 import { generateState } from "oslo/oauth2";
+import { redirect } from "@sveltejs/kit";
+import { oauth } from "$lib/server/auth";
 
 export async function GET(event) {
 	const state = generateState();

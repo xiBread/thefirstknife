@@ -2,7 +2,7 @@ import { Lucia } from "lucia";
 import { OAuth2Client } from "oslo/oauth2";
 import { Cookies } from "@sveltejs/kit";
 import { dev } from "$app/environment";
-import { BUNGIE_CLIENT_ID } from "$env/static/private";
+import { BUNGIE_CLIENT_ID, BUNGIE_REDIRECT_URL } from "$env/static/private";
 import { adapter } from "$lib/server/database";
 
 export interface Tokens {
@@ -22,13 +22,11 @@ export interface BungieTokenResponse {
 	membership_id: string;
 }
 
-const redirectBase = dev ? "https://localhost:5173" : "https://thefirstknife.vercel.app";
-
 export const oauth = new OAuth2Client(
 	BUNGIE_CLIENT_ID,
 	"https://www.bungie.net/en/oauth/authorize",
 	"https://www.bungie.net/platform/app/oauth/token",
-	{ redirectURI: `${redirectBase}/auth/callback` },
+	{ redirectURI: `${BUNGIE_REDIRECT_URL}/auth/callback` },
 );
 
 export const auth = new Lucia(adapter, {

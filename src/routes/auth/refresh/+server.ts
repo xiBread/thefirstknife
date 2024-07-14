@@ -1,6 +1,6 @@
+import { json } from "@sveltejs/kit";
 import { BUNGIE_CLIENT_SECRET } from "$env/static/private";
 import { type BungieTokenResponse, oauth, setAuthCookie } from "$lib/server/auth";
-import { json } from "@sveltejs/kit";
 
 export async function GET({ locals, cookies }) {
 	if (!locals.tokens?.refreshToken) {
