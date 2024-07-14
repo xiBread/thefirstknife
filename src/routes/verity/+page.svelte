@@ -179,7 +179,7 @@
 										{#if step.value}
 											<Button
 												class="pointer-events-none size-14 p-0 {isVerify &&
-													'blue'}"
+													'text-sky-400'}"
 												disabled
 											>
 												<svg
@@ -225,10 +225,6 @@
 <style>
 	#verity {
 		--sidebar-width: theme("spacing.96");
-	}
-
-	:global(#verity .blue) {
-		color: #01d9f8;
 	}
 
 	.reset {

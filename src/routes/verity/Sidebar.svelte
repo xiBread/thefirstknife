@@ -29,7 +29,7 @@
 		<p>
 			If you have the <code>Verification</code> setting enabled, an accompanying line after
 			each swap will display what each statue outside should be holding in
-			<span class="blue">blue</span>.
+			<span class="text-sky-400">blue</span>.
 		</p>
 		<p>
 			For a comprehensive break down of the encounter, I recommend reading this

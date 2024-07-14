@@ -35,7 +35,7 @@
 					disabled
 				>
 					{username}
-					<span class="text-[#01d9f8]">#{discriminator}</span>
+					<span class="text-sky-400">#{discriminator}</span>
 				</Button>
 
 				<form method="post" action="/?/signOut">
