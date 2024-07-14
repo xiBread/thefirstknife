@@ -2,9 +2,8 @@ import { getBungieNetUserById } from "bungie-api-ts/user";
 import { eq } from "drizzle-orm";
 import { generateIdFromEntropySize } from "lucia";
 import { OAuth2RequestError } from "oslo/oauth2";
-import { BUNGIE_CLIENT_SECRET } from "$env/static/private";
 import { http } from "$lib/server";
-import { auth, type BungieTokenResponse, oauth, setAuthCookie } from "$lib/server/auth";
+import { auth, bungie, setAuthCookie } from "$lib/server/auth";
 import { db, users } from "$lib/server/database";
 
 export async function GET(event) {
@@ -17,14 +16,11 @@ export async function GET(event) {
 	}
 
 	try {
-		const tokens = await oauth.validateAuthorizationCode<BungieTokenResponse>(code, {
-			credentials: BUNGIE_CLIENT_SECRET,
-		});
-
+		const tokens = await bungie.validateAuthorizationCode(code);
 		setAuthCookie(event.cookies, tokens);
 
-		const { Response: user } = await getBungieNetUserById(http(tokens.access_token), {
-			id: tokens.membership_id,
+		const { Response: user } = await getBungieNetUserById(http(tokens.accessToken), {
+			id: tokens.membershipId,
 		});
 
 		const [existingUser] = await db

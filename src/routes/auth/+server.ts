@@ -1,10 +1,10 @@
 import { generateState } from "oslo/oauth2";
 import { redirect } from "@sveltejs/kit";
-import { oauth } from "$lib/server/auth";
+import { bungie } from "$lib/server/auth";
 
 export async function GET(event) {
 	const state = generateState();
-	const url = await oauth.createAuthorizationURL({ state });
+	const url = await bungie.createAuthorizationURL(state);
 
 	event.cookies.set("oauth_state", state, {
 		path: "/",

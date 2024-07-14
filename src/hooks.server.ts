@@ -1,8 +1,10 @@
+import dayjs from "dayjs";
 import { getMembership } from "$lib/server";
-import { auth, type Tokens } from "$lib/server/auth";
+import { auth } from "$lib/server/auth";
+import type { BungieTokens } from "$lib/server/bungie";
 
 export async function handle({ event, resolve }) {
-	const tokens = JSON.parse(event.cookies.get("bungie_auth") ?? "null") as Tokens | null;
+	const tokens = JSON.parse(event.cookies.get("bungie_auth") ?? "null") as BungieTokens | null;
 	event.locals.tokens = tokens;
 
 	if (event.url.pathname.includes("refresh")) {
@@ -33,7 +35,7 @@ export async function handle({ event, resolve }) {
 		});
 	}
 
-	if (tokens?.accessExpiration && tokens.accessExpiration < Date.now()) {
+	if (dayjs().isAfter(dayjs(tokens?.accessExpiration))) {
 		const response = await event.fetch("/auth/refresh");
 		const newTokens = await response.json();
 

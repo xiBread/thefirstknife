@@ -1,33 +1,10 @@
 import { Lucia } from "lucia";
-import { OAuth2Client } from "oslo/oauth2";
 import { Cookies } from "@sveltejs/kit";
 import { dev } from "$app/environment";
-import { BUNGIE_CLIENT_ID, BUNGIE_REDIRECT_URL } from "$env/static/private";
-import { adapter } from "$lib/server/database";
+import { Bungie, type BungieTokens } from "./bungie";
+import { adapter } from "./database";
 
-export interface Tokens {
-	accessToken: string;
-	accessExpiration: number;
-	refreshToken: string;
-	refreshExpiration: number;
-	membershipId: string;
-}
-
-export interface BungieTokenResponse {
-	access_token: string;
-	token_type: "Bearer";
-	expires_in: number;
-	refresh_token: string;
-	refresh_expires_in: number;
-	membership_id: string;
-}
-
-export const oauth = new OAuth2Client(
-	BUNGIE_CLIENT_ID,
-	"https://www.bungie.net/en/oauth/authorize",
-	"https://www.bungie.net/platform/app/oauth/token",
-	{ redirectURI: `${BUNGIE_REDIRECT_URL}/auth/callback` },
-);
+export const bungie = new Bungie();
 
 export const auth = new Lucia(adapter, {
 	sessionCookie: {
@@ -40,23 +17,13 @@ export const auth = new Lucia(adapter, {
 	},
 });
 
-export function setAuthCookie(cookies: Cookies, tokens: BungieTokenResponse) {
-	const parsed = {
-		accessToken: tokens.access_token,
-		accessExpiration: Date.now() + tokens.expires_in * 1000,
-		refreshToken: tokens.refresh_token,
-		refreshExpiration: Date.now() + tokens.refresh_expires_in * 1000,
-		membershipId: tokens.membership_id,
-	};
-
-	cookies.set("bungie_auth", JSON.stringify(parsed), {
+export function setAuthCookie(cookies: Cookies, tokens: BungieTokens) {
+	cookies.set("bungie_auth", JSON.stringify(tokens), {
 		path: "/",
 		secure: import.meta.env.PROD,
 		httpOnly: true,
 		sameSite: "lax",
 	});
-
-	return parsed;
 }
 
 declare module "lucia" {
