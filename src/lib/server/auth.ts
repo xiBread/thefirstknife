@@ -22,7 +22,7 @@ export function setAuthCookie(cookies: Cookies, tokens: BungieTokens) {
 		path: "/",
 		secure: import.meta.env.PROD,
 		httpOnly: true,
-		maxAge: Date.now() - tokens.accessExpiration.valueOf(),
+		maxAge: tokens.accessExpiration.valueOf() - Date.now(),
 		sameSite: "lax",
 	});
 }
