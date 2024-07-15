@@ -10,10 +10,12 @@ export function http(accessToken: string) {
 		}
 
 		const response = await fetch(url.toString(), {
+			method: config.method,
 			headers: {
 				"X-API-Key": BUNGIE_API_KEY,
 				Authorization: `Bearer ${accessToken}`,
 			},
+			body: JSON.stringify(config.body),
 		});
 
 		return response.json();
