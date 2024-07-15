@@ -33,6 +33,7 @@
 		"lucide-svelte": "^0.408.0",
 		"oslo": "^1.2.0",
 		"postgres": "^3.4.4",
+		"redis": "^4.6.15",
 		"svelte-persisted-store": "^0.11.0",
 		"svelte-radix": "^1.1.0",
 		"svelte-sonner": "^0.3.25",
@@ -52,19 +53,19 @@
 		"@typescript-eslint/parser": "^7.16.0",
 		"autoprefixer": "^10.4.19",
 		"drizzle-kit": "^0.22.7",
+		"eslint": "^9.6.0",
 		"eslint-config-prettier": "^9.1.0",
 		"eslint-plugin-svelte": "^2.42.0",
-		"eslint": "^9.6.0",
 		"postcss": "^8.4.39",
+		"prettier": "^3.3.2",
 		"prettier-plugin-svelte": "^3.2.5",
 		"prettier-plugin-tailwindcss": "^0.6.5",
-		"prettier": "^3.3.2",
-		"svelte-check": "^3.8.4",
 		"svelte": "5.0.0-next.182",
+		"svelte-check": "^3.8.4",
 		"tailwindcss": "^3.4.4",
 		"tslib": "^2.6.3",
 		"typescript": "^5.5.3",
-		"vite-plugin-mkcert": "^1.17.5",
-		"vite": "^5.3.3"
+		"vite": "^5.3.3",
+		"vite-plugin-mkcert": "^1.17.5"
 	}
 }

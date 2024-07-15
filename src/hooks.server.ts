@@ -1,9 +1,11 @@
 import dayjs from "dayjs";
-import { getMembership } from "$lib/server";
+import { redis, getMembership } from "$lib/server";
 import { auth } from "$lib/server/auth";
 import type { BungieTokens } from "$lib/server/bungie";
 
 export async function handle({ event, resolve }) {
+	event.locals.redis = redis;
+
 	const tokens = JSON.parse(event.cookies.get("bungie_auth") ?? "null") as BungieTokens | null;
 	event.locals.tokens = tokens;
 
