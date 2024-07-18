@@ -67,5 +67,11 @@
 		"typescript": "^5.5.3",
 		"vite": "^5.3.3",
 		"vite-plugin-mkcert": "^1.17.5"
+	},
+	"pnpm": {
+		"patchedDependencies": {
+			"@d2api/manifest-web@3.2.1": "patches/@d2api__manifest-web@3.2.1.patch",
+			"@d2api/manifest@7.0.3": "patches/@d2api__manifest@7.0.3.patch"
+		}
 	}
 }
