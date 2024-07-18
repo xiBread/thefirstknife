@@ -1,16 +1,44 @@
 <script lang="ts">
+	import type { DestinyInventoryItemLiteDefinition } from "bungie-api-ts/destiny2";
 	import Check from "lucide-svelte/icons/check";
 	import CheckCheck from "lucide-svelte/icons/check-check";
 	import X from "lucide-svelte/icons/x";
+	import { onMount } from "svelte";
+	import { getInventoryItemLiteDef } from "@d2api/manifest-web";
+
 	import * as Table from "$lib/components/ui/table";
 	import * as ToggleGroup from "$lib/components/ui/toggle-group";
 	import Seo from "$lib/components/Seo.svelte";
 	import tools from "$lib/tools.json";
 
+	import { classItemHashes, perkHashes } from "./hashes";
+
+	type InventoryItem = DestinyInventoryItemLiteDefinition & { hash: number };
+
 	const { data } = $props();
+
+	let classItems = $state<InventoryItem[]>([]);
+	let perks = $state<Record<string, InventoryItem[][]>>({});
 
 	let selected = $state<string>("");
 	const obtained = $derived(data.obtained[selected]);
+
+	onMount(() => {
+		classItems = classItemHashes.map(withHash);
+
+		perks = Object.entries(perkHashes).reduce<Record<string, InventoryItem[][]>>(
+			(all, [parent, columns]) => {
+				all[parent] ??= [];
+
+				columns.forEach((hashes, i) => {
+					all[parent][i] = hashes.map(withHash);
+				});
+
+				return all;
+			},
+			{},
+		);
+	});
 
 	function spiritOf(name: string) {
 		return /Spirit of (?:the )?([-\w ]+)/.exec(name)![1];
@@ -22,6 +50,10 @@
 
 	function hasDuplicates(roll: string) {
 		return (obtained?.filter((r) => r === roll).length ?? 0) > 1;
+	}
+
+	function withHash(hash: number) {
+		return { ...getInventoryItemLiteDef(hash)!, hash };
 	}
 </script>
 
@@ -43,7 +75,7 @@
 
 <div class="flex flex-col items-center gap-y-10 px-6 py-12 md:px-10">
 	<ToggleGroup.Root class="flex items-center gap-x-12" bind:value={selected}>
-		{#each data.classItems as classItem}
+		{#each classItems as classItem}
 			{@const { name } = classItem.displayProperties}
 
 			<figure class="flex flex-col items-center">
@@ -87,7 +119,7 @@
 						{new Set(obtained).size} / 64
 					</Table.Head>
 
-					{#each data.perks[selected][1] as perk2}
+					{#each perks[selected][1] as perk2}
 						<Table.Head class="w-32 text-center font-normal text-foreground">
 							{spiritOf(perk2.displayProperties.name)}
 						</Table.Head>
@@ -96,13 +128,13 @@
 			</Table.Header>
 
 			<Table.Body>
-				{#each data.perks[selected][0] as perk1}
+				{#each perks[selected][0] as perk1}
 					<Table.Row>
 						<Table.Cell class="text-right">
 							{spiritOf(perk1.displayProperties.name)}
 						</Table.Cell>
 
-						{#each data.perks[selected][1] as perk2}
+						{#each perks[selected][1] as perk2}
 							<Table.Cell class="*:mx-auto *:size-4">
 								{@const roll = `${perk1.hash}+${perk2.hash}`}
 

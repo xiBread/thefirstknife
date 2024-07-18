@@ -23,6 +23,7 @@
 		]
 	},
 	"dependencies": {
+		"@d2api/manifest-web": "^3.2.1",
 		"@lucia-auth/adapter-drizzle": "^1.0.7",
 		"bits-ui": "^0.21.12",
 		"bungie-api-ts": "^5.1.0",
