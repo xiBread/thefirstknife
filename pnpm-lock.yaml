@@ -37,9 +37,6 @@ importers:
       drizzle-orm:
         specifier: ^0.31.2
         version: 0.31.2(postgres@3.4.4)
-      idb-keyval:
-        specifier: ^6.2.1
-        version: 6.2.1
       lucia:
         specifier: ^3.2.0
         version: 3.2.0
