@@ -8,10 +8,12 @@
 
 	import * as Table from "$lib/components/ui/table";
 	import * as ToggleGroup from "$lib/components/ui/toggle-group";
+	import * as Tooltip from "$lib/components/ui/tooltip";
 	import Seo from "$lib/components/Seo.svelte";
 	import tools from "$lib/tools.json";
 
 	import { classItemHashes, perkHashes } from "./hashes";
+	import Perk from "$lib/components/Perk.svelte";
 
 	type InventoryItem = DestinyInventoryItemLiteDefinition & { hash: number };
 
@@ -121,7 +123,7 @@
 
 					{#each perks[selected][1] as perk2}
 						<Table.Head class="w-32 text-center font-normal text-foreground">
-							{spiritOf(perk2.displayProperties.name)}
+							{@render tooltip(perk2)}
 						</Table.Head>
 					{/each}
 				</Table.Row>
@@ -131,7 +133,7 @@
 				{#each perks[selected][0] as perk1}
 					<Table.Row>
 						<Table.Cell class="text-right">
-							{spiritOf(perk1.displayProperties.name)}
+							{@render tooltip(perk1)}
 						</Table.Cell>
 
 						{#each perks[selected][1] as perk2}
@@ -157,6 +159,22 @@
 		</p>
 	{/if}
 </div>
+
+{#snippet tooltip(perk: InventoryItem)}
+	<Tooltip.Root openDelay={0}>
+		<Tooltip.Trigger class="hover:cursor-default">
+			{spiritOf(perk.displayProperties.name)}
+		</Tooltip.Trigger>
+
+		<Tooltip.Content>
+			<Perk
+				type="Intrinsic"
+				name={perk.displayProperties.name}
+				description={perk.displayProperties.description}
+			/>
+		</Tooltip.Content>
+	</Tooltip.Root>
+{/snippet}
 
 <style>
 	.class-item::before {
