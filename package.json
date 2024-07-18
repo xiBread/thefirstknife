@@ -34,7 +34,6 @@
 		"lucide-svelte": "^0.408.0",
 		"oslo": "^1.2.0",
 		"postgres": "^3.4.4",
-		"redis": "^4.6.15",
 		"svelte-persisted-store": "^0.11.0",
 		"svelte-radix": "^1.1.0",
 		"svelte-sonner": "^0.3.25",
