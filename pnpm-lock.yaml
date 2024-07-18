@@ -6,10 +6,10 @@ settings:
 
 patchedDependencies:
   '@d2api/manifest-web@3.2.1':
-    hash: ssewadwhwwqr3al5cmb64537fi
+    hash: 6nzqja6lo42s7xnxgksn3tpqo4
     path: patches/@d2api__manifest-web@3.2.1.patch
   '@d2api/manifest@7.0.3':
-    hash: qw4jayvph7i55gbcgahyhxac74
+    hash: ybdhr2qvwfemon4ohxha5wv7uy
     path: patches/@d2api__manifest@7.0.3.patch
 
 importers:
@@ -18,7 +18,7 @@ importers:
     dependencies:
       '@d2api/manifest-web':
         specifier: ^3.2.1
-        version: 3.2.1(patch_hash=ssewadwhwwqr3al5cmb64537fi)(@d2api/manifest@7.0.3(patch_hash=qw4jayvph7i55gbcgahyhxac74)(bungie-api-ts@5.1.0))(bungie-api-ts@5.1.0)(idb-keyval@6.2.1)
+        version: 3.2.1(patch_hash=6nzqja6lo42s7xnxgksn3tpqo4)(@d2api/manifest@7.0.3(patch_hash=ybdhr2qvwfemon4ohxha5wv7uy)(bungie-api-ts@5.1.0))(bungie-api-ts@5.1.0)(idb-keyval@6.2.1)
       '@lucia-auth/adapter-drizzle':
         specifier: ^1.0.7
         version: 1.0.7(lucia@3.2.0)
@@ -37,6 +37,9 @@ importers:
       drizzle-orm:
         specifier: ^0.31.2
         version: 0.31.2(postgres@3.4.4)
+      idb-keyval:
+        specifier: ^6.2.1
+        version: 6.2.1
       lucia:
         specifier: ^3.2.0
         version: 3.2.0
@@ -3106,13 +3109,13 @@ snapshots:
 
   '@colors/colors@1.6.0': {}
 
-  '@d2api/manifest-web@3.2.1(patch_hash=ssewadwhwwqr3al5cmb64537fi)(@d2api/manifest@7.0.3(patch_hash=qw4jayvph7i55gbcgahyhxac74)(bungie-api-ts@5.1.0))(bungie-api-ts@5.1.0)(idb-keyval@6.2.1)':
+  '@d2api/manifest-web@3.2.1(patch_hash=6nzqja6lo42s7xnxgksn3tpqo4)(@d2api/manifest@7.0.3(patch_hash=ybdhr2qvwfemon4ohxha5wv7uy)(bungie-api-ts@5.1.0))(bungie-api-ts@5.1.0)(idb-keyval@6.2.1)':
     dependencies:
-      '@d2api/manifest': 7.0.3(patch_hash=qw4jayvph7i55gbcgahyhxac74)(bungie-api-ts@5.1.0)
+      '@d2api/manifest': 7.0.3(patch_hash=ybdhr2qvwfemon4ohxha5wv7uy)(bungie-api-ts@5.1.0)
       bungie-api-ts: 5.1.0
       idb-keyval: 6.2.1
 
-  '@d2api/manifest@7.0.3(patch_hash=qw4jayvph7i55gbcgahyhxac74)(bungie-api-ts@5.1.0)':
+  '@d2api/manifest@7.0.3(patch_hash=ybdhr2qvwfemon4ohxha5wv7uy)(bungie-api-ts@5.1.0)':
     dependencies:
       bungie-api-ts: 5.1.0
 

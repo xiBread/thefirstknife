@@ -1,13 +1,15 @@
 diff --git a/package.json b/package.json
-index f9df50ca121d3d27d2a5963ba5f5c72296f5f0ae..2415f0fa016c542d4beca98df2ceed6b3e418ec7 100644
+index f9df50ca121d3d27d2a5963ba5f5c72296f5f0ae..58385e284439554833015638bb28215a394b3517 100644
 --- a/package.json
 +++ b/package.json
-@@ -2,7 +2,7 @@
- 	"name": "@d2api/manifest-web",
- 	"description": "manages the d2 manifest in browsers, using IndexedDB",
+@@ -4,6 +4,10 @@
  	"version": "3.2.1",
--	"main": "cjs/index.js",
-+	"main": "esm/index.js",
+ 	"main": "cjs/index.js",
  	"module": "esm/index.js",
++	"exports": {
++		"require": "./cjs/index.js",
++		"import": "./esm/index.js"
++	},
  	"types": "index.d.ts",
  	"type": "module",
+ 	"scripts": {

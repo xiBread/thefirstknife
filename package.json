@@ -30,6 +30,7 @@
 		"clsx": "^2.1.1",
 		"dayjs": "^1.11.11",
 		"drizzle-orm": "^0.31.2",
+		"idb-keyval": "^6.2.1",
 		"lucia": "^3.2.0",
 		"lucide-svelte": "^0.408.0",
 		"oslo": "^1.2.0",
