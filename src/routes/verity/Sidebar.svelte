@@ -3,13 +3,10 @@
 	import { Label } from "$lib/components/ui/label";
 	import { Link } from "$lib/components/ui/link";
 	import { settings } from "./+page.svelte";
-
-	const { marginBottom = 0 } = $props();
 </script>
 
 <aside
 	class="no-scrollbar inset-0 w-full overflow-auto from-transparent via-black/30 md:fixed md:w-[var(--sidebar-width)] md:bg-gradient-to-b"
-	style:margin-bottom="{marginBottom}px"
 >
 	<article class="flex flex-col gap-y-4 px-6 pb-6 text-sm [&>:not(:first-child)]:font-light">
 		<header class="mb-2 flex items-center">

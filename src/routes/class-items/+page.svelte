@@ -1,38 +1,63 @@
 <script lang="ts">
-	import { persisted } from "svelte-persisted-store";
-	import { Button } from "$lib/components/ui/button";
-	import { Checkbox } from "$lib/components/ui/checkbox";
+	import type { DestinyInventoryItemLiteDefinition } from "bungie-api-ts/destiny2";
+	import Check from "lucide-svelte/icons/check";
+	import CheckCheck from "lucide-svelte/icons/check-check";
+	import X from "lucide-svelte/icons/x";
+	import { onMount } from "svelte";
+	import { getInventoryItemLiteDef } from "@d2api/manifest-web";
+
+	import { goto, invalidate } from "$app/navigation";
 	import * as Table from "$lib/components/ui/table";
 	import * as ToggleGroup from "$lib/components/ui/toggle-group";
+	import * as Tooltip from "$lib/components/ui/tooltip";
 	import Seo from "$lib/components/Seo.svelte";
 	import tools from "$lib/tools.json";
-	import classItems from "./data.json";
+
+	import { classItemHashes, perkHashes } from "./hashes";
+	import Perk from "$lib/components/Perk.svelte";
+	import Shortcuts from "$lib/components/Shortcuts.svelte";
+
+	type InventoryItem = DestinyInventoryItemLiteDefinition & { hash: number };
+
+	const { data } = $props();
+
+	let classItems = $state<InventoryItem[]>([]);
+	let perks = $state<Record<string, InventoryItem[][]>>({});
 
 	let selected = $state<string>("");
-	let perks = $state<string[][]>();
+	const obtained = $derived(data.obtained[selected]);
 
-	$effect(() => {
-		perks = selected ? classItems[selected as keyof typeof classItems] : undefined;
+	onMount(() => {
+		classItems = classItemHashes.map(withHash);
+
+		perks = Object.entries(perkHashes).reduce<Record<string, InventoryItem[][]>>(
+			(all, [parent, columns]) => {
+				all[parent] ??= [];
+
+				columns.forEach((hashes, i) => {
+					all[parent][i] = hashes.map(withHash);
+				});
+
+				return all;
+			},
+			{},
+		);
 	});
 
-	const obtained = persisted<Record<string, string[]>>("eci_checklist", {
-		relativism: [],
-		stoicism: [],
-		solipsism: [],
-	});
+	function spiritOf(name: string) {
+		return /Spirit of (?:the )?([-\w ]+)/.exec(name)![1];
+	}
 
-	function updateList(value: boolean, col1: string, col2: string) {
-		if (!selected) return;
+	function hasRoll(roll: string) {
+		return obtained?.some((r) => r === roll);
+	}
 
-		const roll = `${col1}+${col2}`;
+	function hasDuplicates(roll: string) {
+		return (obtained?.filter((r) => r === roll).length ?? 0) > 1;
+	}
 
-		if (!value) {
-			$obtained[selected].splice($obtained[selected].indexOf(roll), 1);
-		} else {
-			$obtained[selected].push(roll);
-		}
-
-		$obtained[selected] = $obtained[selected];
+	function withHash(hash: number) {
+		return { ...getInventoryItemLiteDef(hash)!, hash };
 	}
 </script>
 
@@ -54,13 +79,25 @@
 
 <div class="flex flex-col items-center gap-y-10 px-6 py-12 md:px-10">
 	<ToggleGroup.Root class="flex items-center gap-x-12" bind:value={selected}>
-		{#each Object.keys(classItems) as name}
-			<figure class="flex flex-col items-center">
-				<ToggleGroup.Item class="size-20" value={name}>
-					<div class="class-item relative aspect-square before:z-[1]">
-						<img src="/img/class-items/{name}.jpg" alt={name} width="96" height="96" />
+		{#each classItems as classItem}
+			{@const { name } = classItem.displayProperties}
 
-						<img class="absolute left-0 top-0" src="/img/watermark.png" alt="" />
+			<figure class="flex flex-col items-center">
+				<ToggleGroup.Item class="size-20" value={`${classItem.hash}`}>
+					<div class="class-item relative aspect-square before:z-[1]">
+						<img
+							src="https://bungie.net{classItem.displayProperties.icon}"
+							alt={name}
+							width="96"
+							height="96"
+						/>
+
+						<img
+							class="absolute left-0 top-0"
+							src="https://bungie.net{classItem.iconWatermark}"
+							alt=""
+						/>
+
 						<img
 							class="masterwork absolute left-0 top-0 z-[2] opacity-0 transition-opacity duration-300"
 							src="/img/masterwork.png"
@@ -71,53 +108,90 @@
 					</div>
 				</ToggleGroup.Item>
 
-				<figcaption class="mt-1.5 text-sm capitalize">{name}</figcaption>
+				<figcaption class="mt-1.5 text-sm capitalize">
+					{name}
+				</figcaption>
 			</figure>
 		{/each}
 	</ToggleGroup.Root>
 
-	{#if perks}
+	{#if selected}
 		<Table.Root>
 			<Table.Header>
 				<Table.Row>
 					<Table.Head class="w-28 text-right text-white/60">
-						{$obtained[selected].length} / 64
+						{new Set(obtained).size} / 64
 					</Table.Head>
 
-					{#each perks[1] as col2}
+					{#each perks[selected][1] as perk2}
 						<Table.Head class="w-32 text-center font-normal text-foreground">
-							{col2}
+							{@render tooltip(perk2)}
 						</Table.Head>
 					{/each}
 				</Table.Row>
 			</Table.Header>
 
 			<Table.Body>
-				{#each perks[0] as col1}
+				{#each perks[selected][0] as perk1}
 					<Table.Row>
-						<Table.Cell class="text-right">{col1}</Table.Cell>
+						<Table.Cell class="text-right">
+							{@render tooltip(perk1)}
+						</Table.Cell>
 
-						{#each perks[1] as col2}
-							<Table.Cell class="text-center">
-								<Checkbox
-									class="inline-flex"
-									checked={$obtained[selected].includes(`${col1}+${col2}`)}
-									onCheckedChange={(value) => updateList(!!value, col1, col2)}
-								/>
+						{#each perks[selected][1] as perk2}
+							<Table.Cell class="*:mx-auto *:size-4">
+								{@const roll = `${perk1.hash}+${perk2.hash}`}
+
+								{#if hasDuplicates(roll)}
+									<CheckCheck class="text-sky-400" />
+								{:else if hasRoll(roll)}
+									<Check class="text-sky-400" />
+								{:else}
+									<X class="text-white/60" />
+								{/if}
 							</Table.Cell>
 						{/each}
 					</Table.Row>
 				{/each}
 			</Table.Body>
 		</Table.Root>
-
-		<Button onclick={() => ($obtained[selected] = [])}>Reset</Button>
 	{:else}
-		<p class="absolute top-1/2 translate-y-1/2 font-medium">
+		<p class="absolute top-1/2 translate-y-1/2 font-light">
 			Select a class item above to get started.
 		</p>
 	{/if}
 </div>
+
+<Shortcuts
+	shortcuts={{
+		f: {
+			symbol: "",
+			label: "Refresh",
+			action: () => invalidate("app:class-items"),
+		},
+		escape: {
+			symbol: "",
+			label: "Back to home",
+			action: () => goto("/"),
+		},
+	}}
+/>
+
+{#snippet tooltip(perk: InventoryItem)}
+	<Tooltip.Root openDelay={0}>
+		<Tooltip.Trigger class="hover:cursor-default">
+			{spiritOf(perk.displayProperties.name)}
+		</Tooltip.Trigger>
+
+		<Tooltip.Content>
+			<Perk
+				type="Intrinsic"
+				name={perk.displayProperties.name}
+				description={perk.displayProperties.description}
+			/>
+		</Tooltip.Content>
+	</Tooltip.Root>
+{/snippet}
 
 <style>
 	.class-item::before {

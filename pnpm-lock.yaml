@@ -4,10 +4,21 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
+patchedDependencies:
+  '@d2api/manifest-web@3.2.1':
+    hash: 6nzqja6lo42s7xnxgksn3tpqo4
+    path: patches/@d2api__manifest-web@3.2.1.patch
+  '@d2api/manifest@7.0.3':
+    hash: ybdhr2qvwfemon4ohxha5wv7uy
+    path: patches/@d2api__manifest@7.0.3.patch
+
 importers:
 
   .:
     dependencies:
+      '@d2api/manifest-web':
+        specifier: ^3.2.1
+        version: 3.2.1(patch_hash=6nzqja6lo42s7xnxgksn3tpqo4)(@d2api/manifest@7.0.3(patch_hash=ybdhr2qvwfemon4ohxha5wv7uy)(bungie-api-ts@5.1.0))(bungie-api-ts@5.1.0)(idb-keyval@6.2.1)
       '@lucia-auth/adapter-drizzle':
         specifier: ^1.0.7
         version: 1.0.7(lucia@3.2.0)
@@ -146,6 +157,18 @@ packages:
   '@colors/colors@1.6.0':
     resolution: {integrity: sha512-Ir+AOibqzrIsL6ajt3Rz3LskB7OiMVHqltZmspbW/TJuTVuyOMirVqAkjfY6JISiLHgyNqicAC8AyHHGzNd/dA==}
     engines: {node: '>=0.1.90'}
+
+  '@d2api/manifest-web@3.2.1':
+    resolution: {integrity: sha512-Us+KdfSZLhyBYIqSSkzCX6m2Cxhbmax2WauWs1p3MngkzaI6eo4RkIdCn8a8C5JCR5LhZpjMUmjjOgMhobCidw==}
+    peerDependencies:
+      '@d2api/manifest': ^7.0.2
+      bungie-api-ts: ^5.0.0
+      idb-keyval: ^6.2.1
+
+  '@d2api/manifest@7.0.3':
+    resolution: {integrity: sha512-T2YO4liNuLeutoMIKPE5I2cCBxJWS/9pqYKna3RqC8wMirlqONkc1md1B+Dc+XikLRfb7T6Mdhav69TG4nSNHQ==}
+    peerDependencies:
+      bungie-api-ts: ^5.0.0
 
   '@dabh/diagnostics@2.0.3':
     resolution: {integrity: sha512-hrlQOIi7hAfzsMqlGSFyVucrx38O+j6wiGOf//H2ecvIEqYN4ADBSS2iLMh5UFyDunCNniUIPk/q3riFv45xRA==}
@@ -1946,6 +1969,9 @@ packages:
     resolution: {integrity: sha512-B4FFZ6q/T2jhhksgkbEW3HBvWIfDW85snkQgawt07S7J5QXTk6BkNV+0yAeZrM5QpMAdYlocGoljn0sJ/WQkFw==}
     engines: {node: '>=10.17.0'}
 
+  idb-keyval@6.2.1:
+    resolution: {integrity: sha512-8Sb3veuYCyrZL+VBt9LJfZjLUPWVvqn8tG28VqYNFCo43KHcKuq+b4EiXGeuaLAQWL2YmyDgMp2aSpH9JHsEQg==}
+
   ieee754@1.2.1:
     resolution: {integrity: sha512-dcyqhDvX1C46lXZcVqCpK+FtMRQVdIMN6/Df5js2zouUsqG7I6sFxitIC+7KYK29KdXOLHdu9zL4sFnoVQnqaA==}
 
@@ -3079,6 +3105,16 @@ snapshots:
       '@jridgewell/trace-mapping': 0.3.25
 
   '@colors/colors@1.6.0': {}
+
+  '@d2api/manifest-web@3.2.1(patch_hash=6nzqja6lo42s7xnxgksn3tpqo4)(@d2api/manifest@7.0.3(patch_hash=ybdhr2qvwfemon4ohxha5wv7uy)(bungie-api-ts@5.1.0))(bungie-api-ts@5.1.0)(idb-keyval@6.2.1)':
+    dependencies:
+      '@d2api/manifest': 7.0.3(patch_hash=ybdhr2qvwfemon4ohxha5wv7uy)(bungie-api-ts@5.1.0)
+      bungie-api-ts: 5.1.0
+      idb-keyval: 6.2.1
+
+  '@d2api/manifest@7.0.3(patch_hash=ybdhr2qvwfemon4ohxha5wv7uy)(bungie-api-ts@5.1.0)':
+    dependencies:
+      bungie-api-ts: 5.1.0
 
   '@dabh/diagnostics@2.0.3':
     dependencies:
@@ -4769,6 +4805,8 @@ snapshots:
       - supports-color
 
   human-signals@2.1.0: {}
+
+  idb-keyval@6.2.1: {}
 
   ieee754@1.2.1: {}
 
