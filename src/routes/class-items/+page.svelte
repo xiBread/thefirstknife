@@ -6,6 +6,7 @@
 	import { onMount } from "svelte";
 	import { getInventoryItemLiteDef } from "@d2api/manifest-web";
 
+	import { goto, invalidate } from "$app/navigation";
 	import * as Table from "$lib/components/ui/table";
 	import * as ToggleGroup from "$lib/components/ui/toggle-group";
 	import * as Tooltip from "$lib/components/ui/tooltip";
@@ -14,6 +15,7 @@
 
 	import { classItemHashes, perkHashes } from "./hashes";
 	import Perk from "$lib/components/Perk.svelte";
+	import Shortcuts from "$lib/components/Shortcuts.svelte";
 
 	type InventoryItem = DestinyInventoryItemLiteDefinition & { hash: number };
 
@@ -159,6 +161,21 @@
 		</p>
 	{/if}
 </div>
+
+<Shortcuts
+	shortcuts={{
+		f: {
+			symbol: "",
+			label: "Refresh",
+			action: () => invalidate("app:class-items"),
+		},
+		escape: {
+			symbol: "",
+			label: "Back to home",
+			action: () => goto("/"),
+		},
+	}}
+/>
 
 {#snippet tooltip(perk: InventoryItem)}
 	<Tooltip.Root openDelay={0}>

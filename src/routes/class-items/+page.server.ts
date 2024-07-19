@@ -3,7 +3,9 @@ import { redirect } from "@sveltejs/kit";
 import { http } from "$lib/server";
 import { classItemHashes } from "./hashes";
 
-export async function load({ locals }) {
+export async function load({ locals, depends }) {
+	depends("app:class-items");
+
 	const token = locals.tokens?.accessToken;
 	if (!token || !locals.membership) redirect(302, "/auth");
 

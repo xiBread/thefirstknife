@@ -12,7 +12,6 @@
 	import CheckCheck from "lucide-svelte/icons/check-check";
 	import UserRound from "lucide-svelte/icons/user-round";
 	import UsersRound from "lucide-svelte/icons/users-round";
-	import { onMount } from "svelte";
 	import { inlineSvg } from "@svelte-put/inline-svg";
 
 	import { goto } from "$app/navigation";
@@ -20,6 +19,7 @@
 	import { Separator } from "$lib/components/ui/separator";
 	import * as ToggleGroup from "$lib/components/ui/toggle-group";
 	import Seo from "$lib/components/Seo.svelte";
+	import Shortcuts from "$lib/components/Shortcuts.svelte";
 	import tools from "$lib/tools.json";
 
 	import Sidebar from "./Sidebar.svelte";
@@ -31,8 +31,6 @@
 	// const devState1 = ["circle", "square", "triangle"];
 	// const devState2 = ["sphere", "prism", "prism"];
 
-	let footerHeight = $state(0);
-	let sidebar = $state<HTMLElement>();
 	let steps = $state<HTMLElement>();
 	let groups = $state<ReturnType<typeof solve>>([]);
 
@@ -48,10 +46,6 @@
 			selected: [...emptyState],
 		},
 	]);
-
-	onMount(() => {
-		if (sidebar) sidebar.style.marginBottom = `${footerHeight}px`;
-	});
 
 	$effect(() => {
 		const filled = rooms.flatMap((room) => room.selected).filter(Boolean);
@@ -103,7 +97,7 @@
 />
 
 <div id="verity" class="relative h-full">
-	<Sidebar marginBottom={footerHeight} />
+	<Sidebar />
 
 	<div class="px-8 pb-28 md:ml-[var(--sidebar-width)] md:pt-1">
 		<div class="space-y-12">
@@ -200,36 +194,24 @@
 		</div>
 	</div>
 
-	<footer
-		class="fixed bottom-0 flex w-full justify-end bg-black/50 px-20 py-4 backdrop-blur"
-		bind:offsetHeight={footerHeight}
-	>
-		<div class="flex select-none items-center gap-x-1 font-light">
-			<button
-				class="reset border border-transparent p-1 hover:border-white active:bg-white/30"
-				onclick={reset}
-			>
-				<kbd></kbd> Reset
-			</button>
-
-			<button
-				class="border border-transparent p-1 transition-colors duration-500 hover:border-white"
-				onclick={async () => await goto("/")}
-			>
-				<kbd></kbd> Back to Home
-			</button>
-		</div>
-	</footer>
+	<Shortcuts
+		shortcuts={{
+			f: {
+				symbol: "",
+				label: "Reset",
+				action: reset,
+			},
+			escape: {
+				symbol: "",
+				label: "Back to home",
+				action: () => goto("/"),
+			},
+		}}
+	/>
 </div>
 
 <style>
 	#verity {
 		--sidebar-width: theme("spacing.96");
-	}
-
-	.reset {
-		transition:
-			border-color 500ms,
-			background-color 100ms;
 	}
 </style>
