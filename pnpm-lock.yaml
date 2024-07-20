@@ -19,6 +19,9 @@ importers:
       '@d2api/manifest-web':
         specifier: ^3.2.1
         version: 3.2.1(patch_hash=6nzqja6lo42s7xnxgksn3tpqo4)(@d2api/manifest@7.0.3(patch_hash=ybdhr2qvwfemon4ohxha5wv7uy)(bungie-api-ts@5.1.0))(bungie-api-ts@5.1.0)(idb-keyval@6.2.1)
+      '@floating-ui/dom':
+        specifier: ^1.6.7
+        version: 1.6.7
       '@lucia-auth/adapter-drizzle':
         specifier: ^1.0.7
         version: 1.0.7(lucia@3.2.0)

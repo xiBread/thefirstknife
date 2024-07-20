@@ -9,13 +9,14 @@
 	import { goto, invalidate } from "$app/navigation";
 	import * as Table from "$lib/components/ui/table";
 	import * as ToggleGroup from "$lib/components/ui/toggle-group";
-	import * as Tooltip from "$lib/components/ui/tooltip";
+	import { Tooltip } from "$lib/components/ui/tooltip";
+	import Perk from "$lib/components/Perk.svelte";
 	import Seo from "$lib/components/Seo.svelte";
+	import Shortcuts from "$lib/components/Shortcuts.svelte";
 	import tools from "$lib/tools.json";
 
 	import { classItemHashes, perkHashes } from "./hashes";
-	import Perk from "$lib/components/Perk.svelte";
-	import Shortcuts from "$lib/components/Shortcuts.svelte";
+	import Roll from "./Roll.svelte";
 
 	type InventoryItem = DestinyInventoryItemLiteDefinition & { hash: number };
 
@@ -49,11 +50,10 @@
 	}
 
 	function hasRoll(roll: string) {
-		return obtained?.some((r) => r === roll);
-	}
-
-	function hasDuplicates(roll: string) {
-		return (obtained?.filter((r) => r === roll).length ?? 0) > 1;
+		return {
+			obtained: obtained?.some((r) => r === roll) ?? false,
+			duplicate: (obtained?.filter((r) => r === roll).length ?? 0) > 1,
+		};
 	}
 
 	function withHash(hash: number) {
@@ -118,7 +118,7 @@
 	{#if selected}
 		<Table.Root>
 			<Table.Header>
-				<Table.Row>
+				<Table.Row class="select-none">
 					<Table.Head class="w-28 text-right text-white/60">
 						{new Set(obtained).size} / 64
 					</Table.Head>
@@ -133,19 +133,33 @@
 
 			<Table.Body>
 				{#each perks[selected][0] as perk1}
-					<Table.Row>
+					<Table.Row class="select-none">
 						<Table.Cell class="text-right">
 							{@render tooltip(perk1)}
 						</Table.Cell>
 
 						{#each perks[selected][1] as perk2}
-							<Table.Cell class="*:mx-auto *:size-4">
-								{@const roll = `${perk1.hash}+${perk2.hash}`}
+							<Table.Cell class="[&_svg]:mx-auto [&_svg]:size-4">
+								{@const roll = hasRoll(`${perk1.hash}+${perk2.hash}`)}
+								{@const ci = classItems.find((i) => `${i.hash}` === selected)!}
 
-								{#if hasDuplicates(roll)}
-									<CheckCheck class="text-sky-400" />
-								{:else if hasRoll(roll)}
-									<Check class="text-sky-400" />
+								{#if roll.obtained}
+									<Tooltip>
+										{#snippet trigger()}
+											<svelte:component
+												this={roll.duplicate ? CheckCheck : Check}
+												class="text-sky-400"
+											/>
+										{/snippet}
+
+										{#snippet content()}
+											<Roll
+												name={ci.displayProperties.name}
+												type={ci.itemTypeDisplayName}
+												perks={[perk1, perk2]}
+											/>
+										{/snippet}
+									</Tooltip>
 								{:else}
 									<X class="text-white/60" />
 								{/if}
@@ -178,19 +192,19 @@
 />
 
 {#snippet tooltip(perk: InventoryItem)}
-	<Tooltip.Root openDelay={0}>
-		<Tooltip.Trigger class="hover:cursor-default">
+	<Tooltip>
+		{#snippet trigger()}
 			{spiritOf(perk.displayProperties.name)}
-		</Tooltip.Trigger>
+		{/snippet}
 
-		<Tooltip.Content>
+		{#snippet content()}
 			<Perk
 				type="Intrinsic"
 				name={perk.displayProperties.name}
 				description={perk.displayProperties.description}
 			/>
-		</Tooltip.Content>
-	</Tooltip.Root>
+		{/snippet}
+	</Tooltip>
 {/snippet}
 
 <style>
