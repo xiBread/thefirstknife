@@ -19,6 +19,9 @@ export default defineConfig({
 		),
 		sveltekit(),
 	],
+	optimizeDeps: {
+		exclude: ["lucide-svelte"],
+	},
 	server: {
 		proxy: {},
 	},
