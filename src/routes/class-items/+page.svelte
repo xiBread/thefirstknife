@@ -9,7 +9,7 @@
 	import { goto, invalidate } from "$app/navigation";
 	import * as Table from "$lib/components/ui/table";
 	import * as ToggleGroup from "$lib/components/ui/toggle-group";
-	import * as Tooltip from "$lib/components/ui/tooltip";
+	import { Tooltip } from "$lib/components/ui/tooltip";
 	import Seo from "$lib/components/Seo.svelte";
 	import tools from "$lib/tools.json";
 
@@ -118,7 +118,7 @@
 	{#if selected}
 		<Table.Root>
 			<Table.Header>
-				<Table.Row>
+				<Table.Row class="select-none">
 					<Table.Head class="w-28 text-right text-white/60">
 						{new Set(obtained).size} / 64
 					</Table.Head>
@@ -133,7 +133,7 @@
 
 			<Table.Body>
 				{#each perks[selected][0] as perk1}
-					<Table.Row>
+					<Table.Row class="select-none">
 						<Table.Cell class="text-right">
 							{@render tooltip(perk1)}
 						</Table.Cell>
@@ -178,19 +178,19 @@
 />
 
 {#snippet tooltip(perk: InventoryItem)}
-	<Tooltip.Root openDelay={0}>
-		<Tooltip.Trigger class="hover:cursor-default">
+	<Tooltip>
+		{#snippet trigger()}
 			{spiritOf(perk.displayProperties.name)}
-		</Tooltip.Trigger>
+		{/snippet}
 
-		<Tooltip.Content>
+		{#snippet content()}
 			<Perk
 				type="Intrinsic"
 				name={perk.displayProperties.name}
 				description={perk.displayProperties.description}
 			/>
-		</Tooltip.Content>
-	</Tooltip.Root>
+		{/snippet}
+	</Tooltip>
 {/snippet}
 
 <style>
