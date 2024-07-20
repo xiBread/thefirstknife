@@ -10,12 +10,13 @@
 	import * as Table from "$lib/components/ui/table";
 	import * as ToggleGroup from "$lib/components/ui/toggle-group";
 	import { Tooltip } from "$lib/components/ui/tooltip";
+	import Perk from "$lib/components/Perk.svelte";
 	import Seo from "$lib/components/Seo.svelte";
+	import Shortcuts from "$lib/components/Shortcuts.svelte";
 	import tools from "$lib/tools.json";
 
 	import { classItemHashes, perkHashes } from "./hashes";
-	import Perk from "$lib/components/Perk.svelte";
-	import Shortcuts from "$lib/components/Shortcuts.svelte";
+	import Roll from "./Roll.svelte";
 
 	type InventoryItem = DestinyInventoryItemLiteDefinition & { hash: number };
 
@@ -49,11 +50,10 @@
 	}
 
 	function hasRoll(roll: string) {
-		return obtained?.some((r) => r === roll);
-	}
-
-	function hasDuplicates(roll: string) {
-		return (obtained?.filter((r) => r === roll).length ?? 0) > 1;
+		return {
+			obtained: obtained?.some((r) => r === roll) ?? false,
+			duplicate: (obtained?.filter((r) => r === roll).length ?? 0) > 1,
+		};
 	}
 
 	function withHash(hash: number) {
@@ -139,13 +139,27 @@
 						</Table.Cell>
 
 						{#each perks[selected][1] as perk2}
-							<Table.Cell class="*:mx-auto *:size-4">
-								{@const roll = `${perk1.hash}+${perk2.hash}`}
+							<Table.Cell class="[&_svg]:mx-auto [&_svg]:size-4">
+								{@const roll = hasRoll(`${perk1.hash}+${perk2.hash}`)}
+								{@const ci = classItems.find((i) => `${i.hash}` === selected)!}
 
-								{#if hasDuplicates(roll)}
-									<CheckCheck class="text-sky-400" />
-								{:else if hasRoll(roll)}
-									<Check class="text-sky-400" />
+								{#if roll.obtained}
+									<Tooltip>
+										{#snippet trigger()}
+											<svelte:component
+												this={roll.duplicate ? CheckCheck : Check}
+												class="text-sky-400"
+											/>
+										{/snippet}
+
+										{#snippet content()}
+											<Roll
+												name={ci.displayProperties.name}
+												type={ci.itemTypeDisplayName}
+												perks={[perk1, perk2]}
+											/>
+										{/snippet}
+									</Tooltip>
 								{:else}
 									<X class="text-white/60" />
 								{/if}
