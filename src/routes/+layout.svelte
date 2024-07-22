@@ -31,7 +31,7 @@
 	<meta property="og:site_name" content="The First Knife" />
 	<meta property="og:title" content={title} />
 	<meta property="og:description" content={description} />
-	<meta property="og:url" content="https://thefirstknife.vercep.app{path}" />
+	<meta property="og:url" content="https://thefirstknife.vercel.app{path}" />
 
 	{#if image}
 		<meta property="og:image" content={image} />
