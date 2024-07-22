@@ -8,7 +8,7 @@
 			<div class="interactable relative aspect-square justify-start bg-transparent">
 				<img
 					class="absolute inset-0 -z-[5] h-full object-cover transition-all duration-300"
-					src="/img{tool.image}"
+					src={tool.image}
 					alt=""
 				/>
 
