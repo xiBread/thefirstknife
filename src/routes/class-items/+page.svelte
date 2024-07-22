@@ -15,6 +15,7 @@
 
 	import { classItemHashes, perkHashes } from "./hashes";
 	import Roll from "./Roll.svelte";
+	import { Link } from "$lib/components/ui/link";
 
 	type InventoryItem = DestinyInventoryItemLiteDefinition & { hash: number };
 
@@ -61,7 +62,7 @@
 
 {#if !data.obtained}
 	<p class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 font-light">
-		You need to <a class="underline" href="/auth">sign in</a> to use this tool.
+		You need to <Link href="/auth">sign in</Link> to use this tool.
 	</p>
 {:else}
 	<div class="flex flex-col items-center gap-y-10 px-6 py-12 md:px-10">
