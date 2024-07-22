@@ -76,25 +76,44 @@
 			await goto("/");
 		}
 	}
+
+	const title = `${tools.verity.title} | The First Knife`;
+	const description = tools.verity.description;
+	const image = `/img/${tools.verity.img}`;
 </script>
 
 <svelte:window onkeydown={handleKey} />
 
-<Seo
-	title="{tools.verity.title} | The First Knife"
-	description={tools.verity.description}
-	keywords={[
-		"salvation's edge",
-		"raid",
-		"verity",
-		"4th encounter",
-		"dissect",
-		"solver",
-		"calculator",
-	]}
-	url="https://thefirstknife.vercel.app/verity"
-	image="/img/{tools.verity.img}"
-/>
+<svelte:head>
+	<title>{title}</title>
+
+	<meta name="description" content={description} />
+
+	<meta
+		name="keywords"
+		content={[
+			"salvation's edge",
+			"raid",
+			"verity",
+			"4th encounter",
+			"dissect",
+			"solver",
+			"calculator",
+		].join(",")}
+	/>
+
+	<meta property="og:type" content="website" />
+	<meta property="og:title" content={title} />
+	<meta property="og:description" content={description} />
+	<meta property="og:url" content="https://thefirstknife.vercel.app/verity" />
+
+	<meta property="og:image" content={image} />
+
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta name="twitter:title" content={title} />
+	<meta name="twitter:description" content={description} />
+	<meta name="twitter:image" content={image} />
+</svelte:head>
 
 <div id="verity" class="relative h-full">
 	<Sidebar />
