@@ -34,7 +34,7 @@
 	<meta property="og:url" content="https://thefirstknife.vercep.app{path}" />
 
 	{#if image}
-		<meta property="og:image" content="/img/{image}" />
+		<meta property="og:image" content={image} />
 	{/if}
 
 	{#if twitter}
