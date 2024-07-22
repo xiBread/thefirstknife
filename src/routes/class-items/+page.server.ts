@@ -1,13 +1,16 @@
 import { getProfile, DestinyComponentType } from "bungie-api-ts/destiny2";
-import { redirect } from "@sveltejs/kit";
 import { http } from "$lib/server";
+import tools from "$lib/tools.json";
 import { classItemHashes } from "./hashes";
 
 export async function load({ locals, depends }) {
 	depends("app:class-items");
 
 	const token = locals.tokens?.accessToken;
-	if (!token || !locals.membership) redirect(302, "/auth");
+
+	if (!token || !locals.membership) {
+		return { seo: tools["class-items"], obtained: null };
+	}
 
 	const { Response: profile } = await getProfile(http(token), {
 		destinyMembershipId: locals.membership.membershipId,
@@ -33,5 +36,5 @@ export async function load({ locals, depends }) {
 			return all;
 		}, {});
 
-	return { obtained };
+	return { seo: tools["class-items"], obtained };
 }

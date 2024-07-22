@@ -2,31 +2,11 @@
 	import RotateCw from "lucide-svelte/icons/rotate-cw";
 	import { Button } from "$lib/components/ui/button";
 	import * as Select from "$lib/components/ui/select";
-	import Seo from "$lib/components/Seo.svelte";
-	import tools from "$lib/tools.json";
 	import wishes from "./wishes";
 
 	let selected = $state<{ value: number }>();
 	let wish = $derived(wishes[selected?.value ?? -1]);
 </script>
-
-<Seo
-	title="{tools['wall-of-wishes'].title} | The First Knife"
-	description={tools["wall-of-wishes"].description}
-	keywords={[
-		"forsaken",
-		"last wish",
-		"raid",
-		"wish wall",
-		"kali",
-		"shuro chi",
-		"morgeth",
-		"vault",
-		"riven",
-	]}
-	url="https://thefirstknife.vercel.app/wall-of-wishes"
-	image={tools["wall-of-wishes"].img}
-/>
 
 <div class="flex flex-col items-center justify-center py-12">
 	<div class="flex items-center gap-x-1.5">

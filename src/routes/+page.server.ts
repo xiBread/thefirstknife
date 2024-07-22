@@ -1,6 +1,18 @@
 import { auth } from "$lib/server/auth";
 import { fail, redirect } from "@sveltejs/kit";
 
+export function load() {
+	return {
+		seo: {
+			title: "Home",
+			description: "A Swiss Army knife for Destiny 2.",
+			image: "/favicon.svg",
+			path: "/",
+			twitter: false,
+		},
+	};
+}
+
 export const actions = {
 	async signOut(event) {
 		if (!event.locals.session) {

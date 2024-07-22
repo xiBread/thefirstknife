@@ -1,15 +1,6 @@
 <script lang="ts">
-	import Seo from "$lib/components/Seo.svelte";
 	import tools from "$lib/tools.json";
 </script>
-
-<Seo
-	title="The First Knife | Destiny 2 Toolkit"
-	description="A Swiss Army knife for Destiny 2."
-	url="https://thefirstknife.vercel.app"
-	image="/logo.png"
-	useTwitter={false}
-/>
 
 <div class="auto-grid grid gap-2 px-4 py-2 sm:px-6">
 	{#each Object.entries(tools) as [slug, tool]}
@@ -17,7 +8,7 @@
 			<div class="interactable relative aspect-square justify-start bg-transparent">
 				<img
 					class="absolute inset-0 -z-[5] h-full object-cover transition-all duration-300"
-					src="/img/{tool.img}"
+					src={tool.image}
 					alt=""
 				/>
 

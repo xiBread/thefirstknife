@@ -1,3 +1,12 @@
+interface Seo {
+	title: string;
+	description: string;
+	image?: string;
+	keywords?: string[];
+	path: string;
+	twitter?: boolean;
+}
+
 declare global {
 	namespace App {
 		interface Locals {
@@ -9,6 +18,7 @@ declare global {
 
 		interface PageData {
 			user: Locals["user"];
+			seo: Seo;
 		}
 
 		// interface Error {}
