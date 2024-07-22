@@ -1,4 +1,46 @@
 {
 	"emmet.showExpandedAbbreviation": "never",
-	"typescript.preferences.importModuleSpecifierEnding": "minimal"
+	"typescript.preferences.importModuleSpecifierEnding": "minimal",
+	"json.schemas": [
+		{
+			"fileMatch": [
+				"tools.json"
+			],
+			"schema": {
+				"type": "object",
+				"patternProperties": {
+					"^[\\w-]+$": {
+						"type": "object",
+						"properties": {
+							"title": {
+								"type": "string"
+							},
+							"description": {
+								"type": "string"
+							},
+							"image": {
+								"type": "string"
+							},
+							"keywords": {
+								"type": "array",
+								"contains": {
+									"type": "string"
+								},
+								"minItems": 1,
+							},
+							"path": {
+								"type": "string",
+								"pattern": "/[\\w-]+"
+							}
+						},
+						"required": [
+							"title",
+							"description",
+							"path"
+						]
+					}
+				}
+			}
+		}
+	]
 }
