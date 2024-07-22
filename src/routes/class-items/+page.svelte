@@ -11,9 +11,7 @@
 	import * as ToggleGroup from "$lib/components/ui/toggle-group";
 	import { Tooltip } from "$lib/components/ui/tooltip";
 	import Perk from "$lib/components/Perk.svelte";
-	import Seo from "$lib/components/Seo.svelte";
 	import Shortcuts from "$lib/components/Shortcuts.svelte";
-	import tools from "$lib/tools.json";
 
 	import { classItemHashes, perkHashes } from "./hashes";
 	import Roll from "./Roll.svelte";
@@ -60,22 +58,6 @@
 		return { ...getInventoryItemLiteDef(hash)!, hash };
 	}
 </script>
-
-<Seo
-	title="{tools['class-items'].title} | The First Knife"
-	description={tools["class-items"].description}
-	keywords={[
-		"exotic",
-		"class items",
-		"dual destiny",
-		"secret mission",
-		"checklist",
-		"perks",
-		"combinations",
-	]}
-	url="https://thefirstknife.vercel.app/class-items"
-	image="/img/{tools['class-items'].img}"
-/>
 
 <div class="flex flex-col items-center gap-y-10 px-6 py-12 md:px-10">
 	<ToggleGroup.Root class="flex items-center gap-x-12" bind:value={selected}>

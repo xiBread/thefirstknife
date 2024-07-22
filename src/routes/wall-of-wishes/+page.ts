@@ -1,5 +1,5 @@
 import tools from "$lib/tools.json";
 
 export function load() {
-	return { seo: tools.verity };
+	return { seo: tools["wall-of-wishes"] };
 }
