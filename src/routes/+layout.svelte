@@ -18,7 +18,7 @@
 	const { description, image, keywords = [], path, twitter = true, ...seo } = $page.data.seo;
 	const title = `${seo.title} | The First Knife`;
 
-	keywords.push("destiny 2", "toolkit", "the final shape");
+	keywords.push("destiny 2", "toolkit", "the final shape", "the first knife");
 </script>
 
 <svelte:head>
