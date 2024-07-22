@@ -2,7 +2,7 @@
 	import tools from "$lib/tools.json";
 </script>
 
-<div class="auto-grid grid gap-2 px-4 py-2 sm:px-6">
+<div class="auto-grid grid gap-2 px-4 pb-6 pt-2 sm:px-6">
 	{#each Object.entries(tools) as [slug, tool]}
 		<a href={slug}>
 			<div class="interactable relative aspect-square justify-start bg-transparent">
