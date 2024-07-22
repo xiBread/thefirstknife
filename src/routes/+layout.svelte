@@ -6,6 +6,7 @@
 	import isBetween from "dayjs/plugin/isBetween";
 	import { loadDefs } from "@d2api/manifest-web";
 
+	import { page } from "$app/stores";
 	import Header from "$lib/components/Header.svelte";
 	import Spinner from "$lib/components/Spinner.svelte";
 
@@ -14,6 +15,10 @@
 
 	const { children } = $props();
 </script>
+
+<svelte:head>
+	<title>{$page.data.seo?.title}</title>
+</svelte:head>
 
 {#await loadDefs()}
 	<div class="flex h-svh items-center justify-center">

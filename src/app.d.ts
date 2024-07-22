@@ -9,6 +9,8 @@ declare global {
 
 		interface PageData {
 			user: Locals["user"];
+			// temp
+			seo?: any;
 		}
 
 		// interface Error {}

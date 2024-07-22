@@ -84,7 +84,7 @@
 
 <svelte:window onkeydown={handleKey} />
 
-<svelte:head>
+<!-- <svelte:head>
 	<title>{title}</title>
 
 	<meta name="description" content={description} />
@@ -113,7 +113,7 @@
 	<meta name="twitter:title" content={title} />
 	<meta name="twitter:description" content={description} />
 	<meta name="twitter:image" content={image} />
-</svelte:head>
+</svelte:head> -->
 
 <div id="verity" class="relative h-full">
 	<Sidebar />
