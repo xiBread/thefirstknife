@@ -18,6 +18,15 @@
 		"title": "Verity",
 		"description": "Solver for the 4th encounter in the Salvation's Edge raid.",
 		"image": "/img/salvations-edge.webp",
+		"keywords": [
+			"salvation's edge",
+			"raid",
+			"verity",
+			"4th encounter",
+			"dissect",
+			"solver",
+			"calculator"
+		],
 		"path": "/verity"
 	},
 	"wall-of-wishes": {
