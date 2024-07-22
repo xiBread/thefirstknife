@@ -45,5 +45,18 @@
 			"riven"
 		],
 		"path": "/wall-of-wishes"
+	},
+	"xur": {
+		"title": "Xûr",
+		"description": "Lorem ipsum.",
+		"image": "/img/xur.png",
+		"keywords": [
+			"xur",
+			"strange coins",
+			"where",
+			"tower",
+			"the nine"
+		],
+		"path": "/xur"
 	}
 }
