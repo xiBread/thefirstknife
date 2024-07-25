@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { goto } from "$app/navigation";
+
 	interface Shortcut {
 		symbol: string;
 		label: string;
@@ -6,6 +8,14 @@
 	}
 
 	const { shortcuts }: { shortcuts: Record<string, Shortcut> } = $props();
+
+	Object.assign(shortcuts, {
+		escape: {
+			symbol: "",
+			label: "Back to home",
+			action: () => goto("/"),
+		} satisfies Shortcut,
+	});
 
 	async function handleKey(event: KeyboardEvent) {
 		await shortcuts[event.key.toLowerCase()]?.action();

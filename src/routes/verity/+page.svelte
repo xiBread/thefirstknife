@@ -14,7 +14,6 @@
 	import UsersRound from "lucide-svelte/icons/users-round";
 	import { inlineSvg } from "@svelte-put/inline-svg";
 
-	import { goto } from "$app/navigation";
 	import { Button } from "$lib/components/ui/button";
 	import { Separator } from "$lib/components/ui/separator";
 	import * as ToggleGroup from "$lib/components/ui/toggle-group";
@@ -66,17 +65,7 @@
 		rooms[0].selected = [...emptyState];
 		rooms[1].selected = [...emptyState];
 	}
-
-	async function handleKey(event: KeyboardEvent) {
-		if (event.key.toLowerCase() === "f") {
-			reset();
-		} else if (event.key === "Escape") {
-			await goto("/");
-		}
-	}
 </script>
-
-<svelte:window onkeydown={handleKey} />
 
 <div id="verity" class="relative h-full">
 	<Sidebar />
@@ -182,11 +171,6 @@
 				symbol: "",
 				label: "Reset",
 				action: reset,
-			},
-			escape: {
-				symbol: "",
-				label: "Back to home",
-				action: () => goto("/"),
 			},
 		}}
 	/>

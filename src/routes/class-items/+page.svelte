@@ -6,7 +6,7 @@
 	import { onMount } from "svelte";
 	import { getInventoryItemLiteDef } from "@d2api/manifest-web";
 
-	import { goto, invalidate } from "$app/navigation";
+	import { invalidate } from "$app/navigation";
 	import * as Table from "$lib/components/ui/table";
 	import * as ToggleGroup from "$lib/components/ui/toggle-group";
 	import { Tooltip } from "$lib/components/ui/tooltip";
@@ -173,11 +173,6 @@
 			symbol: "",
 			label: "Refresh",
 			action: () => invalidate("app:class-items"),
-		},
-		escape: {
-			symbol: "",
-			label: "Back to home",
-			action: () => goto("/"),
 		},
 	}}
 />
