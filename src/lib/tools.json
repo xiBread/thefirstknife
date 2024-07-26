@@ -30,7 +30,7 @@
 	"verity": {
 		"title": "Verity",
 		"description": "Solver for the 4th encounter in the Salvation's Edge raid.",
-		"image": "/img/salvations-edge.webp",
+		"image": "https://www.bungie.net/img/destiny_content/pgcr/raid_splinter.jpg",
 		"keywords": [
 			"salvation's edge",
 			"raid",
@@ -45,7 +45,7 @@
 	"wall-of-wishes": {
 		"title": "Wall of Wishes",
 		"description": "Cheatsheet for Wall of Wishes patterns in the Last Wish raid.",
-		"image": "/img/last-wish.jpg",
+		"image": "https://www.bungie.net/img/destiny_content/pgcr/raid_beanstalk.jpg",
 		"keywords": [
 			"forsaken",
 			"last wish",
