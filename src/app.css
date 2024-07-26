@@ -9,32 +9,6 @@
 
 @layer base {
 	:root {
-		--background: 180 5% 12%;
-		--foreground: 0 0% 100%;
-
-		--muted: 180 9% 7%;
-		--muted-foreground: 0 0% 45.1%;
-
-		--popover: 0 0% 100%;
-		--popover-foreground: 0 0% 3.9%;
-
-		--border: 0 0% 89.8%;
-		--input: 0 0% 89.8%;
-
-		--primary: 0 0% 9%;
-		--primary-foreground: 0 0% 98%;
-
-		--secondary: 0 0% 96.1%;
-		--secondary-foreground: 0 0% 9%;
-
-		--accent: 0 0% 96.1%;
-		--accent-foreground: 0 0% 9%;
-
-		--destructive: 0 72.2% 50.6%;
-		--destructive-foreground: 0 0% 98%;
-
-		--ring: 0 0% 3.9%;
-
 		--header-height: theme("size.14");
 	}
 
