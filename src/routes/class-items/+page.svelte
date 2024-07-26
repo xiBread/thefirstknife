@@ -133,26 +133,26 @@
 									{@const roll = hasRoll(`${perk1.hash}+${perk2.hash}`)}
 									{@const ci = classItems.find((i) => `${i.hash}` === selected)!}
 
-									{#if roll.obtained}
-										<Tooltip>
-											{#snippet trigger()}
+									<Tooltip>
+										{#snippet trigger()}
+											{#if roll.obtained}
 												<svelte:component
 													this={roll.duplicate ? CheckCheck : Check}
 													class="text-sky-400"
 												/>
-											{/snippet}
+											{:else}
+												<X class="text-white/60" />
+											{/if}
+										{/snippet}
 
-											{#snippet content()}
-												<Roll
-													name={ci.displayProperties.name}
-													type={ci.itemTypeDisplayName}
-													perks={[perk1, perk2]}
-												/>
-											{/snippet}
-										</Tooltip>
-									{:else}
-										<X class="text-white/60" />
-									{/if}
+										{#snippet content()}
+											<Roll
+												name={ci.displayProperties.name}
+												type={ci.itemTypeDisplayName}
+												perks={[perk1, perk2]}
+											/>
+										{/snippet}
+									</Tooltip>
 								</Table.Cell>
 							{/each}
 						</Table.Row>
