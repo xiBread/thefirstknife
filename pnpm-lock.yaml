@@ -40,6 +40,9 @@ importers:
       drizzle-orm:
         specifier: ^0.32.0
         version: 0.32.0(postgres@3.4.4)
+      embla-carousel:
+        specifier: ^8.1.7
+        version: 8.1.7
       lucia:
         specifier: ^3.2.0
         version: 3.2.0
@@ -1594,6 +1597,9 @@ packages:
 
   electron-to-chromium@1.4.830:
     resolution: {integrity: sha512-TrPKKH20HeN0J1LHzsYLs2qwXrp8TF4nHdu4sq61ozGbzMpWhI7iIOPYPPkxeq1azMT9PZ8enPFcftbs/Npcjg==}
+
+  embla-carousel@8.1.7:
+    resolution: {integrity: sha512-b3kBr2H+S1gx4neki0P+aqN6cA5Ibjqy4CR3Ufi3X+Q3JpoNXJgOmJMSPkoP9DKcDREwADN6UWZzRwF2oo0y9Q==}
 
   emoji-regex@8.0.0:
     resolution: {integrity: sha512-MSjYzcWNOA0ewAHpz0MxpYFvwg6yjy1NG3xteoqz644VCo/RPgnr1/GGt+ic3iJTzQ8Eu3TdM14SawnVUmGE6A==}
@@ -4150,6 +4156,8 @@ snapshots:
       '@noble/hashes': 1.4.0
 
   electron-to-chromium@1.4.830: {}
+
+  embla-carousel@8.1.7: {}
 
   emoji-regex@8.0.0: {}
 

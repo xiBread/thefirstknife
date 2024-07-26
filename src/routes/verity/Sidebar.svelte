@@ -6,7 +6,7 @@
 </script>
 
 <aside
-	class="no-scrollbar inset-0 w-full overflow-auto from-transparent via-black/30 md:fixed md:w-[var(--sidebar-width)] md:bg-gradient-to-b"
+	class="scrollbar-none inset-0 w-full overflow-auto from-transparent via-black/30 md:fixed md:w-[var(--sidebar-width)] md:bg-gradient-to-b"
 >
 	<article class="flex flex-col gap-y-4 px-6 pb-6 text-sm [&>:not(:first-child)]:font-light">
 		<header class="mb-2 flex items-center">

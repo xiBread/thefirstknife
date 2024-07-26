@@ -1,0 +1,123 @@
+[
+	{
+		"title": "Shattered Throne",
+		"download": "shattered_throne.zip",
+		"type": "dungeon",
+		"author": {
+			"username": "pryanie",
+			"url": "https://x.com/pryanie"
+		},
+		"maps": [
+			"shattered_throne/1-erebus.jpg",
+			"shattered_throne/1.5-descent.jpg",
+			"shattered_throne/2-vorgeth.jpg",
+			"shattered_throne/3-dul_incaru.jpg"
+		]
+	},
+	{
+		"title": "Spire of the Watcher",
+		"download": "spire_of_the_watcher.zip",
+		"type": "dungeon",
+		"author": {
+			"username": "tenrouken",
+			"url": "https://x.com/tenrouken"
+		},
+		"maps": [
+			"spire_of_the_watcher/1-power.jpg",
+			"spire_of_the_watcher/2-tower.jpg",
+			"spire_of_the_watcher/3-akelous.jpg",
+			"spire_of_the_watcher/4-persys.jpg"
+		]
+	},
+	{
+		"title": "Ghosts of the Deep",
+		"download": "ghosts_of_the_deep.zip",
+		"type": "dungeon",
+		"author": {
+			"username": "pryanie",
+			"url": "https://x.com/pryanie"
+		},
+		"maps": [
+			"ghosts_of_the_deep/1-ritual.jpg",
+			"ghosts_of_the_deep/2-ecthar.jpg",
+			"ghosts_of_the_deep/3-simmumah.jpg"
+		]
+	},
+	{
+		"title": "Warlord's Ruin",
+		"download": "warlords_ruin.zip",
+		"type": "dungeon",
+		"author": {
+			"username": "pryanie",
+			"url": "https://x.com/pryanie"
+		},
+		"maps": [
+			"warlords_ruin/1-rathil.jpg",
+			"warlords_ruin/1.5-prison.jpg",
+			"warlords_ruin/2-locus.jpg",
+			"warlords_ruin/3-chimaera.jpg"
+		]
+	},
+	{
+		"title": "Vow of the Disciple",
+		"download": "vow_of_the_disciple.zip",
+		"type": "raid",
+		"author": {
+			"username": "tenrouken",
+			"url": "https://x.com/tenrouken"
+		},
+		"maps": [
+			"vow_of_the_disciple/1-acquisition.jpg",
+			"vow_of_the_disciple/2-caretaker.jpg",
+			"vow_of_the_disciple/3-exhibition.jpg",
+			"vow_of_the_disciple/4-rhulk.jpg"
+		]
+	},
+	{
+		"title": "Root of Nightmares",
+		"download": "root_of_nightmares.zip",
+		"type": "raid",
+		"author": {
+			"username": "pryanie",
+			"url": "https://x.com/pryanie"
+		},
+		"maps": [
+			"root_of_nightmares/1-cataclysm.jpg",
+			"root_of_nightmares/2-scission.jpg",
+			"root_of_nightmares/3-macrocosm.jpg",
+			"root_of_nightmares/4-nezarec.jpg"
+		]
+	},
+	{
+		"title": "Crota's End",
+		"download": "crotas_end.zip",
+		"type": "raid",
+		"author": {
+			"username": "pryanie",
+			"url": "https://x.com/pryanie"
+		},
+		"maps": [
+			"crotas_end/0-descent.jpg",
+			"crotas_end/1-abyss.jpg",
+			"crotas_end/2-bridge.jpg",
+			"crotas_end/3-deathsinger.jpg",
+			"crotas_end/4-crota.jpg"
+		]
+	},
+	{
+		"title": "Salvation's Edge",
+		"download": "salvations_edge_aequorde.zip",
+		"type": "raid",
+		"outdated": true,
+		"author": {
+			"username": "aequorde",
+			"url": "https://www.reddit.com/u/Working-Loss6230"
+		},
+		"maps": [
+			"salvations_edge/1-substratum.jpg",
+			"salvations_edge/2-dissipation.jpg",
+			"salvations_edge/3-repository.jpg",
+			"salvations_edge/5-witness.jpg"
+		]
+	}
+]

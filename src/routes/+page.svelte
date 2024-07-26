@@ -2,7 +2,7 @@
 	import tools from "$lib/tools.json";
 </script>
 
-<div class="auto-grid grid gap-2 px-4 py-2 sm:px-6">
+<div class="grid-auto-fill grid gap-2 px-4 py-2 sm:px-6">
 	{#each Object.entries(tools) as [slug, tool]}
 		<a href={slug}>
 			<div class="interactable relative aspect-square justify-start bg-transparent">
@@ -26,9 +26,3 @@
 		</a>
 	{/each}
 </div>
-
-<style>
-	.auto-grid {
-		grid-template-columns: repeat(auto-fill, minmax(min(350px, 100%), 1fr));
-	}
-</style>

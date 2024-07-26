@@ -7,6 +7,7 @@
 	import { getInventoryItemLiteDef } from "@d2api/manifest-web";
 
 	import { invalidate } from "$app/navigation";
+	import { Link } from "$lib/components/ui/link";
 	import * as Table from "$lib/components/ui/table";
 	import * as ToggleGroup from "$lib/components/ui/toggle-group";
 	import { Tooltip } from "$lib/components/ui/tooltip";
@@ -15,7 +16,6 @@
 
 	import { classItemHashes, perkHashes } from "./hashes";
 	import Roll from "./Roll.svelte";
-	import { Link } from "$lib/components/ui/link";
 
 	type InventoryItem = DestinyInventoryItemLiteDefinition & { hash: number };
 

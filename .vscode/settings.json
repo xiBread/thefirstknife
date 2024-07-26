@@ -23,14 +23,14 @@
 							},
 							"keywords": {
 								"type": "array",
-								"contains": {
+								"items": {
 									"type": "string"
 								},
 								"minItems": 1,
 							},
 							"path": {
 								"type": "string",
-								"pattern": "/[\\w-]+"
+								"pattern": "^/[\\w-]+"
 							}
 						},
 						"required": [
@@ -39,6 +39,67 @@
 							"path"
 						]
 					}
+				}
+			}
+		},
+		{
+			"fileMatch": [
+				"packs.json"
+			],
+			"schema": {
+				"type": "array",
+				"items": {
+					"type": "object",
+					"properties": {
+						"title": {
+							"type": "string"
+						},
+						"download": {
+							"type": "string",
+							"pattern": ".+\\.zip$"
+						},
+						"type": {
+							"type": "string",
+							"enum": [
+								"dungeon",
+								"raid"
+							]
+						},
+						"outdated": {
+							"type": "boolean",
+							"default": false
+						},
+						"author": {
+							"type": "object",
+							"properties": {
+								"username": {
+									"type": "string"
+								},
+								"url": {
+									"type": "string",
+									"format": "uri"
+								}
+							},
+							"required": [
+								"username",
+								"url"
+							]
+						},
+						"maps": {
+							"type": "array",
+							"items": {
+								"type": "string",
+								"pattern": ".+\\.\\w+$"
+							}
+						}
+					},
+					"required": [
+						"title",
+						"download",
+						"type",
+						"author",
+						"maps"
+					]
 				}
 			}
 		}

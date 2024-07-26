@@ -5,6 +5,7 @@ declare module 'svelte/elements' {
 			`./${string}`
 			| `../${string}`
 			| 'bungie'
+			| 'dungeon'
 			| 'raid'
 			| 'shapes'
 			| 'shapes\circle'

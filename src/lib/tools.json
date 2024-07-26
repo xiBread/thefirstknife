@@ -14,6 +14,19 @@
 		],
 		"path": "/class-items"
 	},
+	"director": {
+		"title": "Director",
+		"description": "High-quality dungeon and raid encounter map downloads by the community.",
+		"image": "https://cdn.thefirstknife.com/maps/salvations_edge/1-substratum.jpg",
+		"keywords": [
+			"director",
+			"maps",
+			"raid",
+			"dungeon",
+			"encounters"
+		],
+		"path": "/director"
+	},
 	"verity": {
 		"title": "Verity",
 		"description": "Solver for the 4th encounter in the Salvation's Edge raid.",
