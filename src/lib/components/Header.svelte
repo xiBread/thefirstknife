@@ -29,14 +29,10 @@
 			{#if $page.data.user}
 				{@const [username, discriminator] = $page.data.user.bungieName.split("#")}
 
-				<Button
-					class="pointer-events-none text-sm [text-transform:none]"
-					size="sm"
-					disabled
-				>
+				<div class="interactable pointer-events-none h-8 px-3 text-sm">
 					{username}
 					<span class="text-sky-400">#{discriminator}</span>
-				</Button>
+				</div>
 
 				<form method="post" action="/?/signOut">
 					<Button class="size-8" size="square" type="submit" aria-label="Sign out">
