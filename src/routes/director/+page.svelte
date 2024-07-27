@@ -9,6 +9,7 @@
 	import { Link } from "$lib/components/ui/link";
 	import { Separator } from "$lib/components/ui/separator";
 	import packs from "./packs.json";
+	import Category from "$lib/components/Category.svelte";
 
 	const lightbox = $state({ open: false, images: [] as string[] });
 
@@ -49,19 +50,9 @@
 <div class="space-y-6 px-4 pb-10 pt-2 sm:px-6">
 	{#each Object.entries(groups) as [type, packs]}
 		<div>
-			<div class="col-span-full flex w-full items-start text-white/60">
-				<svg
-					class="size-8 fill-current"
-					data-type={type}
-					use:inlineSvg={`/icons/${type}.svg`}
-				/>
-
-				<div class="ml-2 w-full">
-					<p class="font-light uppercase tracking-[0.15em]">{type}</p>
-
-					<Separator />
-				</div>
-			</div>
+			<Category title={type}>
+				<svg class="size-8 fill-current" use:inlineSvg={`/icons/${type}.svg`} />
+			</Category>
 
 			<div
 				class="grid-auto-fill ml-10 mt-2 grid gap-x-3 gap-y-6"

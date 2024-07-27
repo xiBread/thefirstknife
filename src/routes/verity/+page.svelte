@@ -14,9 +14,9 @@
 	import UsersRound from "lucide-svelte/icons/users-round";
 	import { inlineSvg } from "@svelte-put/inline-svg";
 
-	import { Button } from "$lib/components/ui/button";
 	import { Separator } from "$lib/components/ui/separator";
 	import * as ToggleGroup from "$lib/components/ui/toggle-group";
+	import Category from "$lib/components/Category.svelte";
 	import Shortcuts from "$lib/components/Shortcuts.svelte";
 
 	import Sidebar from "./Sidebar.svelte";
@@ -74,18 +74,12 @@
 		<div class="space-y-12">
 			{#each rooms as room}
 				<div class="group grid grid-cols-3 gap-x-4" data-room={room.name}>
-					<div class="col-span-full mb-6 flex w-full items-start text-white/60">
+					<Category class="col-span-full" title={room.name}>
 						<svelte:component
 							this={room.name === "Inside" ? UserRound : UsersRound}
 							class="mt-0.5 size-5 stroke-[1.5]"
 						/>
-
-						<div class="ml-2 w-full">
-							<p class="font-light uppercase tracking-[0.15em]">{room.name}</p>
-
-							<Separator />
-						</div>
-					</div>
+					</Category>
 
 					{#each ["Left", "Middle", "Right"] as side, i}
 						<div class="flex flex-col items-center gap-y-2">
