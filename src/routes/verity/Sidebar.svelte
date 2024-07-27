@@ -29,7 +29,7 @@
 			<span class="text-bungie-blue">blue</span>.
 		</p>
 		<p>
-			For a comprehensive break down of the encounter, I recommend reading this
+			For a comprehensive break down of the encounter, I recommend reading
 			<Link href="https://redd.it/1dbieuq">this detailed write-up</Link> by u/Zhentharym.
 		</p>
 
