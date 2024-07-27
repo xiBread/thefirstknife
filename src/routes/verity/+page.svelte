@@ -142,16 +142,15 @@
 								{#each steps as step}
 									<div class="relative flex justify-center">
 										{#if step.value}
-											<Button
-												class="pointer-events-none size-14 p-0 {isVerify &&
-													'text-sky-400'}"
-												disabled
+											<div
+												class="interactable pointer-events-none size-14 p-0"
 											>
 												<svg
 													class="size-10"
+													class:text-bungie-blue={isVerify}
 													use:inlineSvg={`/icons/shapes/${reverseMappings[step.value]}.svg`}
 												/>
-											</Button>
+											</div>
 										{:else}
 											<img class="size-10" src="/img/missing.png" alt="" />
 										{/if}

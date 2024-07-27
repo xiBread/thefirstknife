@@ -31,7 +31,8 @@
 
 				<div class="interactable pointer-events-none h-8 px-3 text-sm">
 					{username}
-					<span class="text-sky-400">#{discriminator}</span>
+					<span class="text-bungie-blue">#</span>
+					{discriminator}
 				</div>
 
 				<form method="post" action="/?/signOut">
