@@ -1,6 +1,5 @@
 import { getProfile, DestinyComponentType } from "bungie-api-ts/destiny2";
 import { http } from "$lib/server";
-import tools from "$lib/tools.json";
 import { classItemHashes } from "./hashes";
 
 export async function load({ locals, depends }) {
@@ -9,7 +8,7 @@ export async function load({ locals, depends }) {
 	const token = locals.tokens?.accessToken;
 
 	if (!token || !locals.membership) {
-		return { seo: tools["class-items"], obtained: null };
+		return { obtained: null };
 	}
 
 	const { Response: profile } = await getProfile(http(token), {
@@ -36,5 +35,5 @@ export async function load({ locals, depends }) {
 			return all;
 		}, {});
 
-	return { seo: tools["class-items"], obtained };
+	return { obtained };
 }
