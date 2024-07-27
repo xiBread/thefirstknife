@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	import "../app.css";
 
 	import dayjs from "dayjs";
@@ -9,16 +9,27 @@
 	import { page } from "$app/stores";
 	import Header from "$lib/components/Header.svelte";
 	import Spinner from "$lib/components/Spinner.svelte";
+	import tools from "$lib/tools.json";
 
 	dayjs.locale(en);
 	dayjs.extend(isBetween);
 
 	const { children } = $props();
 
-	const { description, image, keywords = [], path, twitter = true, ...seo } = $page.data.seo;
-	const title = `${seo.title} | The First Knife`;
+	const {
+		description,
+		image,
+		keywords = [],
+		path,
+		twitter = true,
+		...seo
+	} = $derived($page.data.seo ?? tools[$page.url.pathname.slice(1) as keyof typeof tools]);
 
-	keywords.push("destiny 2", "toolkit", "the final shape", "the first knife");
+	const title = $derived(`${seo.title} | The First Knife`);
+
+	$effect(() => {
+		keywords.push("destiny 2", "toolkit", "the final shape", "the first knife");
+	});
 </script>
 
 <svelte:head>
